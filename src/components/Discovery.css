@@ -1,0 +1,247 @@
+.discovery {
+  padding: 100px 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.discovery.light {
+  background: linear-gradient(135deg, #e8f4f5 0%, #ffffff 100%);
+}
+
+.discovery.dark {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+}
+
+.discovery-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.discovery-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.discovery-title {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.discovery.light .discovery-title {
+  color: #1a1a1a;
+}
+
+.discovery.dark .discovery-title {
+  color: #ffffff;
+}
+
+.discovery-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.discovery.light .discovery-subtitle {
+  color: #5a5a5a;
+}
+
+.discovery.dark .discovery-subtitle {
+  color: #a0a0a0;
+}
+
+/* Discovery Content */
+.discovery-content {
+  margin-bottom: 80px;
+}
+
+.discovery-video {
+  margin-bottom: 60px;
+}
+
+.video-frame {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  padding-bottom: 45%;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.discovery.light .video-frame {
+  background: linear-gradient(135deg, #d4eef0 0%, #e8f4f5 100%);
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: rgba(94, 190, 196, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 3px solid #5EBEC4;
+  transition: all 0.3s ease;
+}
+
+.play-button:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: rgba(94, 190, 196, 0.2);
+}
+
+.video-label {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Geist', sans-serif;
+  font-size: 14px;
+  color: #888;
+}
+
+/* Discovery Benefits */
+.discovery-benefits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.benefit-card {
+  padding: 30px 20px;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.discovery.light .benefit-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+}
+
+.discovery.dark .benefit-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+}
+
+.benefit-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(94, 190, 196, 0.15);
+}
+
+.benefit-icon {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.benefit-card h3 {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.discovery.light .benefit-card h3 {
+  color: #1a1a1a;
+}
+
+.discovery.dark .benefit-card h3 {
+  color: #ffffff;
+}
+
+.benefit-card p {
+  font-family: 'Geist', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.discovery.light .benefit-card p {
+  color: #5a5a5a;
+}
+
+.discovery.dark .benefit-card p {
+  color: #a0a0a0;
+}
+
+/* Discovery CTA */
+.discovery-cta {
+  text-align: center;
+  padding: 60px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #5EBEC4 0%, #7ed4da 100%);
+}
+
+.discovery.dark .discovery-cta {
+  background: linear-gradient(135deg, #2a5558 0%, #3a6568 100%);
+}
+
+.discovery-cta h3 {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.discovery-cta p {
+  font-family: 'Geist', sans-serif;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 30px;
+}
+
+.discovery-button {
+  font-family: 'Geist', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 15px 40px;
+  background: white;
+  color: #5EBEC4;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.discovery-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .discovery-benefits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .discovery-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .discovery-title {
+    font-size: 36px;
+  }
+
+  .discovery-cta {
+    padding: 40px 20px;
+  }
+
+  .discovery-cta h3 {
+    font-size: 28px;
+  }
+}

@@ -1,0 +1,302 @@
+.infographic {
+  padding: 100px 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.infographic.light {
+  background: #ffffff;
+}
+
+.infographic.dark {
+  background: #0f0f0f;
+}
+
+.infographic-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.infographic-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.infographic-title {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.infographic.light .infographic-title {
+  color: #1a1a1a;
+}
+
+.infographic.dark .infographic-title {
+  color: #ffffff;
+}
+
+.highlight {
+  color: #5EBEC4;
+}
+
+.infographic-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.infographic.light .infographic-subtitle {
+  color: #5a5a5a;
+}
+
+.infographic.dark .infographic-subtitle {
+  color: #a0a0a0;
+}
+
+/* Integration Flow */
+.integration-flow {
+  margin-bottom: 80px;
+}
+
+.flow-diagram {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+}
+
+.flow-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.center-circle {
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #5EBEC4 0%, #7ed4da 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Alexandria', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(94, 190, 196, 0.3);
+}
+
+.flow-items {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.flow-item {
+  position: absolute;
+}
+
+.flow-item.top-left {
+  top: 80px;
+  left: 80px;
+}
+
+.flow-item.top-right {
+  top: 80px;
+  right: 80px;
+}
+
+.flow-item.bottom-left {
+  bottom: 80px;
+  left: 80px;
+}
+
+.flow-item.bottom-right {
+  bottom: 80px;
+  right: 80px;
+}
+
+.flow-card {
+  width: 140px;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.infographic.light .flow-card {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+}
+
+.infographic.dark .flow-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+}
+
+.flow-card h4 {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.infographic.light .flow-card h4 {
+  color: #1a1a1a;
+}
+
+.infographic.dark .flow-card h4 {
+  color: #ffffff;
+}
+
+.flow-card p {
+  font-family: 'Geist', sans-serif;
+  font-size: 12px;
+  color: #888;
+}
+
+.flow-line {
+  position: absolute;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #5EBEC4 50%, transparent 100%);
+}
+
+.line-1 {
+  top: 50%;
+  right: -120px;
+  transform: rotate(45deg);
+}
+
+.line-2 {
+  top: 50%;
+  left: -120px;
+  transform: rotate(-45deg);
+}
+
+.line-3 {
+  bottom: 50%;
+  right: -120px;
+  transform: rotate(-45deg);
+}
+
+.line-4 {
+  bottom: 50%;
+  left: -120px;
+  transform: rotate(45deg);
+}
+
+/* Integration Features */
+.integration-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.integration-card {
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.infographic.light .integration-card {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+}
+
+.infographic.dark .integration-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+}
+
+.integration-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(94, 190, 196, 0.15);
+}
+
+.integration-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.integration-card h3 {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.infographic.light .integration-card h3 {
+  color: #1a1a1a;
+}
+
+.infographic.dark .integration-card h3 {
+  color: #ffffff;
+}
+
+.integration-card p {
+  font-family: 'Geist', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.infographic.light .integration-card p {
+  color: #5a5a5a;
+}
+
+.infographic.dark .integration-card p {
+  color: #a0a0a0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .flow-diagram {
+    width: 100%;
+    height: 400px;
+  }
+
+  .center-circle {
+    width: 100px;
+    height: 100px;
+    font-size: 16px;
+  }
+
+  .flow-item.top-left {
+    top: 20px;
+    left: 20px;
+  }
+
+  .flow-item.top-right {
+    top: 20px;
+    right: 20px;
+  }
+
+  .flow-item.bottom-left {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .flow-item.bottom-right {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .flow-card {
+    width: 100px;
+    padding: 15px;
+  }
+
+  .integration-features {
+    grid-template-columns: 1fr;
+  }
+
+  .infographic-title {
+    font-size: 36px;
+  }
+}

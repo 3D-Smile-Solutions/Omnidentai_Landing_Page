@@ -1,0 +1,276 @@
+.features {
+  padding: 80px 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.features.light {
+  background: #ffffff;
+}
+
+.features.dark {
+  background: #0f0f0f;
+}
+
+.features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Video Player */
+.video-wrapper {
+  margin-bottom: 80px;
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  background: #0a0a0a;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #5EBEC4;
+}
+
+.features.light .video-frame {
+  background: #f8f9fa;
+  border-color: #5EBEC4;
+}
+
+/* Corner Brackets */
+.corner-bracket {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #5EBEC4;
+}
+
+.top-left {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.top-right {
+  top: -2px;
+  right: -2px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.bottom-left {
+  bottom: -2px;
+  left: -2px;
+  border-right: none;
+  border-top: none;
+}
+
+.bottom-right {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+.video-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+}
+
+.features.light .video-placeholder {
+  background: #f0f0f0;
+}
+
+.play-button {
+  width: 80px;
+  height: 80px;
+  background: rgba(94, 190, 196, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid #5EBEC4;
+  transition: all 0.3s ease;
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+  background: rgba(94, 190, 196, 0.2);
+}
+
+.video-text {
+  margin-top: 20px;
+  font-family: 'Geist', sans-serif;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Features Header */
+.features-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-label {
+  font-family: 'Geist', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #5EBEC4;
+  font-weight: 600;
+}
+
+.features-title {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  margin: 20px 0;
+  line-height: 1.2;
+}
+
+.features.light .features-title {
+  color: #1a1a1a;
+}
+
+.features.dark .features-title {
+  color: #ffffff;
+}
+
+.features-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.features.light .features-subtitle {
+  color: #5a5a5a;
+}
+
+.features.dark .features-subtitle {
+  color: #a0a0a0;
+}
+
+/* Features Grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.feature-card {
+  padding: 30px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.features.light .feature-card {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+}
+
+.features.dark .feature-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(94, 190, 196, 0.15);
+}
+
+.feature-icon {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.features.light .feature-card h3 {
+  color: #1a1a1a;
+}
+
+.features.dark .feature-card h3 {
+  color: #ffffff;
+}
+
+.feature-card p {
+  font-family: 'Geist', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.features.light .feature-card p {
+  color: #5a5a5a;
+}
+
+.features.dark .feature-card p {
+  color: #a0a0a0;
+}
+
+.feature-stats {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stat-value {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #5EBEC4;
+}
+
+.stat-label {
+  font-family: 'Geist', sans-serif;
+  font-size: 12px;
+  color: #888;
+}
+
+.feature-btn {
+  font-family: 'Geist', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 20px;
+  background: transparent;
+  color: #5EBEC4;
+  border: 1px solid #5EBEC4;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.feature-btn:hover {
+  background: #5EBEC4;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features-title {
+    font-size: 36px;
+  }
+}

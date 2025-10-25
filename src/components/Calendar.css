@@ -1,0 +1,452 @@
+.calendar-section {
+  padding: 100px 0 0;
+  position: relative;
+  transition: all 0.3s ease;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Background Image Wrapper */
+.calendar-bg-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.calendar-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.calendar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, 
+    rgba(18, 54, 70, 0.85) 0%, 
+    rgba(10, 15, 28, 0.95) 100%
+  );
+  z-index: 0;
+}
+
+.calendar-section.light .calendar-overlay {
+  background: linear-gradient(180deg, 
+    rgba(230, 247, 255, 0.9) 0%, 
+    rgba(240, 244, 248, 0.95) 100%
+  );
+}
+
+.calendar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Calendar Header */
+.calendar-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-label {
+  font-family: 'Geist', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #06b6d4;
+  display: block;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.calendar-title {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #ffffff, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.calendar-section.light .calendar-title {
+  background: linear-gradient(135deg, #1a2332, #4a5568);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.calendar-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-size: 18px;
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+.calendar-section.light .calendar-subtitle {
+  color: #4a5568;
+}
+
+/* Calendar Embed Container */
+.calendar-embed-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+
+.calendar-embed-container {
+  width: 100%;
+  max-width: 1000px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.cal-embed-box {
+  width: 100%;
+  height: 650px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: transparent !important;
+}
+
+/* Remove all backgrounds from Cal.com embed */
+.cal-embed-box,
+.cal-embed-box * {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.cal-embed-box > div,
+.cal-embed-box > div > div {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Target iframe content if accessible */
+.cal-embed-box iframe {
+  background: transparent !important;
+  margin-bottom: -50px !important;
+}
+
+/* Force transparency on common Cal.com class patterns */
+.cal-embed-box [class*="bg-"],
+.cal-embed-box [class*="background"],
+.cal-embed-box [class*="white"],
+.cal-embed-box [class*="light"] {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Hide Cal.com branding and unnecessary elements */
+.cal-embed-box [data-testid="branding"],
+.cal-embed-box [href*="cal.com/signup"],
+.cal-embed-box [href*="cal.com"],
+.cal-embed-box img[alt*="Cal"],
+.cal-embed-box img[alt*="cal"],
+.cal-embed-box div:has(> a[href*="cal.com"]),
+.cal-embed-box > div > div:last-child:has(a[href*="cal.com"]) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Hide the left sidebar with event details */
+.cal-embed-box [data-testid="event-meta"],
+.cal-embed-box [data-testid="event-sidebar"],
+.cal-embed-box > div > div:first-child,
+.cal-embed-box aside,
+.cal-embed-box [class*="sidebar"],
+.cal-embed-box [class*="event-details"],
+.cal-embed-box [class*="border-subtle"] {
+  display: none !important;
+}
+
+/* Adjust the calendar to take full width */
+.cal-embed-box [data-testid="calendar-container"],
+.cal-embed-box [class*="calendar"] {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+#cal-embed-omnident > div > div:last-child {
+  display: none !important;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Footer - Full Width Dark Theme */
+.footer-info {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-top: 100px;
+  padding: 80px 0 0;
+  background: linear-gradient(135deg, #0A0F1C 0%, #050810 100%);
+  border-top: 1px solid rgba(6, 182, 212, 0.1);
+}
+
+.calendar-section.light .footer-info {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  gap: 100px;
+  padding: 0 80px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+}
+
+/* Footer Left Section */
+.footer-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.footer-logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo-icon {
+  font-size: 24px;
+  color: #06b6d4;
+}
+
+.footer-logo-text {
+  font-family: 'Geist', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.footer-tagline {
+  font-family: 'Geist', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-left: 10px;
+}
+
+.footer-nav-links {
+  display: flex;
+  gap: 80px;
+}
+
+.nav-column {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.footer-link {
+  font-family: 'Geist', sans-serif;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #06b6d4;
+}
+
+/* Footer Right Section */
+.footer-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: flex-end;
+}
+
+.footer-cta-section {
+  text-align: right;
+}
+
+.footer-cta-section h3 {
+  font-family: 'Geist', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 25px;
+}
+
+.footer-chat-btn {
+  padding: 12px 32px;
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 50px;
+  font-family: 'Geist', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.footer-chat-btn:hover {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: #06b6d4;
+  color: #06b6d4;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(6, 182, 212, 0.2);
+}
+
+.footer-contact-section {
+  text-align: right;
+}
+
+.contact-label {
+  font-family: 'Geist', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 8px;
+}
+
+.contact-email {
+  font-family: 'Geist', sans-serif;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-email:hover {
+  color: #06b6d4;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer-location {
+  font-family: 'Geist', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.footer-copyright {
+  font-family: 'Geist', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Background decoration effects */
+.calendar-section.dark::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(132, 0, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .footer-main {
+    flex-direction: column;
+    gap: 60px;
+    padding: 0 40px 60px;
+  }
+
+  .footer-right {
+    align-items: flex-start;
+  }
+
+  .footer-cta-section,
+  .footer-contact-section {
+    text-align: left;
+  }
+
+  .footer-bottom {
+    padding: 30px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar-title {
+    font-size: 36px;
+  }
+
+  .footer-nav-links {
+    gap: 60px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .footer-logo-section {
+    flex-wrap: wrap;
+  }
+
+  .footer-tagline {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-main {
+    padding: 0 20px 40px;
+  }
+
+  .footer-bottom {
+    padding: 30px 20px;
+  }
+
+  .footer-nav-links {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .footer-cta-section h3 {
+    font-size: 16px;
+  }
+
+  .footer-link {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,334 @@
+.pricing {
+  padding: 100px 0;
+  position: relative;
+  transition: all 0.3s ease;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.pricing.light {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+}
+
+.pricing.dark {
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+}
+
+.pricing-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 100%;
+}
+
+/* Header */
+.pricing-header {
+  text-align: left;
+  margin-bottom: 60px;
+}
+
+.pricing-label {
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #5EBEC4;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.pricing-title {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.title-highlight {
+  color: #5EBEC4;
+}
+
+.pricing-subtitle {
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  text-align: right;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Pricing Cards Grid */
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* Individual Card Styles */
+.pricing-card {
+  padding: 40px 30px;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 500px;
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Core Platform Card - Blue */
+.pricing-card.core-platform {
+  background: linear-gradient(180deg, #27A5E3 0%, #1e82b4 100%);
+  color: white;
+}
+
+/* Built In Card - Teal/Green */
+.pricing-card.built-in {
+  background: #bfffe7;
+  color: #1a1a1a;
+}
+
+/* Optional Card - Beige */
+.pricing-card.optional {
+  background: linear-gradient(135deg, #E8D5B7 0%, #F4E4CD 100%);
+  color: #1a1a1a;
+}
+
+/* Card Header */
+.card-header {
+  margin-bottom: 30px;
+}
+
+.card-title {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+
+.pricing-card.core-platform .card-title {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pricing-card.built-in .card-title,
+.pricing-card.optional .card-title {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.card-description {
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.pricing-card.core-platform .card-description {
+  color: white;
+}
+
+.pricing-card.built-in .card-description,
+.pricing-card.optional .card-description {
+  color: #1a1a1a;
+}
+
+/* Price Section */
+.card-price {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.price-amount {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 56px;
+  font-weight: 700;
+  color: #00FFA2;
+}
+
+.price-period {
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;
+  color: #00FFA2;
+  margin-left: 5px;
+}
+
+.card-subtitle {
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 30px;
+}
+
+/* Features List */
+.card-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 auto 0;
+  flex-grow: 1;
+}
+
+.card-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.feature-icon {
+  width: 20px;
+  height: 20px;
+  background: #00FFA2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.feature-icon::after {
+  content: '✓';
+  color: rgb(0, 0, 0);
+  font-size: 12px;
+}
+
+.pricing-card.core-platform .card-features li {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pricing-card.built-in .card-features li,
+.pricing-card.optional .card-features li {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Buttons */
+.pricing-btn {
+  width: 100%;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+
+.pricing-btn.light {
+  background: rgba(0, 0, 0, 0.1);
+  color: #1a1a1a;
+}
+
+.pricing-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.pricing-btn.light:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.btn-arrow {
+  transition: transform 0.3s ease;
+}
+
+.pricing-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Card Footer */
+.card-footer {
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  line-height: 1.4;
+  text-align: center;
+  opacity: 0.7;
+}
+
+.pricing-card.core-platform .card-footer {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.pricing-card.built-in .card-footer,
+.pricing-card.optional .card-footer {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .pricing-cards {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .pricing-card {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .pricing-title {
+    font-size: 36px;
+  }
+
+  .price-amount {
+    font-size: 48px;
+  }
+
+  .pricing-header {
+    text-align: center;
+  }
+
+  .card-description {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing {
+    padding: 60px 0;
+  }
+
+  .pricing-container {
+    padding: 0 20px;
+  }
+
+  .pricing-title {
+    font-size: 28px;
+  }
+
+  .price-amount {
+    font-size: 40px;
+  }
+}
+
+
+/* From Uiverse.io by xantha01 */ 
+.swipe {
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  font-family: "Geist", sans-serif;
+}
+.container {
+  width: 35px;
+  height: 35px;
+}

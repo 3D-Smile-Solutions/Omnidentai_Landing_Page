@@ -1,0 +1,247 @@
+.elite-services {
+  padding: 100px 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.elite-services.light {
+  background: #f8f9fa;
+}
+
+.elite-services.dark {
+  background: #1a1a1a;
+}
+
+.elite-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.elite-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.elite-title {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.elite-services.light .elite-title {
+  color: #1a1a1a;
+}
+
+.elite-services.dark .elite-title {
+  color: #ffffff;
+}
+
+.elite-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.elite-services.light .elite-subtitle {
+  color: #5a5a5a;
+}
+
+.elite-services.dark .elite-subtitle {
+  color: #a0a0a0;
+}
+
+/* Elite Content */
+.elite-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.elite-video-placeholder {
+  width: 100%;
+  height: 350px;
+  background: #0a0a0a;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.elite-services.light .elite-video-placeholder {
+  background: linear-gradient(135deg, #e8f4f5 0%, #d4eef0 100%);
+}
+
+.play-button {
+  width: 80px;
+  height: 80px;
+  background: rgba(94, 190, 196, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid #5EBEC4;
+  transition: all 0.3s ease;
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+  background: rgba(94, 190, 196, 0.2);
+}
+
+.elite-video-placeholder span {
+  font-family: 'Geist', sans-serif;
+  font-size: 14px;
+  color: #888;
+}
+
+.elite-right h3 {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.elite-services.light .elite-right h3 {
+  color: #1a1a1a;
+}
+
+.elite-services.dark .elite-right h3 {
+  color: #ffffff;
+}
+
+.elite-right p {
+  font-family: 'Geist', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.elite-services.light .elite-right p {
+  color: #5a5a5a;
+}
+
+.elite-services.dark .elite-right p {
+  color: #a0a0a0;
+}
+
+.elite-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.elite-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stat-number {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #5EBEC4;
+}
+
+.stat-text {
+  font-family: 'Geist', sans-serif;
+  font-size: 12px;
+  color: #888;
+}
+
+.elite-cta {
+  font-family: 'Geist', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 30px;
+  background: #5EBEC4;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.elite-cta:hover {
+  background: #4a9da3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(94, 190, 196, 0.3);
+}
+
+/* Elite Logos */
+.elite-logos {
+  text-align: center;
+  padding-top: 60px;
+  border-top: 1px solid rgba(94, 190, 196, 0.2);
+}
+
+.logos-title {
+  font-family: 'Geist', sans-serif;
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.logos-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.logo-placeholder {
+  width: 150px;
+  height: 60px;
+  background: rgba(94, 190, 196, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Geist', sans-serif;
+  font-size: 12px;
+  color: #888;
+  transition: all 0.3s ease;
+}
+
+.logo-placeholder:hover {
+  transform: translateY(-5px);
+  background: rgba(94, 190, 196, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .elite-content {
+    grid-template-columns: 1fr;
+  }
+
+  .elite-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .elite-title {
+    font-size: 36px;
+  }
+
+  .logos-grid {
+    gap: 20px;
+  }
+
+  .logo-placeholder {
+    width: 120px;
+    height: 50px;
+  }
+}
