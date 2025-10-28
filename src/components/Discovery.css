@@ -1,34 +1,82 @@
 .discovery {
   padding: 100px 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
   position: relative;
   transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* Background with GIF overlay */
+.discovery::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Replace this URL with your actual GIF URL */
+  background-image: url('../assets/Stats.gif');
+  /* Alternative medical/tech GIFs you can use:
+     https://media.giphy.com/media/l4FGI8GoTL7N4DsyI/giphy.gif (DNA strand)
+     https://media.giphy.com/media/3o7TKP9ln2Dr6ze6f6/giphy.gif (heartbeat)
+     https://media.giphy.com/media/l378c04F2fjeZ7vH2/giphy.gif (particles)
+     https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif (tech grid)
+  */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 1;
+  z-index: 0;
 }
 
 .discovery.light {
-  background: linear-gradient(135deg, #e8f4f5 0%, #ffffff 100%);
+  background-color: #00000077;
+}
+
+.discovery.light::before {
+  opacity: 1;
+  mix-blend-mode: multiply;
 }
 
 .discovery.dark {
-  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  background-color: #00000077;
+}
+
+.discovery.dark::before {
+  opacity: 1;
+  mix-blend-mode: multiply;
 }
 
 .discovery-container {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
+  position: relative;
+  z-index: 1;
 }
 
-.discovery-header {
-  text-align: center;
-  margin-bottom: 60px;
+.discovery-content {
+  width: 100%;
+  display: flex;
+  gap: 80px;
+  align-items: center;
+}
+
+/* Left Section */
+.discovery-left {
+  flex: 1.2;
+  max-width: 900px;
 }
 
 .discovery-title {
   font-family: 'Alexandria', sans-serif;
-  font-size: 48px;
+  font-size: 56px;
   font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 20px;
+  line-height: 1.1;
+  margin-bottom: 24px;
 }
 
 .discovery.light .discovery-title {
@@ -39,209 +87,550 @@
   color: #ffffff;
 }
 
+.discovery-title .highlight {
+  color: #00eeff;
+  position: relative;
+}
+
+.discovery-title .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+
 .discovery-subtitle {
-  font-family: 'Geist', sans-serif;
-  font-size: 18px;
-  line-height: 1.6;
-  max-width: 700px;
-  margin: 0 auto;
+  font-family: 'Alexandria', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  margin-bottom: 48px;
 }
 
 .discovery.light .discovery-subtitle {
-  color: #5a5a5a;
+  color: #e7e7e7;
 }
 
 .discovery.dark .discovery-subtitle {
   color: #a0a0a0;
 }
 
-/* Discovery Content */
-.discovery-content {
-  margin-bottom: 80px;
-}
-
-.discovery-video {
-  margin-bottom: 60px;
-}
-
-.video-frame {
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-  padding-bottom: 45%;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-  border-radius: 12px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.discovery.light .video-frame {
-  background: linear-gradient(135deg, #d4eef0 0%, #e8f4f5 100%);
-}
-
-.play-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  background: rgba(94, 190, 196, 0.1);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: 3px solid #5EBEC4;
-  transition: all 0.3s ease;
-}
-
-.play-button:hover {
-  transform: translate(-50%, -50%) scale(1.1);
-  background: rgba(94, 190, 196, 0.2);
-}
-
-.video-label {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Geist', sans-serif;
-  font-size: 14px;
-  color: #888;
-}
-
-/* Discovery Benefits */
-.discovery-benefits {
+/* Connection Cards - Updated for horizontal layout */
+.connection-cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
 }
 
-.benefit-card {
-  padding: 30px 20px;
+.connection-card {
+  padding: 24px;
   border-radius: 12px;
-  text-align: center;
   transition: all 0.3s ease;
+  cursor: pointer;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-.discovery.light .benefit-card {
-  background: white;
+.discovery.light .connection-card {
   border: 1px solid #e0e0e0;
 }
 
-.discovery.dark .benefit-card {
-  background: #1a1a1a;
+.discovery.dark .connection-card {
   border: 1px solid #2a2a2a;
 }
 
-.benefit-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(94, 190, 196, 0.15);
+.connection-card:nth-child(1){
+  background-color: #00FFA233;
+}
+.connection-card:nth-child(2){
+  background-color: #FFC23633;
+}
+.connection-card:nth-child(3){
+  background-color: #2452F633;
 }
 
-.benefit-icon {
-  font-size: 40px;
-  margin-bottom: 20px;
+.connection-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
 
-.benefit-card h3 {
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.card-icon {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(94, 190, 196, 0.1);
+  border-radius: 8px;
+}
+
+.card-header h3 {
+  align-self: flex-start;
   font-family: 'Alexandria', sans-serif;
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin: 0;
+  flex: 1;
 }
 
-.discovery.light .benefit-card h3 {
-  color: #1a1a1a;
-}
-
-.discovery.dark .benefit-card h3 {
+.discovery.light .card-header h3 {
   color: #ffffff;
 }
 
-.benefit-card p {
+.discovery.dark .card-header h3 {
+  color: #ffffff;
+}
+
+.connection-card p {
   font-family: 'Geist', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
+  margin: 0;
+  flex: 1;
 }
 
-.discovery.light .benefit-card p {
-  color: #5a5a5a;
+.discovery.light .connection-card p {
+  color: #ffffff;
 }
 
-.discovery.dark .benefit-card p {
-  color: #a0a0a0;
+.discovery.dark .connection-card p {
+  color: #ffffff;
 }
 
-/* Discovery CTA */
-.discovery-cta {
-  text-align: center;
-  padding: 60px;
+/* Right Section - Stats */
+.discovery-right {
+  flex: 0.5;
+  display: flex;
+}
+
+.stats-container {
+  background-color: rgba(0, 0, 0, 0.623);
+  border: 2px solid skyblue;
   border-radius: 20px;
-  background: linear-gradient(135deg, #5EBEC4 0%, #7ed4da 100%);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 300px;
 }
 
-.discovery.dark .discovery-cta {
-  background: linear-gradient(135deg, #2a5558 0%, #3a6568 100%);
-}
-
-.discovery-cta h3 {
-  font-family: 'Alexandria', sans-serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 10px;
-}
-
-.discovery-cta p {
-  font-family: 'Geist', sans-serif;
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 30px;
-}
-
-.discovery-button {
-  font-family: 'Geist', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  padding: 15px 40px;
-  background: white;
-  color: #5EBEC4;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
+.stat-card {
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
   transition: all 0.3s ease;
 }
 
-.discovery-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 238, 255, 0.1) 0%, rgba(94, 190, 196, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .discovery-benefits {
-    grid-template-columns: repeat(2, 1fr);
+.stat-card:hover::before {
+  opacity: 1;
+}
+
+.stat-number {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: #5EBEC4;
+  margin-bottom: 8px;
+  line-height: 1;
+  background: linear-gradient(135deg, #5EBEC4 0%, #7ed4da 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-family: 'Geist', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .discovery-content {
+    gap: 60px;
+  }
+  
+  .connection-cards {
+    gap: 20px;
+  }
+  
+  .connection-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .discovery-title {
+    font-size: 48px;
+  }
+  
+  .stat-number {
+    font-size: 40px;
+  }
+  
+  .connection-card h3 {
+    font-size: 16px;
+  }
+  
+  .connection-card p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 968px) {
+  .discovery-content {
+    flex-direction: column;
+    gap: 60px;
+  }
+  
+  .discovery-left {
+    max-width: 100%;
+  }
+  
+  .discovery-right {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .stats-container {
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 100%;
+    gap: 20px;
+  }
+  
+  .stat-card {
+    flex: 1;
+    padding: 24px 16px;
+  }
+  
+  .stat-number {
+    font-size: 36px;
+  }
+  
+  .connection-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  
+  .connection-card {
+    min-height: 120px;
+    padding: 18px;
   }
 }
 
 @media (max-width: 768px) {
-  .discovery-benefits {
-    grid-template-columns: 1fr;
+  .discovery {
+    padding: 80px 0;
   }
-
+  
+  .discovery-container {
+    padding: 0 20px;
+  }
+  
   .discovery-title {
+    font-size: 40px;
+  }
+  
+  .discovery-subtitle {
+    font-size: 15px;
+  }
+  
+  /* Stack cards vertically on tablets */
+  .connection-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .connection-card {
+    min-height: auto;
+    padding: 20px;
+  }
+  
+  .card-header h3 {
+    font-size: 16px;
+  }
+  
+  .connection-card p {
+    font-size: 14px;
+  }
+  
+  .stats-container {
+    flex-direction: column;
+  }
+  
+  .stat-card {
+    padding: 24px;
+  }
+  
+  .stat-number {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .discovery-title {
+    font-size: 32px;
+  }
+  
+  .discovery-subtitle {
+    font-size: 14px;
+    margin-bottom: 36px;
+  }
+  
+  .connection-cards {
+    gap: 12px;
+  }
+  
+  .connection-card {
+    padding: 18px;
+  }
+  
+  .card-header h3 {
+    font-size: 15px;
+  }
+  
+  .connection-card p {
+    font-size: 13px;
+  }
+  
+  .stat-card {
+    padding: 20px;
+  }
+  
+  .stat-number {
     font-size: 36px;
   }
-
-  .discovery-cta {
-    padding: 40px 20px;
+  
+  .stat-label {
+    font-size: 10px;
   }
+}
 
-  .discovery-cta h3 {
-    font-size: 28px;
+/* Animation */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
   }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.discovery-left {
+  animation: slideInLeft 0.8s ease;
+}
+
+.discovery-right {
+  animation: slideInRight 0.8s ease;
+}
+
+.connection-card {
+  animation: slideInUp 0.8s ease backwards;
+}
+
+.connection-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.connection-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.connection-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.stat-card {
+  animation: slideInRight 0.8s ease backwards;
+}
+
+.stat-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.stat-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.stat-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* Animated Particles Background (Alternative to GIF) */
+.animated-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #5EBEC4;
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float 20s infinite linear;
+}
+
+.discovery.dark .particle {
+  background: #7ed4da;
+  opacity: 0.4;
+}
+
+.particle:nth-child(1) {
+  width: 3px;
+  height: 3px;
+  left: 10%;
+  animation-duration: 25s;
+  animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+  width: 5px;
+  height: 5px;
+  left: 20%;
+  animation-duration: 30s;
+  animation-delay: 2s;
+}
+
+.particle:nth-child(3) {
+  width: 3px;
+  height: 3px;
+  left: 35%;
+  animation-duration: 22s;
+  animation-delay: 4s;
+}
+
+.particle:nth-child(4) {
+  width: 4px;
+  height: 4px;
+  left: 50%;
+  animation-duration: 28s;
+  animation-delay: 0s;
+}
+
+.particle:nth-child(5) {
+  width: 6px;
+  height: 6px;
+  left: 65%;
+  animation-duration: 35s;
+  animation-delay: 3s;
+}
+
+.particle:nth-child(6) {
+  width: 3px;
+  height: 3px;
+  left: 75%;
+  animation-duration: 24s;
+  animation-delay: 2s;
+}
+
+.particle:nth-child(7) {
+  width: 5px;
+  height: 5px;
+  left: 85%;
+  animation-duration: 32s;
+  animation-delay: 1s;
+}
+
+.particle:nth-child(8) {
+  width: 4px;
+  height: 4px;
+  left: 95%;
+  animation-duration: 26s;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Medical/Tech themed background patterns */
+.discovery.animated-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(94, 190, 196, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(94, 190, 196, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(94, 190, 196, 0.02) 0%, transparent 50%);
+  z-index: 0;
+  pointer-events: none;
 }

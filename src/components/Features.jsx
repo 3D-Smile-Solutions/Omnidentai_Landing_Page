@@ -1,74 +1,109 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Features.css';
+// Import all images at the top
+import f1 from '../assets/f1.png';
+import f2 from '../assets/f2.png';
+import f3 from '../assets/f3.png';
+import f4 from '../assets/f4.png';
+import f5 from '../assets/f5.png';
+import f6 from '../assets/f6.png';
 
-const Features = ({ isDarkMode }) => {
+const Features = () => {
+  const [hoveredFeature, setHoveredFeature] = useState(null);
+
+  const featureData = [
+    {
+      id: 1,
+      title: "AI-Powered Scheduling",
+      count: "(1)",
+      description: "Intelligent appointment booking that understands patient preferences, provider availability, and treatment requirements.",
+      image: f1 // Use the imported image variable
+    },
+    {
+      id: 2,
+      title: "Smart Reminders & Confirmations",
+      count: "(2)",
+      description: "Automated reminders via SMS, email, and voice calls that reduce no-shows and keep patients informed.",
+      image: f2
+    },
+    {
+      id: 3,
+      title: "Insurance Verification",
+      count: "(3)",
+      description: "Instant insurance eligibility checks and coverage verification to streamline the billing process.",
+      image: f3
+    },
+    {
+      id: 4,
+      title: "Treatment Plan Communication",
+      count: "(4)",
+      description: "Clear, automated communication of treatment plans, costs, and next steps to improve case acceptance.",
+      image: f4
+    },
+    {
+      id: 5,
+      title: "Post-Treatment Follow-up",
+      count: "(5)",
+      description: "Automated follow-up messages to check on patient recovery and schedule necessary appointments.",
+      image: f5
+    },
+    {
+      id: 6,
+      title: "Practice Analytics Dashboard",
+      count: "(6)",
+      description: "Real-time insights into practice performance, patient flow, and revenue metrics for data-driven decisions.",
+      image: f6
+    }
+  ];
+
   return (
-    <section className={`features ${isDarkMode ? 'dark' : 'light'}`}>
+    <section className="features">
       <div className="features-container">
-        {/* Video Player */}
-        <div className="video-wrapper">
-          <div className="video-frame">
-            <div className="corner-bracket top-left"></div>
-            <div className="corner-bracket top-right"></div>
-            <div className="corner-bracket bottom-left"></div>
-            <div className="corner-bracket bottom-right"></div>
-            
-            <div className="video-placeholder">
-              <div className="play-button">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="#5EBEC4">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
-              </div>
-              <p className="video-text">Video Placeholder</p>
+        <div className="features-content">
+          <div className="features-left">
+            <div className="features-header">
+              <span className="section-label">See The Difference</span>
+              <h2 className="features-title">
+                Core features<br />
+                that drive results
+              </h2>
+            </div>
+
+            <div className="features-list">
+              {featureData.map((feature) => (
+                <div
+                  key={feature.id}
+                  className={`feature-item ${hoveredFeature === feature.id ? 'active' : ''}`}
+                  onMouseEnter={() => setHoveredFeature(feature.id)}
+                  onMouseLeave={() => setHoveredFeature(null)}
+                >
+                  <div className="feature-title-wrapper">
+                    <h3 className="feature-title">
+                      {feature.title} <span className="feature-count">{feature.count}</span>
+                    </h3>
+                  </div>
+                  <div className="feature-description">
+                    <p>{feature.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
 
-        {/* Features Grid */}
-        <div className="features-header">
-          <span className="section-label">OUR SOLUTION</span>
-          <h2 className="features-title">
-            Automating all<br />
-            every campaign
-          </h2>
-          <p className="features-subtitle">
-            Advanced automation streamlines your entire patient engagement workflow, 
-            from initial contact through treatment completion.
-          </p>
-        </div>
-
-        <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon">📧</div>
-            <h3>Automated Patient Outreach</h3>
-            <p>Intelligent email and SMS campaigns that adapt to patient preferences and behaviors</p>
-            <div className="feature-stats">
-              <span className="stat-value">45%</span>
-              <span className="stat-label">Higher engagement</span>
+          <div className="features-right">
+            <div className="feature-image-box">
+              {hoveredFeature ? (
+                <img 
+                  src={featureData.find(f => f.id === hoveredFeature)?.image} 
+                  alt="Feature visualization"
+                  className="feature-image"
+                />
+              ) : (
+                <div className="feature-placeholder">
+                  <span>Hover over a feature to see details</span>
+                </div>
+              )}
             </div>
-            <button className="feature-btn">Learn more</button>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon">📊</div>
-            <h3>Comprehensive Analytics</h3>
-            <p>Real-time dashboards providing deep insights into campaign performance and ROI</p>
-            <div className="feature-stats">
-              <span className="stat-value">3x</span>
-              <span className="stat-label">Better ROI tracking</span>
-            </div>
-            <button className="feature-btn">Learn more</button>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon">🎯</div>
-            <h3>Personalized Targeting</h3>
-            <p>AI-driven segmentation delivers the right message to the right patient at the right time</p>
-            <div className="feature-stats">
-              <span className="stat-value">68%</span>
-              <span className="stat-label">Conversion increase</span>
-            </div>
-            <button className="feature-btn">Learn more</button>
           </div>
         </div>
       </div>
