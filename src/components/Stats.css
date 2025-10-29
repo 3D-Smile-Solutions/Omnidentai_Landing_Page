@@ -1,3 +1,4 @@
+/* Default Dark Mode Styles */
 .stats {
   width: 100%;
   background: #1a1a1a;
@@ -73,9 +74,11 @@
   transition: all 0.3s ease;
   font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
 }
-.btn{
+
+.btn {
   width: 250px;
 }
+
 .intro-cta:hover {
   background: #0099b0;
   transform: translateY(-2px);
@@ -91,6 +94,7 @@
 }
 
 .tooth-wrapper {
+  transform: translateX(250px);
   position: relative;
   width: 400px;
   height: 400px;
@@ -244,7 +248,153 @@
   border-radius: 0 0 12px 0;
 }
 
-/* Responsive Design */
+/* ===================== LIGHT MODE STYLES ===================== */
+/* You can toggle light mode by adding class "light-mode" to body or parent container */
+
+.light-mode .stats {
+  background: #f8f9fa;
+}
+
+.light-mode .intro-section {
+  background: #ffffff;
+}
+
+.light-mode .intro-badge {
+  color: #0097a7;
+}
+
+.light-mode .intro-title {
+  color: #1a1a1a;
+}
+
+.light-mode .intro-title .highlight {
+  color: #0097a7;
+  font-weight: 500;
+}
+
+.light-mode .intro-features p {
+  color: rgba(26, 26, 26, 0.7);
+}
+
+.light-mode .intro-cta {
+  background: #0097a7;
+  color: white;
+}
+
+.light-mode .intro-cta:hover {
+  background: #00838f;
+  box-shadow: 0 10px 30px rgba(0, 151, 167, 0.3);
+}
+
+.light-mode .tooth-image {
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+}
+
+.light-mode .ribbon {
+  background: linear-gradient(90deg, transparent, #0097a7, transparent);
+  opacity: 0.4;
+}
+
+.light-mode .intro-stats p {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.light-mode .video-section {
+  background: #ffffff;
+}
+
+.light-mode .video-frame {
+  background: #ffffff;
+  border: 2px solid rgba(0, 151, 167, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .video-placeholder {
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+}
+
+.light-mode .video-placeholder:hover {
+  background: linear-gradient(135deg, #efefef 0%, #e0e0e0 100%);
+}
+
+.light-mode .video-corner {
+  border-color: #0097a7;
+}
+
+/* ===================== AUTOMATIC THEME SWITCHING ===================== */
+/* Using system preference for light/dark mode */
+
+@media (prefers-color-scheme: light) {
+  .stats {
+    background: #f8f9fa;
+  }
+
+  .intro-section {
+    background: #ffffff;
+  }
+
+  .intro-badge {
+    color: #0097a7;
+  }
+
+  .intro-title {
+    color: #1a1a1a;
+  }
+
+  .intro-title .highlight {
+    color: #0097a7;
+  }
+
+  .intro-features p {
+    color: rgba(26, 26, 26, 0.7);
+  }
+
+  .intro-cta {
+    background: #0097a7;
+  }
+
+  .intro-cta:hover {
+    background: #00838f;
+    box-shadow: 0 10px 30px rgba(0, 151, 167, 0.3);
+  }
+
+  .tooth-image {
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+  }
+
+  .ribbon {
+    background: linear-gradient(90deg, transparent, #0097a7, transparent);
+    opacity: 0.4;
+  }
+
+  .intro-stats p {
+    color: rgba(26, 26, 26, 0.6);
+  }
+
+  .video-section {
+    background: #f8f9fa;
+  }
+
+  .video-frame {
+    background: #ffffff;
+    border: 2px solid rgba(0, 151, 167, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .video-placeholder {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  }
+
+  .video-placeholder:hover {
+    background: linear-gradient(135deg, #efefef 0%, #e0e0e0 100%);
+  }
+
+  .video-corner {
+    border-color: #0097a7;
+  }
+}
+
+/* ===================== RESPONSIVE DESIGN ===================== */
 @media (max-width: 1024px) {
   .intro-content {
     flex-direction: column;

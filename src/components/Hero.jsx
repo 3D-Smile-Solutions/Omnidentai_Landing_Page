@@ -53,18 +53,9 @@ const Hero = ({ isDarkMode, toggleDarkMode }) => {
             {/* Second Info Box */}
             <div className="info-box info-box-2">
               <div className="info-box-features">
-                <div className="feature-item">
-                  <div className="feature-icon"></div>
                   <span className="feature-text">HIPAA Compliant</span>
-                </div>
-                <div className="feature-item">
-                  <div className="feature-icon"></div>
                   <span className="feature-text">OmniChannel</span>
-                </div>
-                <div className="feature-item">
-                  <div className="feature-icon"></div>
                   <span className="feature-text">30-day money back guarantee</span>
-                </div>
               </div>
             </div>
           </div>

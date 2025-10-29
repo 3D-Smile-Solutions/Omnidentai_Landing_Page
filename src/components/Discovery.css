@@ -31,22 +31,18 @@
   z-index: 0;
 }
 
+.discovery.dark {
+  background-color: #00000077;
+}
 .discovery.light {
   background-color: #00000077;
 }
 
-.discovery.light::before {
-  opacity: 1;
-  mix-blend-mode: multiply;
-}
-
-.discovery.dark {
-  background-color: #00000077;
-}
-
 .discovery.dark::before {
-  opacity: 1;
-  mix-blend-mode: multiply;
+  opacity: .6;
+}
+.discovery.light::before{
+  opacity: .6;
 }
 
 .discovery-container {
@@ -110,11 +106,11 @@
 }
 
 .discovery.light .discovery-subtitle {
-  color: #e7e7e7;
+  color: #ffffff;
 }
 
 .discovery.dark .discovery-subtitle {
-  color: #a0a0a0;
+  color: #ffffff;
 }
 
 /* Connection Cards - Updated for horizontal layout */

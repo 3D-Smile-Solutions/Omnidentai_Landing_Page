@@ -26,7 +26,6 @@ const Results = ({ isDarkMode }) => {
             </button>
 
             <div className="testimonial-content">
-              <div className="quote-icon">"</div>
               <p className="testimonial-text">
                 We've saved 15 hours per week on appointment scheduling. The AI understands dental terminology perfectly.
               </p>

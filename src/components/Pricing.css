@@ -1,3 +1,4 @@
+/* ===================== PRICING SECTION ===================== */
 .pricing {
   padding: 100px 0;
   position: relative;
@@ -22,10 +23,10 @@
   width: 100%;
 }
 
-/* Header */
+/* ===================== HEADER SECTION ===================== */
 .pricing-header {
   text-align: left;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
 }
 
 .pricing-label {
@@ -35,6 +36,8 @@
   color: #5EBEC4;
   display: block;
   margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .pricing-title {
@@ -56,25 +59,27 @@
   font-size: 16px;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.7);
+  max-width: 100%;
 }
 
-/* Pricing Cards Grid */
+/* ===================== PRICING CARDS GRID ===================== */
 .pricing-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
+  align-items: stretch; /* Ensure all cards stretch to same height */
 }
 
-/* Individual Card Styles */
+/* ===================== INDIVIDUAL CARD STYLES ===================== */
 .pricing-card {
   padding: 40px 30px;
-  border-radius: 4px;
+  border-radius: 8px;
   position: relative;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  min-height: 500px;
+  min-height: 600px; /* Set consistent minimum height */
+  height: 100%; /* Fill available space */
 }
 
 .pricing-card:hover {
@@ -100,11 +105,12 @@
   color: #1a1a1a;
 }
 
-/* Card Header */
+/* ===================== CARD HEADER ===================== */
 .card-header {
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
+  min-height: 120px; /* Consistent header height */
 }
 
 .card-title {
@@ -112,8 +118,11 @@
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.1em;
+  text-transform: uppercase;
   margin-bottom: 16px;
-  opacity: 0.8;
+  height: 20px; /* Fixed height for alignment */
+  display: flex;
+  align-items: center;
 }
 
 .pricing-card.core-platform .card-title {
@@ -130,6 +139,9 @@
   font-size: 24px;
   line-height: 1.4;
   font-weight: 700;
+  min-height: 68px; /* Consistent description area height */
+  display: flex;
+  align-items: flex-start;
 }
 
 .pricing-card.core-platform .card-description {
@@ -141,80 +153,143 @@
   color: #1a1a1a;
 }
 
-/* Price Section */
+/* ===================== PRICE SECTION ===================== */
+.price-section {
+  margin-bottom: 30px;
+  min-height: 100px; /* Consistent price section height */
+}
+
 .card-price {
   display: flex;
   align-items: baseline;
   margin-bottom: 8px;
+  height: 60px; /* Fixed height for price line */
 }
 
 .price-amount {
   font-family: 'Alexandria', sans-serif;
   font-size: 56px;
   font-weight: 700;
-  color: #00FFA2;
+  line-height: 1;
 }
 
 .price-period {
   font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 24px;
+  margin-left: 8px;
+  line-height: 1;
+}
+
+/* Price colors for different cards */
+.pricing-card.core-platform .price-amount,
+.pricing-card.core-platform .price-period {
   color: #00FFA2;
-  margin-left: 5px;
+}
+
+.pricing-card.built-in .price-amount,
+.pricing-card.built-in .price-period {
+  color: #1a1a1a;
+}
+
+.pricing-card.optional .price-amount,
+.pricing-card.optional .price-period {
+  color: #1a1a1a;
 }
 
 .card-subtitle {
   font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 30px;
+  height: 20px; /* Fixed height for alignment */
+  display: flex;
+  align-items: center;
 }
 
-/* Features List */
+.pricing-card.core-platform .card-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.pricing-card.built-in .card-subtitle,
+.pricing-card.optional .card-subtitle {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* ===================== FEATURES LIST ===================== */
 .card-features {
   list-style: none;
   padding: 0;
-  margin: 0 0 auto 0;
-  flex-grow: 1;
+  margin: 0 0 30px 0;
+  flex-grow: 1; /* Take up remaining space */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .card-features li {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 24px 1fr; /* Fixed icon width, flexible text */
   gap: 12px;
-  margin-bottom: 16px;
   font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 14px;
   line-height: 1.5;
+  align-items: flex-start;
 }
 
 .feature-icon {
   width: 20px;
   height: 20px;
-  background: #00FFA2;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   margin-top: 2px;
+  position: relative;
+}
+
+/* Icon colors for different cards */
+.pricing-card.core-platform .feature-icon {
+  background: #00FFA2;
+}
+
+.pricing-card.built-in .feature-icon {
+  background: #1a1a1a;
+}
+
+.pricing-card.optional .feature-icon {
+  background: #8B7355;
 }
 
 .feature-icon::after {
   content: '✓';
-  color: rgb(0, 0, 0);
   font-size: 12px;
+  font-weight: bold;
 }
 
+.pricing-card.core-platform .feature-icon::after {
+  color: #1a1a1a;
+}
+
+.pricing-card.built-in .feature-icon::after,
+.pricing-card.optional .feature-icon::after {
+  color: white;
+}
+
+/* Feature text colors */
 .pricing-card.core-platform .card-features li {
   color: rgba(255, 255, 255, 0.9);
 }
 
 .pricing-card.built-in .card-features li,
 .pricing-card.optional .card-features li {
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(0, 0, 0, 0.8);
 }
 
-/* Buttons */
+/* ===================== BUTTONS ===================== */
+.card-action {
+  margin-top: auto; /* Push to bottom */
+  padding-top: 20px;
+}
+
 .pricing-btn {
   width: 100%;
   font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -229,14 +304,23 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: auto;
   margin-bottom: 20px;
+  height: 48px; /* Fixed button height */
 }
 
+.pricing-card.core-platform .pricing-btn {
+  background: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
 
-.pricing-btn.light {
-  background: rgba(0, 0, 0, 0.1);
-  color: #1a1a1a;
+.pricing-card.built-in .pricing-btn {
+  background: rgb(0, 0, 0);
+  color: #ffffff;
+}
+
+.pricing-card.optional .pricing-btn {
+  background: rgb(0, 0, 0);
+  color: #ffffff;
 }
 
 .pricing-btn:hover {
@@ -244,8 +328,13 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.pricing-btn.light:hover {
-  background: rgba(0, 0, 0, 0.15);
+.pricing-card.core-platform .pricing-btn:hover {
+  background: rgb(0, 0, 0);
+}
+
+.pricing-card.built-in .pricing-btn:hover,
+.pricing-card.optional .pricing-btn:hover {
+  background: rgb(0, 0, 0);
 }
 
 .btn-arrow {
@@ -256,13 +345,15 @@
   transform: translateX(4px);
 }
 
-/* Card Footer */
+/* ===================== CARD FOOTER ===================== */
 .card-footer {
   font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 11px;
   line-height: 1.4;
-  text-align: center;
-  opacity: 0.7;
+  text-align: left;
+  min-height: 30px; /* Consistent footer height */
+  display: flex;
+  align-items: center;
 }
 
 .pricing-card.core-platform .card-footer {
@@ -274,8 +365,39 @@
   color: rgba(0, 0, 0, 0.5);
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+/* ===================== LIGHT MODE VARIANT ===================== */
+.light-mode .pricing.light {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.light-mode .pricing.dark {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+}
+
+.light-mode .pricing-label {
+  color: #0097a7;
+}
+
+.light-mode .pricing-title {
+  color: #1a1a1a;
+}
+
+.light-mode .title-highlight {
+  color: #0097a7;
+}
+
+.light-mode .pricing-subtitle {
+  color: rgba(26, 26, 26, 0.7);
+}
+
+/* ===================== RESPONSIVE DESIGN ===================== */
+@media (max-width: 1200px) {
+  .pricing-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
   .pricing-cards {
     grid-template-columns: 1fr;
     max-width: 500px;
@@ -285,9 +407,11 @@
   .pricing-card {
     min-height: auto;
   }
-}
 
-@media (max-width: 768px) {
+  .pricing-header {
+    margin-bottom: 60px;
+  }
+
   .pricing-title {
     font-size: 36px;
   }
@@ -296,12 +420,21 @@
     font-size: 48px;
   }
 
-  .pricing-header {
-    text-align: center;
+  .card-description {
+    font-size: 20px;
+    min-height: auto;
   }
 
-  .card-description {
-    font-size: 16px;
+  .card-header {
+    min-height: auto;
+  }
+
+  .price-section {
+    min-height: auto;
+  }
+
+  .card-price {
+    height: auto;
   }
 }
 
@@ -321,15 +454,23 @@
   .price-amount {
     font-size: 40px;
   }
+
+  .price-period {
+    font-size: 20px;
+  }
+
+  .card-features li {
+    font-size: 13px;
+  }
 }
 
-
-/* From Uiverse.io by xantha01 */ 
+/* ===================== UTILITY CLASSES ===================== */
 .swipe {
   background-color: #000000;
   color: rgb(255, 255, 255);
   font-family: "Geist", sans-serif;
 }
+
 .container {
   width: 35px;
   height: 35px;
