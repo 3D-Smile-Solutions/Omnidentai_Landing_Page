@@ -1,0 +1,61 @@
+/* SpotlightCard.css */
+
+/* Define spotlight card theme variables */
+:root[data-theme="dark"] {
+  --spot-border-color: #303030;
+  --spot-bg: linear-gradient(135deg, rgb(42, 63, 95), rgb(30, 42, 58));
+  --spot-default-color: rgb(255, 255, 255);
+  --spot-hover-opacity: 0.6;
+}
+
+:root[data-theme="light"] {
+  --spot-border-color: #e2e8f0;
+  --spot-bg: linear-gradient(135deg, rgb(236, 236, 236), rgb(240, 240, 240));
+  --spot-default-color: rgb(0, 0, 0);
+  --spot-hover-opacity: 0.4;
+}
+
+.card-spotlight {
+  position: relative;
+  border-radius: 1.5rem;
+  border: 1px solid var(--spot-border-color);
+  background: var(--spot-bg);
+  padding: 2rem;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: var(--spot-default-color);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.card-spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 80%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.card-spotlight:hover::before,
+.card-spotlight:focus-within::before {
+  opacity: var(--spot-hover-opacity);
+}
+
+/* Light mode specific adjustments for spotlight cards */
+:root[data-theme="light"] .card-spotlight {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+:root[data-theme="light"] .card-spotlight:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode specific adjustments */
+:root[data-theme="dark"] .card-spotlight:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}

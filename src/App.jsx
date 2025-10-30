@@ -15,14 +15,30 @@ const App = () => {
 
   return (
     <div className={`app ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-      <Hero isDarkMode={isDarkMode} toggleDarkMode={() => setIsDarkMode(!isDarkMode)} />
-      <Stats isDarkMode={isDarkMode} />
-      <Features isDarkMode={isDarkMode} />
-      <Discovery isDarkMode={isDarkMode} />
-      <Pricing isDarkMode={isDarkMode} />
-      <Results isDarkMode={isDarkMode} />
-      <InfoGraphic isDarkMode={isDarkMode} />
-      <Calendar isDarkMode={isDarkMode} />
+      <div id="hero">
+        <Hero isDarkMode={isDarkMode} toggleDarkMode={() => setIsDarkMode(!isDarkMode)} />
+      </div>
+      <div id="stats">
+        <Stats isDarkMode={isDarkMode} />
+      </div>
+      <div id="features">
+        <Features isDarkMode={isDarkMode} />
+      </div>
+      <div id="discovery">
+        <Discovery isDarkMode={isDarkMode} />
+      </div>
+      <div id="pricing">
+        <Pricing isDarkMode={isDarkMode} />
+      </div>
+      <div id="results">
+        <Results isDarkMode={isDarkMode} />
+      </div>
+      <div id="infographic">
+        <InfoGraphic isDarkMode={isDarkMode} />
+      </div>
+      <div id="calendar">
+        <Calendar isDarkMode={isDarkMode} />
+      </div>
     </div>
   );
 };
