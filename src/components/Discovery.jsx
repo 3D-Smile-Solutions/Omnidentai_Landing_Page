@@ -20,7 +20,7 @@ const Discovery = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: titleRef.current,
           start: 'top 80%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         y: 40,
@@ -35,7 +35,7 @@ const Discovery = ({ isDarkMode }) => {
           scrollTrigger: {
             trigger: titleRef.current,
             start: 'top 80%',
-            once: true
+            toggleActions: 'play reverse play reverse'
           },
           opacity: 0,
           scale: 0.9,
@@ -50,7 +50,7 @@ const Discovery = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: subtitleRef.current,
           start: 'top 80%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         y: 20,

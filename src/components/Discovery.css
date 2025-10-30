@@ -94,13 +94,12 @@
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: 24px;
-  text-align: center;
+  text-align: left;
   color: #ffffff;
 }
 
 .discovery-title .highlight {
   color: #00eeff;
-  position: relative;
 }
 
 .discovery-subtitle {
@@ -109,9 +108,8 @@
   font-weight: 400;
   line-height: 1.7;
   margin-bottom: 48px;
-  text-align: center;
+  text-align: left;
   color: #ffffff;
-  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
 }

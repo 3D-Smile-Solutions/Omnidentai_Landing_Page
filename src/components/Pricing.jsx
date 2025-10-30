@@ -28,7 +28,7 @@ const Pricing = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: labelRef.current,
           start: 'top 80%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         y: -20,
@@ -41,7 +41,7 @@ const Pricing = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: titleRef.current,
           start: 'top 80%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         y: 30,
@@ -57,7 +57,7 @@ const Pricing = ({ isDarkMode }) => {
           scrollTrigger: {
             trigger: titleRef.current,
             start: 'top 80%',
-            once: true
+            toggleActions: 'play reverse play reverse'
           },
           opacity: 0,
           scale: 0.9,
@@ -72,7 +72,7 @@ const Pricing = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: subtitleRef.current,
           start: 'top 80%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         y: 20,
@@ -86,7 +86,7 @@ const Pricing = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: cardsContainerRef.current,
           start: 'top 85%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         y: 50,

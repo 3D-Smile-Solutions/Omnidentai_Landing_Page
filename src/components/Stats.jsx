@@ -35,8 +35,7 @@ const Stats = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: badgeRef.current,
           start: 'top 80%',
-          end: 'top 50%',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none none'
         },
         opacity: 0,
         y: -20,
@@ -49,8 +48,7 @@ const Stats = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: titleRef.current,
           start: 'top 75%',
-          end: 'top 40%',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none none'
         },
         opacity: 0,
         y: 30,
@@ -65,7 +63,7 @@ const Stats = ({ isDarkMode }) => {
           scrollTrigger: {
             trigger: titleRef.current,
             start: 'top 75%',
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none none'
           },
           opacity: 0,
           scale: 0.8,
@@ -80,7 +78,7 @@ const Stats = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: featuresRef.current,
           start: 'top 80%',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none none'
         },
         opacity: 0,
         y: 20,
@@ -94,7 +92,7 @@ const Stats = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: ctaRef.current,
           start: 'top 85%',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none none'
         },
         opacity: 0,
         y: 20,
@@ -123,7 +121,7 @@ const Stats = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: videoSectionRef.current,
           start: 'top 85%',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none none'
         },
         opacity: 0,
         y: 60,
@@ -136,7 +134,7 @@ const Stats = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: videoFrameRef.current,
           start: 'top 80%',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none none'
         },
         scale: 0.9,
         opacity: 0,
@@ -150,7 +148,7 @@ const Stats = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: videoFrameRef.current,
           start: 'top 75%',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none none'
         },
         scale: 0,
         opacity: 0,

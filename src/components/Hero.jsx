@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Hero.css';
 import heroGif from '../assets/Hero.gif';
+import heroBG from '../assets/HeroBgAnimation.mp4';
 import NavLogo from '../assets/Logo.png';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,6 +13,7 @@ const Hero = ({ isDarkMode, toggleDarkMode }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   
   // Refs for animations
+  const heroRef = useRef(null);
   const heroTextRef = useRef(null);
   const infoBox1Ref = useRef(null);
   const infoBox2Ref = useRef(null);
@@ -32,39 +34,62 @@ const Hero = ({ isDarkMode, toggleDarkMode }) => {
   // GSAP Animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero Title Animation
+      // Hero Title Animation - plays on load and when scrolling back to top
       gsap.from(heroTextRef.current, {
+        scrollTrigger: {
+          trigger: heroTextRef.current,
+          start: 'top 80%',
+          toggleActions: 'play reverse play reverse'
+        },
         opacity: 0,
         y: 50,
         duration: 1,
-        delay: 0.3,
         ease: 'power3.out'
       });
 
       // Info Box 1 Animation
       gsap.from(infoBox1Ref.current, {
+        scrollTrigger: {
+          trigger: infoBox1Ref.current,
+          start: 'top 80%',
+          toggleActions: 'play reverse play reverse'
+        },
         opacity: 0,
         x: -50,
         duration: 0.8,
-        delay: 0.8,
         ease: 'power2.out'
       });
 
       // Info Box 2 Animation
       gsap.from(infoBox2Ref.current, {
+        scrollTrigger: {
+          trigger: infoBox2Ref.current,
+          start: 'top 80%',
+          toggleActions: 'play reverse play reverse'
+        },
         opacity: 0,
         x: 50,
         duration: 0.8,
-        delay: 1,
         ease: 'power2.out'
       });
-    });
+    }, heroRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className={`hero ${isDarkMode ? 'dark' : 'light'}`} style={{ backgroundImage: `url(${heroGif})` }}>
+    <section className={`hero ${isDarkMode ? 'dark' : 'light'}`} ref={heroRef}>
+      {/* Video Background */}
+      <video 
+        className="hero-video-bg" 
+        autoPlay 
+        loop 
+        muted 
+        playsInline
+      >
+        <source src={heroBG} type="video/mp4" />
+      </video>
+      
       {/* Dark Overlay */}
       <div className="hero-overlay"></div>
       

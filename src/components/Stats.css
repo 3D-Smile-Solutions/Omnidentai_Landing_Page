@@ -84,12 +84,14 @@
   gap: 8px;
   visibility: visible !important;
   opacity: 1 !important;
+  white-space: nowrap;
 }
 
 .btn {
   width: 250px;
   min-width: 250px;
   max-width: 250px;
+  white-space: nowrap;
 }
 
 .intro-cta:hover {
@@ -434,7 +436,7 @@
 
   .tooth-image {
     width: 500px;
-    opacity: 1;
+    opacity: .6;
   }
 
   .video-section {
@@ -468,8 +470,8 @@
 
   .btn {
     width: 250px;
-    min-width: 220px;
-    max-width: 220px;
+    min-width: 250px;
+    max-width: 250px;
   }
 
   .intro-badge {
@@ -509,7 +511,7 @@
 
   .tooth-image {
     width: 400px;
-    opacity: 0.5;
+    opacity: .6;
   }
 
   .video-section {
@@ -530,11 +532,13 @@
     overflow: visible;
     min-height: 300px;
   }
+  
   .btn {
     width: 250px;
-    min-width: 220px;
-    max-width: 220px;
+    min-width: 250px;
+    max-width: 250px;
   }
+  
   .intro-content {
     flex-direction: column;
     align-items: flex-start;
@@ -583,7 +587,7 @@
 
   .tooth-image {
     width: 350px;
-    opacity: 0.25;
+    opacity: .6;
   }
 
   .video-section {
@@ -610,11 +614,13 @@
     flex-direction: column;
     align-items: flex-start;
   }
+  
   .btn {
     width: 250px;
-    min-width: 220px;
-    max-width: 220px;
+    min-width: 250px;
+    max-width: 250px;
   }
+  
   .intro-left {
     max-width: 100%;
     width: 100%;
@@ -659,7 +665,7 @@
 
   .tooth-image {
     width: 300px;
-    opacity: 0.2;
+    opacity: .6;
   }
 
   .video-section {
@@ -686,11 +692,13 @@
     flex-direction: column;
     align-items: flex-start;
   }
+  
   .btn {
     width: 250px;
-    min-width: 220px;
-    max-width: 220px;
+    min-width: 250px;
+    max-width: 250px;
   }
+  
   .intro-left {
     max-width: 100%;
     width: 100%;
@@ -735,7 +743,7 @@
 
   .tooth-image {
     width: 250px;
-    opacity: 0.15;
+    opacity: .6;
   }
 
   .video-section {

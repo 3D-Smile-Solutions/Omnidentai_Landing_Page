@@ -96,7 +96,7 @@ const InfoGraphic = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: labelRef.current,
           start: 'top 80%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         y: -20,
@@ -109,7 +109,7 @@ const InfoGraphic = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: titleRef.current,
           start: 'top 80%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         y: 30,
@@ -125,7 +125,7 @@ const InfoGraphic = ({ isDarkMode }) => {
           scrollTrigger: {
             trigger: titleRef.current,
             start: 'top 80%',
-            once: true
+            toggleActions: 'play reverse play reverse'
           },
           opacity: 0,
           scale: 0.9,
@@ -140,7 +140,7 @@ const InfoGraphic = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: subtitleRef.current,
           start: 'top 80%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         y: 20,
@@ -154,7 +154,7 @@ const InfoGraphic = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: wheelWrapperRef.current,
           start: 'top 80%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         scale: 0.8,
@@ -168,7 +168,7 @@ const InfoGraphic = ({ isDarkMode }) => {
         scrollTrigger: {
           trigger: ctaSectionRef.current,
           start: 'top 85%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         y: 40,

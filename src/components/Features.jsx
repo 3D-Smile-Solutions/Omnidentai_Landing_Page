@@ -74,7 +74,7 @@ const Features = () => {
         scrollTrigger: {
           trigger: labelRef.current,
           start: 'top 80%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         y: -20,
@@ -87,7 +87,7 @@ const Features = () => {
         scrollTrigger: {
           trigger: titleRef.current,
           start: 'top 80%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         y: 30,
@@ -101,7 +101,7 @@ const Features = () => {
         scrollTrigger: {
           trigger: featureItemsRef.current[0],
           start: 'top 85%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         x: -30,
@@ -114,7 +114,7 @@ const Features = () => {
         scrollTrigger: {
           trigger: imageBoxRef.current,
           start: 'top 80%',
-          once: true
+          toggleActions: 'play reverse play reverse'
         },
         opacity: 0,
         scale: 0.95,

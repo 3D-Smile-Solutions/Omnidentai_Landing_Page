@@ -361,7 +361,7 @@
 
   .wheel-wrapper {
     height: 300px;
-    margin: 50px 0 =150px 0;
+    margin: 50px 0 -150px 0;
   }
 
   .slider-section {
@@ -419,5 +419,72 @@
   .cta-button {
     padding: 12px 24px;
     font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .infographic {
+    padding: 50px 0;
+  }
+
+  .infographic-title {
+    font-size: 24px;
+  }
+
+  .infographic-subtitle {
+    font-size: 14px;
+  }
+
+  .wheel-wrapper {
+    height: 220px;
+    margin: 30px 0 -110px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .slider-section {
+    height: 400px;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .wheel {
+    width: 320px;
+    height: 320px;
+    margin: 0 auto;
+  }
+
+  .wheel__card {
+    width: 80px;
+    height: 36px;
+  }
+
+  .logo-content {
+    font-size: 8px;
+    padding: 6px 8px;
+    border-radius: 8px;
+  }
+
+  .logo-image {
+    max-height: 100px;
+  }
+
+  .cta-title {
+    font-size: 20px;
+    padding: 0 20px;
+  }
+
+  .cta-button {
+    padding: 12px 20px;
+    font-size: 13px;
+    width: 260px;
+    padding-left: 40px;
+  }
+
+  .bottom-cta-section {
+    height: 280px;
   }
 }
