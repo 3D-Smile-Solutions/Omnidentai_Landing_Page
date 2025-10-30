@@ -209,7 +209,6 @@ const Stats = ({ isDarkMode }) => {
         <div className="video-wrapper">
           <div className="video-container">
             <div className="video-frame" ref={videoFrameRef}>
-              {!isPlaying ? (
                 <div className="video-placeholder" onClick={handlePlayClick}>
                   <div className="play-button">
                     <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
@@ -218,16 +217,6 @@ const Stats = ({ isDarkMode }) => {
                     </svg>
                   </div>
                 </div>
-              ) : (
-                <iframe
-                  src="https://www.youtube.com/embed/xvFZjo5PgG0?autoplay=1"
-                  title="OmniDent Demo"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="video-iframe"
-                ></iframe>
-              )}
             </div>
             <div className="video-corner top-left" ref={el => cornersRef.current[0] = el}></div>
             <div className="video-corner top-right" ref={el => cornersRef.current[1] = el}></div>
