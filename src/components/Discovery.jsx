@@ -8,60 +8,102 @@ import { FiMessageSquare, FiMonitor, FiPhone } from 'react-icons/fi';
 gsap.registerPlugin(ScrollTrigger);
 
 const Discovery = ({ isDarkMode }) => {
-  // Refs for animation targets
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
+  const cardsRef = useRef([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title Animation
-      gsap.from(titleRef.current, {
+      // Main timeline with pin
+      const mainTimeline = gsap.timeline({
         scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top 80%',
-          toggleActions: 'play reverse play reverse'
-        },
-        opacity: 0,
-        y: 40,
-        duration: 0.7,
-        ease: 'power3.out'
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: '+=150%',
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+        }
       });
 
-      // Highlight word special animation
-      const highlight = titleRef.current.querySelector('.highlight');
-      if (highlight) {
-        gsap.from(highlight, {
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: 'top 80%',
-            toggleActions: 'play reverse play reverse'
-          },
-          opacity: 0,
-          scale: 0.9,
-          duration: 0.6,
-          delay: 0.2,
-          ease: 'back.out(1.5)'
-        });
-      }
+      // Animate title
+      mainTimeline.fromTo(
+        titleRef.current,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+      );
 
-      // Subtitle Animation
-      gsap.from(subtitleRef.current, {
-        scrollTrigger: {
-          trigger: subtitleRef.current,
-          start: 'top 80%',
-          toggleActions: 'play reverse play reverse'
+      // Animate subtitle
+      mainTimeline.fromTo(
+        subtitleRef.current,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+        '-=0.3'
+      );
+
+      // Animate cards with stagger
+      mainTimeline.fromTo(
+        cardsRef.current,
+        { opacity: 0, y: 100, scale: 0.8 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: 'power3.out'
         },
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        delay: 0.3,
-        ease: 'power2.out'
+        '-=0.2'
+      );
+
+      // Animate card internals
+      cardsRef.current.forEach((card, index) => {
+        if (!card) return;
+
+        const icon = card.querySelector('.channel-icon-box');
+        const title = card.querySelector('.channel-title');
+        const description = card.querySelector('.channel-description');
+        const features = card.querySelectorAll('.channel-features li');
+        const button = card.querySelector('.channel-btn');
+
+        const cardTimeline = gsap.timeline();
+
+        cardTimeline
+          .fromTo(icon, 
+            { scale: 0, rotation: -180 },
+            { scale: 1, rotation: 0, duration: 0.4, ease: 'back.out(2)' }
+          )
+          .fromTo(title,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' },
+            '-=0.2'
+          )
+          .fromTo(description,
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' },
+            '-=0.2'
+          )
+          .fromTo(features,
+            { opacity: 0, x: -20 },
+            { opacity: 1, x: 0, duration: 0.3, stagger: 0.1, ease: 'power2.out' },
+            '-=0.2'
+          )
+          .fromTo(button,
+            { opacity: 0, y: 10 },
+            { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' },
+            '-=0.2'
+          );
+
+        mainTimeline.add(cardTimeline, `-=${0.6 - (index * 0.15)}`);
       });
+
+      // Hold at the end
+      mainTimeline.to({}, { duration: 0.3 });
 
     }, sectionRef);
 
-    return () => ctx.revert(); // Cleanup
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -78,7 +120,11 @@ const Discovery = ({ isDarkMode }) => {
         </p>
         
         <div className="channels-grid">
-          <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(238, 255, 0, 0.21)">
+          <SpotlightCard 
+            ref={el => cardsRef.current[0] = el}
+            className="custom-spotlight-card x" 
+            spotlightColor="rgba(238, 255, 0, 0.21)"
+          >
             <div className="channel-icon-box cyan">
               <FiMessageSquare className="channel-icon" />
             </div>
@@ -96,7 +142,11 @@ const Discovery = ({ isDarkMode }) => {
             </button>
           </SpotlightCard>
 
-          <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(0, 229, 255, 0.2)">
+          <SpotlightCard 
+            ref={el => cardsRef.current[1] = el}
+            className="custom-spotlight-card y" 
+            spotlightColor="rgba(0, 229, 255, 0.2)"
+          >
             <div className="channel-icon-box teal">
               <FiMonitor className="channel-icon" />
             </div>
@@ -114,13 +164,17 @@ const Discovery = ({ isDarkMode }) => {
             </button>
           </SpotlightCard>
 
-          <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 145, 0, 0.2)">
+          <SpotlightCard 
+            ref={el => cardsRef.current[2] = el}
+            className="custom-spotlight-card z" 
+            spotlightColor="rgba(255, 145, 0, 0.2)"
+          >
             <div className="channel-icon-box indigo">
               <FiPhone className="channel-icon" />
             </div>
             <h3 className="channel-title">PHONE CALL ACCESS</h3>
             <p className="channel-description">
-              Patients call your practice number and speak naturally with OmniDent.ai's voice assistant.
+              Patients call your practice number and speak naturally with your OmniDent.ai's voice assistant.
             </p>
             <ul className="channel-features">
               <li>• Prefer talking to typing</li>

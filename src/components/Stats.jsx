@@ -182,7 +182,8 @@ const Stats = ({ isDarkMode }) => {
             </h1>
             
             <div className="intro-features" ref={featuresRef}>
-              <p>Combining deep market insights with cutting-edge AI to eliminate no-shows, automate administrative tasks, and accelerate practice growth.</p>
+              <p>Unlocking personalised dental care with intelligent diagnostics, automated notes, and streamlined workflows that put patients first.</p>
+              <p>This approach improves outcomes and practice efficiency, delivering expert support and measurable results every day.</p>
             </div>
             
             <button className="swipe btn" ref={ctaRef} onClick={() => scrollToSection('calendar')}>

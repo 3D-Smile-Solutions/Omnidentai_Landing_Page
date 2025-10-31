@@ -33,11 +33,11 @@
 }
 
 .hero.dark .hero-overlay {
-  background: rgba(0, 0, 0, 0.200);
+  background: rgba(0, 0, 0, 0.11);
 }
 
 .hero.light .hero-overlay {
-  background: rgba(0, 0, 0, 0.200);
+  background: rgba(0, 0, 0, 0.11);
 }
 
 /* Navigation */
@@ -245,7 +245,7 @@
 }
 
 .info-box {
-  background: rgba(211, 255, 205, 0.075);
+  background: rgba(0, 0, 0, 0.356);
   border-radius: 8px;
   padding: 24px 20px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);

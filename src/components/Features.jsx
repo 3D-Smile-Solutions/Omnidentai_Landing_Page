@@ -13,7 +13,7 @@ import f6 from '../assets/f6.png';
 gsap.registerPlugin(ScrollTrigger);
 
 const Features = () => {
-  const [hoveredFeature, setHoveredFeature] = useState(null);
+  const [activeFeature, setActiveFeature] = useState(1);
   
   // Refs for animation targets
   const sectionRef = useRef(null);
@@ -21,6 +21,7 @@ const Features = () => {
   const titleRef = useRef(null);
   const featureItemsRef = useRef([]);
   const imageBoxRef = useRef(null);
+  const featuresRightRef = useRef(null);
 
   const featureData = [
     {
@@ -74,7 +75,7 @@ const Features = () => {
         scrollTrigger: {
           trigger: labelRef.current,
           start: 'top 80%',
-          toggleActions: 'play reverse play reverse'
+          toggleActions: 'play none none reverse'
         },
         opacity: 0,
         y: -20,
@@ -87,7 +88,7 @@ const Features = () => {
         scrollTrigger: {
           trigger: titleRef.current,
           start: 'top 80%',
-          toggleActions: 'play reverse play reverse'
+          toggleActions: 'play none none reverse'
         },
         opacity: 0,
         y: 30,
@@ -96,31 +97,27 @@ const Features = () => {
         ease: 'power3.out'
       });
 
-      // Feature Items - Staggered Animation
-      gsap.from(featureItemsRef.current, {
-        scrollTrigger: {
-          trigger: featureItemsRef.current[0],
-          start: 'top 85%',
-          toggleActions: 'play reverse play reverse'
-        },
-        opacity: 0,
-        x: -30,
-        duration: 0.5,
-        ease: 'power2.out',
+      // Pin the right side (image box) while scrolling through features
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: 'bottom bottom',
+        pin: featuresRightRef.current,
+        pinSpacing: false,
       });
 
-      // Image Box Animation
-      gsap.from(imageBoxRef.current, {
-        scrollTrigger: {
-          trigger: imageBoxRef.current,
-          start: 'top 80%',
-          toggleActions: 'play reverse play reverse'
-        },
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.7,
-        delay: 0.3,
-        ease: 'power2.out'
+      // Create scroll trigger for each feature item
+      featureItemsRef.current.forEach((item, index) => {
+        if (item) {
+          ScrollTrigger.create({
+            trigger: item,
+            start: 'top 60%',
+            end: 'bottom 40%',
+            onEnter: () => setActiveFeature(index + 1),
+            onEnterBack: () => setActiveFeature(index + 1),
+            // markers: true, // Uncomment for debugging
+          });
+        }
       });
 
     }, sectionRef);
@@ -145,10 +142,9 @@ const Features = () => {
               {featureData.map((feature, index) => (
                 <div
                   key={feature.id}
-                  className={`feature-item ${hoveredFeature === feature.id ? 'active' : ''}`}
+                  className={`feature-item ${activeFeature === feature.id ? 'active' : ''}`}
                   ref={el => featureItemsRef.current[index] = el}
-                  onMouseEnter={() => setHoveredFeature(feature.id)}
-                  onMouseLeave={() => setHoveredFeature(null)}
+                  onMouseEnter={() => setActiveFeature(feature.id)}
                 >
                   <div className="feature-title-wrapper">
                     <h3 className="feature-title">
@@ -163,19 +159,16 @@ const Features = () => {
             </div>
           </div>
 
-          <div className="features-right">
+          <div className="features-right" ref={featuresRightRef}>
             <div className="feature-image-box" ref={imageBoxRef}>
-              {hoveredFeature ? (
+              {featureData.map((feature) => (
                 <img 
-                  src={featureData.find(f => f.id === hoveredFeature)?.image} 
-                  alt="Feature visualization"
-                  className="feature-image"
+                  key={feature.id}
+                  src={feature.image} 
+                  alt={feature.title}
+                  className={`feature-image ${activeFeature === feature.id ? 'active' : ''}`}
                 />
-              ) : (
-                <div className="feature-placeholder">
-                  <span>Hover over a feature to see details</span>
-                </div>
-              )}
+              ))}
             </div>
           </div>
         </div>

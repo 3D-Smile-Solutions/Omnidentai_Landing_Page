@@ -203,14 +203,15 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 50%;
+  height: 60%;
   background: linear-gradient(to bottom, 
     transparent 0%,
-    transparent 20%,
-    rgba(255, 255, 255, 0.3) 40%,
-    rgba(255, 255, 255, 0.7) 60%,
-    rgba(255, 255, 255, 0.95) 80%,
-    white 95%
+    rgba(255, 255, 255, 0.1) 10%,
+    rgba(255, 255, 255, 0.4) 30%,
+    rgb(255, 255, 255) 50%,
+    rgb(255, 255, 255) 70%,
+    rgb(255, 255, 255) 85%,
+    rgb(255, 255, 255) 100%
   );
   pointer-events: none;
   z-index: 3;
@@ -219,11 +220,12 @@
 .infographic.dark .slider-section::after {
   background: linear-gradient(to bottom, 
     transparent 0%,
-    transparent 20%,
-    rgb(26, 26, 26) 40%,
-    rgba(26, 26, 26, 0.7) 60%,
-    rgba(26, 26, 26, 0.95) 80%,
-    #1a1a1a 95%
+    rgba(26, 26, 26, 0.1) 10%,
+    rgba(26, 26, 26, 0.4) 30%,
+    rgb(26, 26, 26) 50%,
+    rgb(26, 26, 26) 70%,
+    rgb(26, 26, 26) 85%,
+    rgb(26, 26, 26) 100%
   );
 }
 
