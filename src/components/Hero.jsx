@@ -155,8 +155,7 @@ const Hero = ({ isDarkMode, toggleDarkMode }) => {
       <div className="hero-content">
         <div className="hero-text" ref={heroTextRef}>
           <h1 className="hero-title">
-            <span className="highlight">Pioneer</span> the future<br />
-            of patient engagement
+            <span className="highlight">Grow Your Practice</span>,<br /> Not Your Workload.
           </h1>
         </div>
         
