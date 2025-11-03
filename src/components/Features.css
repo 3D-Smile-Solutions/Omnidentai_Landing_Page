@@ -5,6 +5,7 @@
   background: #1a1a1a;
   min-height: 100vh;
   overflow: hidden;
+  scroll-behavior: smooth;
 }
 
 /* Glowing Background Circles */
@@ -153,20 +154,20 @@
 .features-list {
   display: flex;
   flex-direction: column;
-  gap: 60px;
-  padding-bottom: 20vh; /* Reduced from 100vh to 20vh for faster unpinning */
+  gap: 0px; /* Reduced from 60px to 30px for tighter spacing */
+  padding-bottom: 0px; /* Increased for more scroll distance */
 }
 
 .feature-item {
   position: relative;
-  padding: 30px 0;
+  padding: 0px 0; /* Reduced from 30px */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Increased from 0.4s to 0.6s for slower transition */
   display: flex;
   flex-direction: column;
   gap: 0;
-  min-height: 200px; /* Increased for better scroll spacing */
+  min-height: 50px; /* Increased for better scroll spacing and slower animation */
 }
 
 .feature-item:last-child {
@@ -192,21 +193,21 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.4s ease;
+  transition: all 0.6s ease; /* Increased from 0.4s to 0.6s */
 }
 
 .feature-count {
   font-size: 14px;
   color: rgba(255, 255, 255, 0.3);
   font-weight: 300;
-  transition: all 0.4s ease;
+  transition: all 0.6s ease; /* Increased from 0.4s to 0.6s */
 }
 
 .feature-description {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Increased from 0.4s to 0.6s */
   margin-top: 0;
 }
 
@@ -221,7 +222,7 @@
 
 /* Active State (Scroll-triggered) */
 .feature-item.active {
-  padding: 30px 0;
+  padding: 24px 0;
 }
 
 .feature-item.active .feature-title {
@@ -269,8 +270,8 @@
 }
 
 .feature-image-box {
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 600px;
   background: linear-gradient(135deg, rgba(0, 184, 212, 0.05) 0%, rgba(0, 184, 212, 0.02) 100%);
   border: 10px solid rgb(0, 0, 0);
   border-radius: 20px;
@@ -295,7 +296,7 @@
   left: 0;
   border-radius: 10px;
   opacity: 0;
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.8s ease, transform 0.8s ease; /* Increased from 0.6s to 0.8s for slower image transition */
   transform: scale(1.1);
 }
 
@@ -436,12 +437,16 @@
   }
 
   .feature-image-box {
-    width: 550px;
-    height: 550px;
+    width: 750px;
+    height: 750px;
   }
 
   .features-title {
     font-size: 60px;
+  }
+  
+  .feature-item {
+    min-height: 100px;
   }
 }
 
@@ -452,8 +457,8 @@
   }
   
   .feature-image-box {
-    width: 450px;
-    height: 450px;
+    width: 650px;
+    height: 650px;
   }
   
   .glow-orb-1 {
@@ -464,6 +469,10 @@
   .glow-orb-2 {
     width: 250px;
     height: 250px;
+  }
+  
+  .feature-item {
+    min-height: 100px;
   }
 }
 
@@ -478,13 +487,16 @@
   }
 
   .feature-image-box {
-    width: 400px;
-    height: 400px;
+    width: 580px;
+    height: 580px;
   }
 
   .feature-item {
-    min-height: 180px;
-    gap: 50px;
+    min-height: 100px;
+  }
+  
+  .features-list {
+    gap: 25px;
   }
 }
 
@@ -521,12 +533,12 @@
   
   .features-list {
     padding-bottom: 0;
-    gap: 24px;
+    gap: 20px;
   }
 
   .feature-item {
     min-height: auto;
-    padding: 20px 0;
+    padding: 18px 0;
   }
   
   .feature-image-box {
@@ -591,11 +603,11 @@
   }
   
   .features-list {
-    gap: 18px;
+    gap: 16px;
   }
   
   .feature-item {
-    padding: 16px 0;
+    padding: 14px 0;
   }
   
   .glow-orb-1,

@@ -97,24 +97,46 @@ const Features = () => {
         ease: 'power3.out'
       });
 
-      // Pin the right side (image box) while scrolling through features
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: 'bottom bottom',
-        pin: featuresRightRef.current,
-        pinSpacing: false,
+      // Only pin on desktop (1024px and above)
+      const mm = gsap.matchMedia();
+      
+      mm.add("(min-width: 1024px)", () => {
+        const scrollDistance = sectionRef.current.offsetHeight;
+
+        // ✅ Pin right side
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top top",
+          end: () => `+=${scrollDistance}`,
+          pin: featuresRightRef.current,
+          pinSpacing: true,
+          scrub: true,
+        });
+
+        // ✅ Pin left side, synced with right
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top+=120 top",
+          end: () => `+=${scrollDistance}`,
+          pin: ".features-left",
+          pinSpacing: true,
+          scrub: true,
+        });
       });
 
-      // Create scroll trigger for each feature item
+
+
+      // Create scroll trigger for each feature item with slower activation
       featureItemsRef.current.forEach((item, index) => {
         if (item) {
           ScrollTrigger.create({
             trigger: item,
-            start: 'top 60%',
-            end: 'bottom 40%',
+            start: 'top 30%', // Changed from 60% to 50% for slower activation
+            end: 'bottom 30%', // Changed from 40% to 30% for longer active duration
             onEnter: () => setActiveFeature(index + 1),
             onEnterBack: () => setActiveFeature(index + 1),
+            // Add scrub for smoother transitions
+            scrub: 0.5,
             // markers: true, // Uncomment for debugging
           });
         }
