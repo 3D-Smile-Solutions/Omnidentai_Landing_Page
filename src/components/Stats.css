@@ -431,6 +431,7 @@
   .tooth-wrapper {
     width: 600px;
     height: 600px;
+    transform: translateX(200px);
   }
 
   .tooth-image {
@@ -554,7 +555,7 @@
   .tooth-wrapper {
     width: 550px;
     height: 550px;
-    transform: translateX(70px);
+    transform: translateX(50px);
   }
 
   .tooth-image {
@@ -737,7 +738,7 @@
   }
 
   .tooth-image {
-    width: 350px;
+    width:350px;
     opacity: .6;
   }
 
