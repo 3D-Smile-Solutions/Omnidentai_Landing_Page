@@ -1,0 +1,490 @@
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Video Container with Rounded Corners */
+.hero-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0 0 40px 40px;
+  z-index: 0;
+}
+
+/* Video Background */
+.hero-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Dark Overlay - Made Darker */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.hero-section.dark .hero-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Hero Content Wrapper */
+.hero-content-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+
+/* Title Section - Below Navbar - MORE LEFT PADDING */
+.hero-title-section {
+  padding: 140px 60px 0 160px;
+  max-width: 1400px;
+  width: 100%;
+}
+
+.hero-title {
+  text-align: left;
+  font-family: "Unna", serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 72px;
+  line-height: 1.1;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hero-title .highlight {
+  font-family: "Unna", serif;
+  font-weight: 700;
+  font-style: italic;
+  background: linear-gradient(to right, #51E2D2 50%, #25A4E3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Slogan */
+.hero-slogan {
+  font-family: "Geist", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: inline-block;
+}
+
+.hero-slogan::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, #51E2D2, #25A4E3);
+}
+
+/* Description Section - Bottom Left - MORE LEFT PADDING */
+.hero-description-section {
+  padding: 0 60px 60px 160px;
+  max-width: 700px;
+  width: 100%;
+}
+
+.info-box-description {
+  padding: 0;
+  background: transparent;
+}
+
+.info-box-content {
+  font-family: "Geist", sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #ffffff;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Tags styling - No background */
+.info-box-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.feature-badge {
+  font-family: "Geist", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+  background: transparent;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: none;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  display: inline-block;
+}
+
+/* Hero CTA Button - Matches CardNav styling */
+.hero-cta-button {
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: calc(0.75rem - 0.35rem);
+  padding: 12px 24px;
+  font-family: "Geist", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  gap: 8px;
+}
+
+.hero-cta-button:hover {
+  background-color: #333;
+  transform: translateY(-1px);
+}
+
+.hero-cta-button:active {
+  transform: translateY(0);
+}
+
+.hero-cta-button .button-icon {
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.hero-cta-button:hover .button-icon {
+  transform: translateX(3px);
+}
+
+/* Dark mode variant */
+.hero-section.dark .hero-cta-button {
+  background-color: #fff;
+  color: #000;
+}
+
+.hero-section.dark .hero-cta-button:hover {
+  background-color: #e5e5e5;
+}
+
+/* Responsive Breakpoints */
+
+/* Large Tablets and Small Desktops */
+@media (max-width: 1200px) {
+  .hero-title {
+    font-size: 64px;
+  }
+  
+  .hero-slogan {
+    font-size: 17px;
+    letter-spacing: 0.28em;
+  }
+  
+  .hero-title-section {
+    padding: 130px 50px 0 140px;
+  }
+  
+  .hero-description-section {
+    padding: 0 50px 50px 140px;
+  }
+  
+  .info-box-content {
+    font-size: 17px;
+  }
+  
+  .feature-badge {
+    font-size: 13px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .hero-video-container {
+    border-radius: 0 0 30px 30px;
+  }
+  
+  .hero-title {
+    font-size: 58px;
+    margin-bottom: 20px;
+  }
+  
+  .hero-slogan {
+    font-size: 16px;
+    letter-spacing: 0.25em;
+  }
+  
+  .hero-slogan::before {
+    width: 50px;
+    height: 2px;
+  }
+  
+  .hero-title-section {
+    padding: 120px 40px 0 100px;
+  }
+  
+  .hero-description-section {
+    padding: 0 40px 40px 100px;
+    max-width: 600px;
+  }
+  
+  .hero-overlay {
+    background: rgba(0, 0, 0, 0.65);
+  }
+  
+  .info-box-content {
+    font-size: 17px;
+  }
+  
+  .feature-badge {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+  
+  .hero-cta-button {
+    font-size: 15px;
+    padding: 12px 24px;
+  }
+}
+
+/* Mobile Landscape and Small Tablets */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 100vh;
+  }
+  
+  .hero-video-container {
+    border-radius: 0 0 24px 24px;
+  }
+  
+  .hero-title {
+    font-size: 52px;
+    margin-bottom: 18px;
+  }
+  
+  .hero-slogan {
+    font-size: 15px;
+    letter-spacing: 0.25em;
+  }
+  
+  .hero-slogan::before {
+    width: 45px;
+  }
+  
+  .hero-title-section {
+    padding: 110px 30px 0 50px;
+  }
+  
+  .hero-overlay {
+    background: rgba(0, 0, 0, 0.65);
+  }
+  
+  .hero-description-section {
+    padding: 0 30px 30px 50px;
+    max-width: 100%;
+  }
+  
+  .info-box-description {
+    padding: 0;
+  }
+  
+  .info-box-content {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .feature-badge {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+  
+  .hero-cta-button {
+    width: 100%;
+    padding: 15px 24px;
+    font-size: 16px;
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+  .hero-video-container {
+    border-radius: 0 0 20px 20px;
+  }
+  
+  .hero-title {
+    font-size: 42px;
+    margin-bottom: 16px;
+  }
+  
+  .hero-slogan {
+    font-size: 14px;
+    letter-spacing: 0.2em;
+  }
+  
+  .hero-slogan::before {
+    width: 40px;
+    bottom: -6px;
+  }
+  
+  .hero-title-section {
+    padding: 100px 20px 0 40px;
+  }
+  
+  .hero-description-section {
+    padding: 0 20px 20px 40px;
+  }
+  
+  .info-box-content {
+    font-size: 16px;
+    margin-bottom: 14px;
+  }
+  
+  .feature-badge {
+    font-size: 12px;
+    padding: 7px 14px;
+  }
+  
+  .hero-cta-button {
+    padding: 14px 22px;
+    font-size: 15px;
+    margin-top: 18px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 400px) {
+  .hero-title {
+    font-size: 38px;
+    margin-bottom: 14px;
+  }
+  
+  .hero-slogan {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+  }
+  
+  .hero-slogan::before {
+    width: 35px;
+  }
+  
+  .hero-title-section {
+    padding: 90px 16px 0 32px;
+  }
+  
+  .hero-description-section {
+    padding: 0 16px 16px 32px;
+  }
+  
+  .info-box-content {
+    font-size: 15px;
+  }
+  
+  .feature-badge {
+    font-size: 12px;
+    padding: 7px 14px;
+  }
+  
+  .hero-cta-button {
+    padding: 13px 20px;
+    font-size: 15px;
+  }
+}
+
+/* Very Small Mobile */
+@media (max-width: 330px) {
+  .hero-video-container {
+    border-radius: 0 0 16px 16px;
+  }
+  
+  .hero-title {
+    font-size: 34px;
+    margin-bottom: 12px;
+  }
+  
+  .hero-slogan {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+  }
+  
+  .hero-slogan::before {
+    width: 30px;
+    height: 2px;
+  }
+  
+  .hero-title-section {
+    padding: 85px 12px 0 24px;
+  }
+  
+  .hero-description-section {
+    padding: 0 12px 12px 24px;
+  }
+  
+  .info-box-content {
+    font-size: 14px;
+  }
+  
+  .feature-badge {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+  
+  .hero-cta-button {
+    font-size: 14px;
+    padding: 12px 18px;
+  }
+  
+  .info-box-features {
+    gap: 8px;
+  }
+}
