@@ -1,151 +1,181 @@
-import React, { useState, useEffect } from 'react';
-import { HiMenu, HiX } from 'react-icons/hi';
-import { MdLightMode, MdDarkMode } from 'react-icons/md';
+import React, { useState, useEffect } from "react";
+import { FaBars, FaMoon, FaSun } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
+import { FiBookOpen } from "react-icons/fi";
 import './Navbar.css';
 
-const Navbar = ({ 
-  logo, 
-  logoAlt = 'Logo', 
-  onThemeToggle, 
-  isDarkMode = false 
-}) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+const Navbar = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const navLinks = [
-    { label: 'Features', href: '#features' },
-    { label: 'Platform', href: '#platform' },
-    { label: 'Patient Journey', href: '#patient-journey' },
-    { label: 'SmileNexus', href: '#smilenexus' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'Results', href: '#results' }
-  ];
+    const navItems = [
+        {
+            id: 1,
+            name: "Features",
+            section: "features",
+        },
+        {
+            id: 2,
+            name: "Patient Journey",
+            section: "patient-journey",
+        },
+        {
+            id: 3,
+            name: "Platform",
+            section: "platform",
+        },
+        {
+            id: 4,
+            name: "Results",
+            section: "results",
+        },
+        {
+            id: 5,
+            name: "Pricing",
+            section: "pricing",
+        },
+        {
+            id: 6,
+            name: "Smile Nexus",
+            section: null,
+            isExternal: true,
+            url: "https://smilenexus.vercel.app/",
+        },
+    ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    const toggleNavbar = () => {
+        setIsOpen(!isOpen);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const toggleDarkMode = () => {
+        setIsDarkMode(!isDarkMode);
+        // You can add logic here to actually change your app's theme
+        // For example: document.body.classList.toggle('dark-mode');
+    };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+    // Function to handle scroll event
+    const handleScroll = () => {
+        if (window.scrollY > 50) {
+            setIsScrolled(true);
+        } else {
+            setIsScrolled(false);
+        }
+    };
 
-  const handleLinkClick = () => {
-    setIsMenuOpen(false);
-  };
+    // Function to scroll to section or open external link
+    const handleNavClick = (item) => {
+        if (item.isExternal) {
+            window.open(item.url, '_blank', 'noopener,noreferrer');
+        } else {
+            scrollToSection(item.section);
+        }
+    };
 
-  return (
-    <>
-      <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isDarkMode ? 'dark' : 'light'}`}>
-        <div className="navbar-container">
-          {/* Logo */}
-          <div className="navbar-logo">
-            <a href="#home">
-              <img src={logo} alt={logoAlt} className="logo-image" />
-            </a>
-          </div>
+    // Function to scroll to section
+    const scrollToSection = (sectionId) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setIsOpen(false); // Close mobile menu after clicking
+        }
+    };
 
-          {/* Desktop Navigation Links */}
-          <div className="navbar-links">
-            {navLinks.map((link, index) => (
-              <a 
-                key={index} 
-                href={link.href} 
-                className="nav-link"
-                onClick={handleLinkClick}
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
+    // Adding event listener on mount and removing on unmount
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
-          {/* Right Side Actions */}
-          <div className="navbar-actions">
-            {/* Theme Toggle */}
-            {onThemeToggle && (
-              <button
-                className="theme-toggle"
-                onClick={onThemeToggle}
-                aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-              >
-                {isDarkMode ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
-              </button>
-            )}
+    return (
+        <div
+            id="navbar"
+            className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}
+        >
+            {/* Logo */}
+            <div className="navbar-logo-container">
+                <button 
+                    onClick={() => scrollToSection('home')} 
+                    className="navbar-logo-button"
+                >
+                    <FiBookOpen size={24} />
+                    LearnHub
+                </button>
+            </div>
 
-            {/* CTA Button */}
-            <button className="navbar-cta-button">
-              Book a Demo
-            </button>
+            {/* Hamburger Menu for Mobile */}
+            <div className="navbar-hamburger">
+                <button
+                    onClick={toggleNavbar}
+                    className="navbar-hamburger-button"
+                >
+                    <FaBars size={24} />
+                </button>
+            </div>
 
-            {/* Mobile Menu Toggle */}
-            <button 
-              className="mobile-menu-toggle"
-              onClick={toggleMenu}
-              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            >
-              {isMenuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
-            </button>
-          </div>
+            {/* Navbar items and buttons */}
+            <div className={`navbar-menu ${isOpen ? "navbar-menu-open" : ""}`}>
+                {/* Logo and close icon Inside Toggle Menu */}
+                <div className="navbar-mobile-header">
+                    {/* Logo */}
+                    <button 
+                        onClick={() => scrollToSection('home')} 
+                        className="navbar-logo-button"
+                    >
+                        <FiBookOpen size={24} />
+                        LearnHub
+                    </button>
+                    {/* Close Icon */}
+                    <div className="navbar-close-container">
+                        <button
+                            onClick={toggleNavbar}
+                            className="navbar-close-button"
+                        >
+                            <IoMdClose size={28} />
+                        </button>
+                    </div>
+                </div>
+
+                {/* Divider */}
+                <div className="navbar-divider"></div>
+
+                <div className="navbar-content">
+                    {/* Navbar items */}
+                    <ul className="navbar-items">
+                        {navItems.map((item) => (
+                            <li key={item.id}>
+                                <button 
+                                    onClick={() => handleNavClick(item)}
+                                    className="navbar-link"
+                                >
+                                    {item.name}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+
+                    {/* Buttons */}
+                    <div className="navbar-buttons">
+                        <button 
+                            className="navbar-button navbar-button-darkmode"
+                            onClick={toggleDarkMode}
+                            aria-label="Toggle dark mode"
+                        >
+                            {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+                        </button>
+                        <button 
+                            className="navbar-button navbar-button-demo"
+                            onClick={() => scrollToSection('calendar')}
+                        >
+                            Request a Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
-        <div className="mobile-menu-content">
-          {navLinks.map((link, index) => (
-            <a 
-              key={index} 
-              href={link.href} 
-              className="mobile-nav-link"
-              onClick={handleLinkClick}
-            >
-              {link.label}
-            </a>
-          ))}
-          
-          {/* Mobile CTA Button */}
-          <button className="mobile-cta-button" onClick={handleLinkClick}>
-            Book a Demo
-          </button>
-
-          {/* Mobile Theme Toggle */}
-          {onThemeToggle && (
-            <button
-              className="mobile-theme-toggle"
-              onClick={() => {
-                onThemeToggle();
-                handleLinkClick();
-              }}
-            >
-              {isDarkMode ? (
-                <>
-                  <MdLightMode size={20} />
-                  <span>Light Mode</span>
-                </>
-              ) : (
-                <>
-                  <MdDarkMode size={20} />
-                  <span>Dark Mode</span>
-                </>
-              )}
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Mobile Menu Backdrop */}
-      {isMenuOpen && (
-        <div 
-          className="mobile-menu-backdrop" 
-          onClick={toggleMenu}
-        />
-      )}
-    </>
-  );
+    );
 };
 
 export default Navbar;

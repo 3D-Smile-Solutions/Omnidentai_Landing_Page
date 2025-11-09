@@ -9,6 +9,7 @@ import NavLogo from '../assets/Logo.png';
 import { HiArrowRight } from 'react-icons/hi';
 
 import CardNav from '../StylingComponents/CardNav.jsx';
+import Navbar from '../StylingComponents/Navbar.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -138,29 +139,15 @@ const Hero = ({ issDarkMode, toggleDarkMode }) => {
       </div>
       
       {/* Navigation */}
-      <CardNav
-        logo={NavLogo}
-        logoAlt="OmniDent AI Logo"
-        items={items}
-        baseColor={isDarkMode ? "#1a1a1a" : "#fff"}
-        menuColor={isDarkMode ? "#fff" : "#000"}
-        buttonBgColor={isDarkMode ? "#fff" : "#111"}
-        buttonTextColor={isDarkMode ? "#000" : "#fff"}
-        buttonText="Book a Demo"
-        ease="power3.out"
-        onThemeToggle={handleThemeToggle}
-        isDarkMode={isDarkMode}
-      />
+      <Navbar />
 
       {/* Hero Content */}
       <div className="hero-content-wrapper">
         {/* Title Section - Below Navbar */}
         <div className="hero-title-section" ref={heroTextRef}>
           <h1 className="hero-title">
-            <span className="highlight">Grow Your Practice</span>,<br /> 
-            Not Your Workload.
+            <span className="highlight">DO MORE DENTISTRY</span>
           </h1>
-          <p className="hero-slogan" ref={heroSloganRef}>DO MORE DENTISTRY</p>
         </div>
         
         {/* Description Section - Bottom Left */}

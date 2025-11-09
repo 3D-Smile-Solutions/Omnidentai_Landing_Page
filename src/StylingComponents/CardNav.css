@@ -3,7 +3,7 @@
   top: 2em;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(100% - 40px); /* Almost full width with 20px margin on each side */
+  width: calc(100% - 20rem); /* Almost full width with 20px margin on each side */
   max-width: none; /* Remove max-width constraint */
   z-index: 99;
   box-sizing: border-box;

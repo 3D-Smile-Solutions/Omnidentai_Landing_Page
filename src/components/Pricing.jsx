@@ -40,19 +40,33 @@ const Pricing = ({ isDarkMode }) => {
         '-=0.3'
       );
 
-      // Animate cards with stagger
+      // Animate cards with stagger - center card first, then sides
       mainTimeline.fromTo(
-        cardsRef.current,
+        cardsRef.current[1], // Center card (Core Platform)
         { opacity: 0, y: 100, scale: 0.8 },
         {
           opacity: 1,
           y: 0,
           scale: 1,
           duration: 0.8,
-          stagger: 0.2,
           ease: 'power3.out'
         },
         '-=0.2'
+      );
+
+      // Animate side cards together
+      mainTimeline.fromTo(
+        [cardsRef.current[0], cardsRef.current[2]], // Left and right cards
+        { opacity: 0, y: 100, scale: 0.8 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out'
+        },
+        '-=0.6'
       );
 
       // Animate card internals
@@ -138,9 +152,57 @@ const Pricing = ({ isDarkMode }) => {
         </p>
 
         <div className="pricing-cards">
-          {/* Core Platform Card */}
+          {/* Built In Card - Left Side */}
           <div 
             ref={el => cardsRef.current[0] = el} 
+            className="pricing-card built-in"
+          >
+            <div className="card-header">
+              <h3 className="card-title">BUILT IN</h3>
+              <p className="card-description">
+                Marketing partner inside<br />
+                OmniDent.AI. Uses platform<br />
+                metrics to optimize spend
+              </p>
+            </div>
+            
+            <div className="price-section price-section-empty"></div>
+
+            <ul className="card-features">
+              <li>
+                <span className="feature-icon"></span>
+                <span>$1,000 activation credit included</span>
+              </li>
+              <li>
+                <span className="feature-icon"></span>
+                <span>SEO, landing pages, and paid campaign builds</span>
+              </li>
+              <li>
+                <span className="feature-icon"></span>
+                <span>Continuous tuning from OmniDent.ai analytics</span>
+              </li>
+            </ul>
+
+            <div className="card-action">
+              <button className="swipe pricing-btn" onClick={() => scrollToSection('calendar')}>
+                Book A Strategy Call
+                <span className="container">
+                  <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="#d0ff00ff"></path>
+                  </svg>
+                </span>
+              </button>
+            </div>
+
+            <p className="card-footer">
+              Runs as part of your OmniDent.ai subscription
+            </p>
+          </div>
+
+          {/* Core Platform Card - CENTER (Featured) */}
+          <div 
+            ref={el => cardsRef.current[1] = el} 
             className="pricing-card core-platform"
           >
             <div className="card-header">
@@ -195,55 +257,7 @@ const Pricing = ({ isDarkMode }) => {
             </p>
           </div>
 
-          {/* Built In Card */}
-          <div 
-            ref={el => cardsRef.current[1] = el} 
-            className="pricing-card built-in"
-          >
-            <div className="card-header">
-              <h3 className="card-title">BUILT IN</h3>
-              <p className="card-description">
-                Marketing partner inside<br />
-                OmniDent.AI. Uses platform<br />
-                metrics to optimize spend
-              </p>
-            </div>
-            
-            <div className="price-section price-section-empty"></div>
-
-            <ul className="card-features">
-              <li>
-                <span className="feature-icon"></span>
-                <span>$1,000 activation credit included</span>
-              </li>
-              <li>
-                <span className="feature-icon"></span>
-                <span>SEO, landing pages, and paid campaign builds</span>
-              </li>
-              <li>
-                <span className="feature-icon"></span>
-                <span>Continuous tuning from OmniDent.ai analytics</span>
-              </li>
-            </ul>
-
-            <div className="card-action">
-              <button className="swipe pricing-btn" onClick={() => scrollToSection('calendar')}>
-                Book A Strategy Call
-                <span className="container">
-                  <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="#d0ff00ff"></path>
-                  </svg>
-                </span>
-              </button>
-            </div>
-
-            <p className="card-footer">
-              Runs as part of your OmniDent.ai subscription
-            </p>
-          </div>
-
-          {/* Optional Card */}
+          {/* Optional Card - Right Side */}
           <div 
             ref={el => cardsRef.current[2] = el} 
             className="pricing-card optional"

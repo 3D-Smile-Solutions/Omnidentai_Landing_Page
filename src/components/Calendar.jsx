@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FiCalendar } from 'react-icons/fi';
+import { FiCalendar, FiChevronDown } from 'react-icons/fi';
+import Cal, { getCalApi } from "@calcom/embed-react";
 import footerBg from '../assets/Footer.jpg';
 import './Calendar.css';
 import NavLogo from '../assets/Logo.png';
@@ -15,97 +16,92 @@ const Calendar = ({ isDarkMode }) => {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const calendarEmbedRef = useRef(null);
-  const footerLeftRef = useRef(null);
-  const footerRightRef = useRef(null);
+  const scrollIndicatorRef = useRef(null);
+  const footerRef = useRef(null);
+  const footerTopRef = useRef(null);
   const footerBottomRef = useRef(null);
 
-  // State for responsive calendar dimensions
+  // State for responsive calendar dimensions and scroll indicator
   const [calendarDimensions, setCalendarDimensions] = useState({
-    width: '700px',
-    height: '650px'
+    width: '900px',
+    height: '700px'
   });
+  
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
 
-  // Update calendar dimensions based on screen width
+  // Update calendar dimensions based on screen width - increased sizes
   useEffect(() => {
     const updateDimensions = () => {
       const width = window.innerWidth;
       
-      if (width >= 1200) {
-        setCalendarDimensions({ width: '700px', height: '650px' });
+      if (width >= 1400) {
+        setCalendarDimensions({ width: '900px', height: '750px' });
+      } else if (width >= 1200) {
+        setCalendarDimensions({ width: '800px', height: '700px' });
       } else if (width >= 1024) {
-        setCalendarDimensions({ width: '600px', height: '600px' });
+        setCalendarDimensions({ width: '700px', height: '650px' });
       } else if (width >= 768) {
-        setCalendarDimensions({ width: '90%', height: '550px' });
+        setCalendarDimensions({ width: '95%', height: '600px' });
       } else if (width >= 600) {
-        setCalendarDimensions({ width: '100%', height: '500px' });
+        setCalendarDimensions({ width: '100%', height: '550px' });
       } else if (width >= 480) {
-        setCalendarDimensions({ width: '100%', height: '450px' });
+        setCalendarDimensions({ width: '100%', height: '500px' });
       } else {
-        setCalendarDimensions({ width: '100%', height: '400px' });
+        setCalendarDimensions({ width: '100%', height: '450px' });
       }
     };
 
-    // Initial update
     updateDimensions();
-
-    // Add resize listener
     window.addEventListener('resize', updateDimensions);
-
-    // Cleanup
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
 
+  // Cal.com API initialization
   useEffect(() => {
-    // Load and initialize Cal.com embed
-    (function (C, A, L) { 
-      let p = function (a, ar) { a.q.push(ar); }; 
-      let d = C.document; 
-      C.Cal = C.Cal || function () { 
-        let cal = C.Cal; 
-        let ar = arguments; 
-        if (!cal.loaded) { 
-          cal.ns = {}; 
-          cal.q = cal.q || []; 
-          d.head.appendChild(d.createElement("script")).src = A; 
-          cal.loaded = true; 
-        } 
-        if (ar[0] === L) { 
-          const api = function () { p(api, arguments); }; 
-          const namespace = ar[1]; 
-          api.q = api.q || []; 
-          if(typeof namespace === "string"){
-            cal.ns[namespace] = cal.ns[namespace] || api;
-            p(cal.ns[namespace], ar);
-            p(cal, ["initNamespace", namespace]);
-          } else p(cal, ar); 
-          return;
-        } 
-        p(cal, ar); 
-      }; 
-    })(window, "https://app.cal.com/embed/embed.js", "init");
+    (async function () {
+      const cal = await getCalApi({ namespace: "omnident-discovery" });
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view",
+        theme: isDarkMode ? "dark" : "light"
+      });
+    })();
+  }, [isDarkMode]);
+
+  // Handle scroll indicator visibility
+  useEffect(() => {
+    const calendarElement = calendarEmbedRef.current;
     
-    // Initialize Cal.com
-    window.Cal("init", "omnident-discovery", {origin:"https://app.cal.com"});
+    if (!calendarElement) return;
 
-    // Configure inline embed
-    window.Cal.ns["omnident-discovery"]("inline", {
-      elementOrSelector:"#my-cal-inline-omnident-discovery",
-      config: {"layout":"month_view","theme":"dark"},
-      calLink: "omnident.ai/omnident-discovery",
-    });
+    const handleScroll = () => {
+      const scrollTop = calendarElement.scrollTop;
+      const scrollHeight = calendarElement.scrollHeight;
+      const clientHeight = calendarElement.clientHeight;
+      
+      // Hide indicator if scrolled or if content doesn't overflow
+      if (scrollTop > 50 || scrollHeight <= clientHeight) {
+        setShowScrollIndicator(false);
+      } else {
+        setShowScrollIndicator(true);
+      }
+    };
 
-    // Configure UI settings
-    window.Cal.ns["omnident-discovery"]("ui", {
-      "theme":"dark",
-      "hideEventTypeDetails":false,
-      "layout":"month_view"
-    });
+    // Check initial state after a delay to allow Cal.com to load
+    const checkOverflow = () => {
+      if (!calendarElement) return;
+      const scrollHeight = calendarElement.scrollHeight;
+      const clientHeight = calendarElement.clientHeight;
+      setShowScrollIndicator(scrollHeight > clientHeight + 50);
+    };
 
-    // Cleanup function
+    const timeoutId = setTimeout(checkOverflow, 2500);
+    calendarElement.addEventListener('scroll', handleScroll);
+
     return () => {
-      const calElement = document.getElementById('my-cal-inline-omnident-discovery');
-      if (calElement) {
-        calElement.innerHTML = '';
+      clearTimeout(timeoutId);
+      if (calendarElement) {
+        calendarElement.removeEventListener('scroll', handleScroll);
       }
     };
   }, []);
@@ -169,35 +165,30 @@ const Calendar = ({ isDarkMode }) => {
         ease: 'power2.out'
       });
 
-      // Footer Left Section Animation
-      gsap.from(footerLeftRef.current, {
+      // Scroll Indicator Animation
+      if (scrollIndicatorRef.current) {
+        gsap.to(scrollIndicatorRef.current, {
+          y: 10,
+          duration: 1.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut'
+        });
+      }
+
+      // Footer Animations
+      gsap.from(footerTopRef.current, {
         scrollTrigger: {
-          trigger: footerLeftRef.current,
+          trigger: footerTopRef.current,
           start: 'top 85%',
           once: true
         },
         opacity: 0,
-        x: -40,
+        y: 30,
         duration: 0.7,
-        delay: 0.4,
         ease: 'power2.out'
       });
 
-      // Footer Right Section Animation
-      gsap.from(footerRightRef.current, {
-        scrollTrigger: {
-          trigger: footerRightRef.current,
-          start: 'top 85%',
-          once: true
-        },
-        opacity: 0,
-        x: 40,
-        duration: 0.7,
-        delay: 0.5,
-        ease: 'power2.out'
-      });
-
-      // Footer Bottom Animation
       gsap.from(footerBottomRef.current, {
         scrollTrigger: {
           trigger: footerBottomRef.current,
@@ -207,7 +198,7 @@ const Calendar = ({ isDarkMode }) => {
         opacity: 0,
         y: 20,
         duration: 0.6,
-        delay: 0.6,
+        delay: 0.2,
         ease: 'power2.out'
       });
 
@@ -222,9 +213,10 @@ const Calendar = ({ isDarkMode }) => {
         <img src={footerBg} alt="" className="calendar-bg-image"/>
         <div className="calendar-overlay"></div>
       </div>
+      
       <div className="calendar-container">
         <div className="calendar-header">
-          <span className="section-label haha" ref={labelRef}>• Integration</span>
+          <span className="section-label" ref={labelRef}>• Integration</span>
           <h2 className="calendar-title" ref={titleRef}>
             Ready to Transform Your Practice?
             <br />Book Your Discovery Call
@@ -237,48 +229,63 @@ const Calendar = ({ isDarkMode }) => {
 
         <div className="calendar-embed-wrapper" ref={calendarEmbedRef}>
           <div className="calendar-widget">
-            <div className="calendar-header">
+            <div className="calendar-widget-header">
               <FiCalendar className="calendar-icon" />
               <span>Select Your Preferred Time</span>
             </div>
             <div 
+              className="calendar-embed-container"
+              ref={calendarEmbedRef}
               style={{ 
                 width: calendarDimensions.width, 
                 height: calendarDimensions.height, 
                 overflow: 'auto',
                 borderRadius: '12px',
-                background: 'rgba(10, 15, 28, 0.5)',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                position: 'relative',
               }}
-              id="my-cal-inline-omnident-discovery"
-            />
+            >
+              <Cal 
+                namespace="omnident-discovery"
+                calLink="omnident.ai/omnident-discovery"
+                style={{ width: "100%", height: "100%", overflow: "scroll" }}
+                config={{ 
+                  layout: "month_view", 
+                  theme: isDarkMode ? "dark" : "auto" 
+                }}
+              />
+              {showScrollIndicator && (
+                <div className="scroll-indicator" ref={scrollIndicatorRef}>
+                  <FiChevronDown className="scroll-icon" />
+                  <span>Scroll to see more dates</span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        <footer className="footer-info">
-          <div className="footer-main">
-            {/* Left Section */}
-            <div className="footer-left" ref={footerLeftRef}>
-              <div className="footer-logo-section">
-                <img src={NavLogo} alt="OmniDent AI Logo" className="logo-icon" />
-              </div>
-              
-              <div className="footer-nav-links">
-                <div className="nav-column">
-                  <a href="#home" className="footer-link">Home</a>
-                  <a href="#platform" className="footer-link">Platform</a>
-                  <a href="#pricing" className="footer-link">Pricing</a>
-                </div>
-                <div className="nav-column">
-                  <a href="#patient-journey" className="footer-link">Patient Journey</a>
-                  <a href="#results" className="footer-link">Results</a>
-                  <a href="#smilenexus" className="footer-link">SmileNexus</a>
+        <footer className="footer-info" ref={footerRef}>
+          {/* Top Section - Navigation and Contact */}
+          <div className="footer-top" ref={footerTopRef}>
+            <div className="footer-left">
+              <div className="footer-nav-section">
+                <h4 className="footer-section-title">Quick Links</h4>
+                <div className="footer-nav-links">
+                  <div className="nav-column">
+                    <a href="#home" className="footer-link">Home</a>
+                    <a href="#platform" className="footer-link">Platform</a>
+                    <a href="#pricing" className="footer-link">Pricing</a>
+                  </div>
+                  <div className="nav-column">
+                    <a href="#patient-journey" className="footer-link">Patient Journey</a>
+                    <a href="#results" className="footer-link">Results</a>
+                    <a href="#smilenexus" className="footer-link">SmileNexus</a>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Right Section */}
-            <div className="footer-right" ref={footerRightRef}>
+            <div className="footer-right">
               <div className="footer-cta-section">
                 <h3>Contact us to explore partnerships,<br />collaborations, or simply to say hello.</h3>
                 <button className="footer-chat-btn">Let's Chat</button>
@@ -291,9 +298,19 @@ const Calendar = ({ isDarkMode }) => {
             </div>
           </div>
 
+          {/* Bottom Section - Logo, Location and Copyright */}
           <div className="footer-bottom" ref={footerBottomRef}>
-            <p className="footer-location">San Francisco</p>
-            <p className="footer-copyright">©2025 OmniDent All Rights Reserved</p>
+            <div className="footer-bottom-content">
+              <div className="footer-logo-wrapper">
+                <img src={NavLogo} alt="OmniDent AI Logo" className="footer-logo" />
+              </div>
+              
+              <div className="footer-meta">
+                <p className="footer-location">San Francisco</p>
+                <span className="footer-divider">•</span>
+                <p className="footer-copyright">©2025 OmniDent All Rights Reserved</p>
+              </div>
+            </div>
           </div>
         </footer>
       </div>

@@ -27,7 +27,6 @@ const App = () => {
       <div id="features" className="snap-section">
         <Features isDarkMode={isDarkMode} />
       </div>
-      {/*
       <div id="pricing" className="snap-section">
         <Pricing isDarkMode={isDarkMode} />
       </div>
@@ -39,7 +38,9 @@ const App = () => {
       </div>
       <div id="calendar" className="snap-section">
         <Calendar isDarkMode={isDarkMode} />
-      </div>*/}
+      </div>
+      {/*
+      */}
     </div>
   );
 };

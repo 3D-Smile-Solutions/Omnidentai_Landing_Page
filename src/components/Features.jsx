@@ -12,188 +12,305 @@ import f6 from '../assets/f6.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Features = () => {
-  const [activeFeature, setActiveFeature] = useState(1);
-  
-  // Refs for animation targets
+const Features = ({ isDarkMode }) => {
+  const [activeStep, setActiveStep] = useState(0);
   const sectionRef = useRef(null);
-  const labelRef = useRef(null);
-  const titleRef = useRef(null);
-  const featureItemsRef = useRef([]);
-  const imageBoxRef = useRef(null);
-  const featuresRightRef = useRef(null);
+  const containerRef = useRef(null);
+  const headerRef = useRef(null);
+  const bgRefs = useRef([]);
+  const textRefs = useRef([]);
+  const imageRefs = useRef([]);
 
   const featureData = [
     {
       id: 1,
       title: "AI-Powered Scheduling",
-      count: "(1)",
       description: "Intelligent appointment booking that understands patient preferences, provider availability, and treatment requirements.",
-      image: f1
+      bgColor: "#CCCCCC",
+      image: f1,
+      stats: [
+        "95% Booking Efficiency",
+        "5 min Average Time",
+        "24/7 Availability"
+      ]
     },
     {
       id: 2,
       title: "Smart Reminders & Confirmations",
-      count: "(2)",
       description: "Automated reminders via SMS, email, and voice calls that reduce no-shows and keep patients informed.",
-      image: f2
+      bgColor: "#949599",
+      image: f2,
+      stats: [
+        "60% Fewer No-Shows",
+        "Multi-Channel Delivery",
+        "Real-Time Updates"
+      ]
     },
     {
       id: 3,
       title: "Insurance Verification",
-      count: "(3)",
       description: "Instant insurance eligibility checks and coverage verification to streamline the billing process.",
-      image: f3
+      bgColor: "#6D6E72",
+      image: f3,
+      stats: [
+        "2 sec Verification",
+        "99% Accuracy Rate",
+        "500+ Plans Supported"
+      ]
     },
     {
       id: 4,
       title: "Treatment Plan Communication",
-      count: "(4)",
       description: "Clear, automated communication of treatment plans, costs, and next steps to improve case acceptance.",
-      image: f4
+      bgColor: "#209DE6",
+      image: f4,
+      stats: [
+        "85% Acceptance Rate",
+        "Clear Cost Breakdown",
+        "Patient Portal Access"
+      ]
     },
     {
       id: 5,
       title: "Post-Treatment Follow-up",
-      count: "(5)",
       description: "Automated follow-up messages to check on patient recovery and schedule necessary appointments.",
-      image: f5
+      bgColor: "#06b6d4",
+      image: f5,
+      stats: [
+        "92% Satisfaction",
+        "Automated Scheduling",
+        "Recovery Tracking"
+      ]
     },
     {
       id: 6,
       title: "Practice Analytics Dashboard",
-      count: "(6)",
       description: "Real-time insights into practice performance, patient flow, and revenue metrics for data-driven decisions.",
-      image: f6
+      bgColor: "#10b981",
+      image: f6,
+      stats: [
+        "50+ Key Metrics",
+        "Real-Time Insights",
+        "Custom Reports"
+      ]
     }
   ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Section Label Animation
-      gsap.from(labelRef.current, {
-        scrollTrigger: {
-          trigger: labelRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
-        },
-        opacity: 0,
-        y: -20,
-        duration: 0.5,
-        ease: 'power2.out'
-      });
-
-      // Title Animation
-      gsap.from(titleRef.current, {
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        delay: 0.1,
-        ease: 'power3.out'
-      });
-
-      // Only pin on desktop (1024px and above)
       const mm = gsap.matchMedia();
       
       mm.add("(min-width: 1024px)", () => {
-        const scrollDistance = sectionRef.current.offsetHeight;
+        // Calculate total scroll distance: header + (features * 3 phases each)
+        const totalSteps = 1 + (featureData.length * 3); // 1 header + 3 phases per feature
+        const scrollDistance = totalSteps * 150; // Increased from 100 to 150 for slower scroll
 
-        // ✅ Pin right side
+        // Pin the container
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: "top top",
-          end: () => `+=${scrollDistance}`,
-          pin: featuresRightRef.current,
+          end: `+=${scrollDistance}%`,
+          pin: containerRef.current,
           pinSpacing: true,
-          scrub: true,
+          scrub: 1,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            const currentStep = Math.floor(progress * totalSteps);
+            setActiveStep(currentStep);
+          }
         });
 
-        // ✅ Pin left side, synced with right
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top+=120 top",
-          end: () => `+=${scrollDistance}`,
-          pin: ".features-left",
-          pinSpacing: true,
-          scrub: true,
+        // Master timeline
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: `+=${scrollDistance}%`,
+            scrub: 1,
+          }
+        });
+
+        const stepDuration = 1 / totalSteps;
+
+        // Step 0: Show header
+        tl.fromTo(headerRef.current,
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: stepDuration, ease: "power2.out" },
+          0
+        );
+
+        // Fade out header
+        tl.to(headerRef.current,
+          { opacity: 0, y: -50, duration: stepDuration, ease: "power2.in" },
+          stepDuration
+        );
+
+        // Animate each feature (each gets its own circle that grows and stays)
+        featureData.forEach((feature, index) => {
+          const featureStartStep = 1 + (index * 3);
+          const featureStartTime = featureStartStep * stepDuration;
+
+          // Phase 1: Background circle grows and STAYS
+          tl.fromTo(bgRefs.current[index],
+            { opacity: 0, scale: 0 },
+            { opacity: 1, scale: 1.5, duration: stepDuration * 2.0, ease: "power2.out" },
+            featureStartTime
+          );
+
+          // Phase 2: Text content slides in from left (during circle growth)
+          tl.fromTo(textRefs.current[index],
+            { opacity: 0, x: -100 },
+            { opacity: 1, x: 0, duration: stepDuration * 1.0, ease: "power2.out" },
+            featureStartTime + (stepDuration * 0.4)
+          );
+
+          // Phase 3: Image slides in from right (slightly after text)
+          tl.fromTo(imageRefs.current[index],
+            { opacity: 0, x: 100 },
+            { opacity: 1, x: 0, duration: stepDuration * 1.0, ease: "power2.out" },
+            featureStartTime + (stepDuration * 0.7)
+          );
+
+          // Fade out content before next feature (but keep circle visible)
+          if (index < featureData.length - 1) {
+            const fadeOutTime = featureStartTime + (stepDuration * 2.5);
+            
+            tl.to([textRefs.current[index], imageRefs.current[index]],
+              { opacity: 0, duration: stepDuration * 0.5, ease: "power2.in" },
+              fadeOutTime
+            );
+          }
+          // Note: circles never shrink - they all stay visible and stack
         });
       });
 
+      // Mobile: simple scroll animations with slides
+      mm.add("(max-width: 1023px)", () => {
+        gsap.from(headerRef.current, {
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+          opacity: 0,
+          y: 30,
+          duration: 1,
+          ease: "power3.out"
+        });
 
+        featureData.forEach((_, index) => {
+          // Background grows like a circle (stays round)
+          if (bgRefs.current[index]) {
+            gsap.from(bgRefs.current[index], {
+              scrollTrigger: {
+                trigger: bgRefs.current[index],
+                start: "top 90%",
+                toggleActions: "play none none reverse",
+              },
+              opacity: 0,
+              scale: 0,
+              duration: 2,
+              ease: "power3.out"
+            });
+          }
 
-      // Create scroll trigger for each feature item with slower activation
-      featureItemsRef.current.forEach((item, index) => {
-        if (item) {
-          ScrollTrigger.create({
-            trigger: item,
-            start: 'top 30%', // Changed from 60% to 50% for slower activation
-            end: 'bottom 30%', // Changed from 40% to 30% for longer active duration
-            onEnter: () => setActiveFeature(index + 1),
-            onEnterBack: () => setActiveFeature(index + 1),
-            // Add scrub for smoother transitions
-            scrub: 0.5,
-            // markers: true, // Uncomment for debugging
-          });
-        }
+          // Text slides from left
+          if (textRefs.current[index]) {
+            gsap.from(textRefs.current[index], {
+              scrollTrigger: {
+                trigger: textRefs.current[index],
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+              opacity: 0,
+              x: -50,
+              duration: 0.9,
+              delay: 0.15,
+              ease: "power3.out"
+            });
+          }
+
+          // Image slides from right
+          if (imageRefs.current[index]) {
+            gsap.from(imageRefs.current[index], {
+              scrollTrigger: {
+                trigger: imageRefs.current[index],
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+              opacity: 0,
+              x: 50,
+              duration: 0.9,
+              delay: 0.25,
+              ease: "power3.out"
+            });
+          }
+        });
       });
 
     }, sectionRef);
 
-    return () => ctx.revert(); // Cleanup
-  }, []);
+    return () => ctx.revert();
+  }, [featureData.length]);
 
   return (
-    <section className="features" ref={sectionRef}>
-      <div className="features-container">
-        <div className="features-content">
-          <div className="features-left">
-            <div className="features-header">
-              <span className="section-label" ref={labelRef}>See The Difference</span>
-              <h2 className="features-title" ref={titleRef}>
-                Core features<br />
-                that drive results
-              </h2>
-            </div>
-
-            <div className="features-list">
-              {featureData.map((feature, index) => (
-                <div
-                  key={feature.id}
-                  className={`feature-item ${activeFeature === feature.id ? 'active' : ''}`}
-                  ref={el => featureItemsRef.current[index] = el}
-                  onMouseEnter={() => setActiveFeature(feature.id)}
-                >
-                  <div className="feature-title-wrapper">
-                    <h3 className="feature-title">
-                      {feature.title} <span className="feature-count">{feature.count}</span>
-                    </h3>
-                  </div>
-                  <div className="feature-description">
-                    <p>{feature.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="features-right" ref={featuresRightRef}>
-            <div className="feature-image-box" ref={imageBoxRef}>
-              {featureData.map((feature) => (
-                <img 
-                  key={feature.id}
-                  src={feature.image} 
-                  alt={feature.title}
-                  className={`feature-image ${activeFeature === feature.id ? 'active' : ''}`}
-                />
-              ))}
-            </div>
-          </div>
+    <section className={`features-sequence ${isDarkMode ? 'dark-mode' : 'light-mode'}`} ref={sectionRef}>
+      <div className="features-sequence-container" ref={containerRef}>
+        {/* Header */}
+        <div className="features-header-sequence" ref={headerRef}>
+          <span className="features-label">See The Difference</span>
+          <h2 className="features-heading">
+            Core Features<br />
+            That Drive Results
+          </h2>
         </div>
+
+        {/* Features */}
+        {featureData.map((feature, index) => (
+          <div key={feature.id} className="feature-layer">
+            {/* Each feature has its own circle that grows and stays */}
+            <div
+              ref={el => bgRefs.current[index] = el}
+              className="feature-background"
+              style={{ 
+                backgroundColor: feature.bgColor,
+                zIndex: index + 1 // Stack circles: newer ones on top
+              }}
+            />
+
+            {/* Text Content */}
+            <div
+              ref={el => textRefs.current[index] = el}
+              className="feature-text-layer"
+              style={{ zIndex: 100 + index }} // Above all circles
+            >
+              <div className="feature-text-content">
+                <span className="feature-number">0{feature.id}</span>
+                <h3 className="feature-layer-title">{feature.title}</h3>
+                <p className="feature-layer-description">{feature.description}</p>
+                <ul className="feature-stats-list">
+                  {feature.stats.map((stat, idx) => (
+                    <li key={idx} className="stat-bullet">
+                      <span className="bullet-icon">✓</span>
+                      {stat}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Image */}
+            <div
+              ref={el => imageRefs.current[index] = el}
+              className="feature-image-layer"
+              style={{ zIndex: 200 + index }} // Above text and circles
+            >
+              <div className="image-frame">
+                <img src={feature.image} alt={feature.title} />
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
