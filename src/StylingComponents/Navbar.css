@@ -4,7 +4,6 @@
   height: 8ch;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  border-bottom: 1px solid #e5e5e5;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -13,12 +12,28 @@
   top: 0;
   transition: all 0.3s ease-in-out;
   z-index: 50;
-  background-color: #ffffff;
 }
 
-.navbar-scrolled {
+/* Light Mode Navbar */
+.navbar.navbar-light {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.navbar.navbar-light.navbar-scrolled {
   background-color: #f8f9fa;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark Mode Navbar */
+.navbar.navbar-dark {
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #333333;
+}
+
+.navbar.navbar-dark.navbar-scrolled {
+  background-color: #0f0f0f;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Logo Container */
@@ -40,6 +55,24 @@
   background: transparent;
   border: none;
   padding: 0;
+  transition: transform 0.2s ease;
+}
+
+.navbar-logo-button:hover {
+  transform: scale(1.02);
+}
+
+.navbar-logo-button:active {
+  transform: scale(0.98);
+}
+
+/* Logo Image Styling */
+.navbar-logo-button img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transition: opacity 0.3s ease;
 }
 
 /* Hamburger Menu for Mobile */
@@ -48,7 +81,6 @@
 }
 
 .navbar-hamburger-button {
-  color: #525252;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -56,6 +88,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.navbar-light .navbar-hamburger-button {
+  color: #525252;
+}
+
+.navbar-dark .navbar-hamburger-button {
+  color: #e5e5e5;
+}
+
+.navbar-hamburger-button:hover {
+  opacity: 0.7;
 }
 
 .navbar-hamburger-button:focus {
@@ -69,13 +114,22 @@
   right: 0;
   height: 100vh;
   width: 100%;
-  background-color: #f0f9ff;
   border-left: 1px solid #d4d4d4;
   box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
   transform: translateX(100%);
   z-index: 60;
   flex: 1;
+}
+
+.navbar-light .navbar-menu {
+  background-color: #ffffff00;
+  border-left-color: #ffffff00;
+}
+
+.navbar-dark .navbar-menu {
+  background-color: #00000000;
+  border-left-color: #00000000;
 }
 
 .navbar-menu-open {
@@ -91,6 +145,14 @@
   padding: 0 1rem;
 }
 
+.navbar-mobile-header .navbar-logo-button {
+  padding: 1rem 0;
+}
+
+.navbar-mobile-header .navbar-logo-button img {
+  height: 36px;
+}
+
 .navbar-close-container {
   display: flex;
   justify-content: flex-end;
@@ -98,7 +160,6 @@
 }
 
 .navbar-close-button {
-  color: #dc2626;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -106,6 +167,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.navbar-light .navbar-close-button {
+  color: #dc2626;
+}
+
+.navbar-dark .navbar-close-button {
+  color: #ef4444;
+}
+
+.navbar-close-button:hover {
+  opacity: 0.7;
 }
 
 .navbar-close-button:focus {
@@ -114,7 +188,15 @@
 
 /* Divider */
 .navbar-divider {
+  transition: border-color 0.3s ease;
+}
+
+.navbar-light .navbar-divider {
   border-bottom: 1px solid #d4d4d4;
+}
+
+.navbar-dark .navbar-divider {
+  border-bottom: 1px solid #404040;
 }
 
 /* Navbar Content */
@@ -135,7 +217,6 @@
   align-items: center;
   gap: 1.5rem;
   font-size: 1rem;
-  color: #404040;
   font-weight: 400;
   list-style: none;
   padding: 0;
@@ -148,13 +229,24 @@
   background: transparent;
   border: none;
   padding: 0;
-  color: #404040;
   font-size: 1rem;
   font-weight: 400;
 }
 
-.navbar-link:hover {
+.navbar-light .navbar-link {
+  color: #404040;
+}
+
+.navbar-light .navbar-link:hover {
   color: #0284c7;
+}
+
+.navbar-dark .navbar-link {
+  color: #e5e5e5;
+}
+
+.navbar-dark .navbar-link:hover {
+  color: #5EBEC4;
 }
 
 /* Navbar Buttons */
@@ -179,36 +271,84 @@
   gap: 0.5rem;
 }
 
+/* Dark Mode Toggle Button */
 .navbar-button-darkmode {
   border-radius: 50%;
   width: 44px;
   height: 44px;
   padding: 0;
+}
+
+.navbar-light .navbar-button-darkmode {
   color: #262626;
   background-color: #f3f4f6;
   border: 1px solid #e5e7eb;
 }
 
-.navbar-button-darkmode:hover {
+.navbar-light .navbar-button-darkmode:hover {
   background-color: #e5e7eb;
+}
+
+.navbar-dark .navbar-button-darkmode {
+  color: #fbbf24;
+  background-color: #404040;
+  border: 1px solid #525252;
+}
+
+.navbar-dark .navbar-button-darkmode:hover {
+  background-color: #525252;
+}
+
+.navbar-button-darkmode:hover {
   transform: scale(1.05);
 }
 
+/* Request Demo Button */
 .navbar-button-demo {
   border-radius: 0.5rem;
-  color: #ffffff;
-  background-color: #0369a1;
   padding: 0.65rem 1.75rem;
   font-weight: 600;
 }
 
-.navbar-button-demo:hover {
+.navbar-light .navbar-button-demo {
+  color: #ffffff;
+  background-color: #0369a1;
+}
+
+.navbar-light .navbar-button-demo:hover {
   background-color: #0284c7;
-  transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(3, 105, 161, 0.3);
 }
 
+.navbar-dark .navbar-button-demo {
+  color: #1a1a1a;
+  background-color: #5EBEC4;
+}
+
+.navbar-dark .navbar-button-demo:hover {
+  background-color: #7dd3d9;
+  box-shadow: 0 4px 12px rgba(94, 190, 196, 0.3);
+}
+
+.navbar-button-demo:hover {
+  transform: translateY(-1px);
+}
+
 /* ======================== RESPONSIVE STYLES ======================== */
+
+/* Mobile - Small screens (up to 480px) */
+@media (max-width: 480px) {
+  .navbar-logo-button img {
+    height: 32px;
+  }
+}
+
+/* Mobile - Medium (481px to 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .navbar-logo-button img {
+    height: 36px;
+  }
+}
 
 /* Tablet and above (768px) */
 @media (min-width: 768px) {
@@ -218,6 +358,10 @@
 
   .navbar-logo-container {
     padding-right: 2rem;
+  }
+
+  .navbar-logo-button img {
+    height: 42px;
   }
 
   .navbar-hamburger {
@@ -269,6 +413,10 @@
     padding-right: 3rem;
   }
 
+  .navbar-logo-button img {
+    height: 45px;
+  }
+
   .navbar-items {
     gap: 1.75rem;
   }
@@ -288,7 +436,18 @@
     padding-right: 4rem;
   }
 
+  .navbar-logo-button img {
+    height: 48px;
+  }
+
   .navbar-items {
     gap: 2rem;
+  }
+}
+
+/* Extra Large screens (1536px and above) */
+@media (min-width: 1536px) {
+  .navbar-logo-button img {
+    height: 50px;
   }
 }

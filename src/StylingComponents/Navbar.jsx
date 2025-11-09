@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FaBars, FaMoon, FaSun } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-import { FiBookOpen } from "react-icons/fi";
 import './Navbar.css';
+import logo from '../assets/Logo.png';
+import logoD from '../assets/LogoD.png';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -92,7 +93,7 @@ const Navbar = () => {
     return (
         <div
             id="navbar"
-            className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}
+            className={`navbar ${isScrolled ? "navbar-scrolled" : ""} ${isDarkMode ? "navbar-dark" : "navbar-light"}`}
         >
             {/* Logo */}
             <div className="navbar-logo-container">
@@ -100,8 +101,7 @@ const Navbar = () => {
                     onClick={() => scrollToSection('home')} 
                     className="navbar-logo-button"
                 >
-                    <FiBookOpen size={24} />
-                    LearnHub
+                    <img src={isDarkMode ? logo : logoD} alt="OmniDent AI Logo"/>
                 </button>
             </div>
 
@@ -124,8 +124,7 @@ const Navbar = () => {
                         onClick={() => scrollToSection('home')} 
                         className="navbar-logo-button"
                     >
-                        <FiBookOpen size={24} />
-                        LearnHub
+                        <img src={isDarkMode ? logo : logoD} alt="OmniDent AI Logo"/>
                     </button>
                     {/* Close Icon */}
                     <div className="navbar-close-container">
