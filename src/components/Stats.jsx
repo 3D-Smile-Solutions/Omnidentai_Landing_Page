@@ -3,14 +3,13 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { HiArrowRight } from 'react-icons/hi';
 import tooth3d from '../assets/tooth3d.png';
+import PatientJourneyAnim from '../assets/PatientJourneyAnimation.mp4';
 
 import './Stats.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Stats = ({ isDarkMode }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  
   // Refs for animation targets
   const sectionRef = useRef(null);
   const badgeRef = useRef(null);
@@ -178,10 +177,6 @@ const Stats = ({ isDarkMode }) => {
     return () => ctx.revert();
   }, []);
 
-  const handlePlayClick = () => {
-    setIsPlaying(true);
-  };
-
   return (
     <section className={`stats ${isDarkMode ? 'dark' : 'light'}`} ref={sectionRef}>
       {/* Decorative Images at Horizontal Corners */}
@@ -225,14 +220,17 @@ const Stats = ({ isDarkMode }) => {
         <div className="video-wrapper">
           <div className="video-container">
             <div className="video-frame" ref={videoFrameRef}>
-              <div className="video-placeholder" onClick={handlePlayClick}>
-                <div className="play-button">
-                  <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-                    <circle cx="30" cy="30" r="30" fill="rgba(81, 226, 210, 0.9)"/>
-                    <path d="M24 20L40 30L24 40V20Z" fill="white"/>
-                  </svg>
-                </div>
-              </div>
+              {/* Autoplay Video - No Controls */}
+              <video 
+                className="video-content"
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+              >
+                <source src={PatientJourneyAnim} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
             <div className="video-corner top-left" ref={el => cornersRef.current[0] = el}></div>
             <div className="video-corner top-right" ref={el => cornersRef.current[1] = el}></div>
