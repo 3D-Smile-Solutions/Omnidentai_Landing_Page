@@ -111,7 +111,7 @@
 
 .feature-text-content {
   max-width: 600px;
-  color: #ffffff;
+  color: #000000;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -120,7 +120,7 @@
   font-family: 'Geist', monospace;
   font-size: 14px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.671);
   margin-bottom: 16px;
   padding: 6px 16px;
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -134,7 +134,7 @@
   font-size: clamp(32px, 4vw, 56px);
   font-weight: 700;
   line-height: 1.2;
-  color: #ffffff;
+  color: #000000bd;
   margin: 0 0 20px 0;
   letter-spacing: -1px;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
@@ -144,7 +144,7 @@
   font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: clamp(16px, 2vw, 20px);
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(0, 0, 0, 0.74);
   margin: 0 0 32px 0;
 }
 
@@ -161,7 +161,7 @@
   font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: clamp(14px, 1.5vw, 18px);
   font-weight: 500;
-  color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 0.767);
   display: flex;
   align-items: center;
   gap: 12px;

@@ -26,7 +26,7 @@ const Features = ({ isDarkMode }) => {
       id: 1,
       title: "AI-Powered Scheduling",
       description: "Intelligent appointment booking that understands patient preferences, provider availability, and treatment requirements.",
-      bgColor: "#CCCCCC",
+      bgColor: "#6bffcbff",
       image: f1,
       stats: [
         "95% Booking Efficiency",
@@ -38,7 +38,7 @@ const Features = ({ isDarkMode }) => {
       id: 2,
       title: "Smart Reminders & Confirmations",
       description: "Automated reminders via SMS, email, and voice calls that reduce no-shows and keep patients informed.",
-      bgColor: "#949599",
+      bgColor: "#0069DC",
       image: f2,
       stats: [
         "60% Fewer No-Shows",
@@ -50,7 +50,7 @@ const Features = ({ isDarkMode }) => {
       id: 3,
       title: "Insurance Verification",
       description: "Instant insurance eligibility checks and coverage verification to streamline the billing process.",
-      bgColor: "#6D6E72",
+      bgColor: "#D0D7F5",
       image: f3,
       stats: [
         "2 sec Verification",
@@ -62,7 +62,7 @@ const Features = ({ isDarkMode }) => {
       id: 4,
       title: "Treatment Plan Communication",
       description: "Clear, automated communication of treatment plans, costs, and next steps to improve case acceptance.",
-      bgColor: "#209DE6",
+      bgColor: "#2aceb3ff",
       image: f4,
       stats: [
         "85% Acceptance Rate",
@@ -74,7 +74,7 @@ const Features = ({ isDarkMode }) => {
       id: 5,
       title: "Post-Treatment Follow-up",
       description: "Automated follow-up messages to check on patient recovery and schedule necessary appointments.",
-      bgColor: "#06b6d4",
+      bgColor: "#F2EAC8",
       image: f5,
       stats: [
         "92% Satisfaction",
@@ -86,7 +86,7 @@ const Features = ({ isDarkMode }) => {
       id: 6,
       title: "Practice Analytics Dashboard",
       description: "Real-time insights into practice performance, patient flow, and revenue metrics for data-driven decisions.",
-      bgColor: "#10b981",
+      bgColor: "#9FD7FA",
       image: f6,
       stats: [
         "50+ Key Metrics",
@@ -100,12 +100,12 @@ const Features = ({ isDarkMode }) => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
       
-      // Apply same pinned animation to ALL screen sizes
+      // Desktop: Faster animation
       mm.add("(min-width: 768px)", () => {
-        // Calculate total scroll distance: header + (features * 2.5 phases each) - REDUCED from 3
-        const stepsPerFeature = 2.5; // Reduced from 3 to make it snappier
+        // Calculate total scroll distance with FASTER transitions
+        const stepsPerFeature = 1.8; // Reduced from 2.5 for faster speed
         const totalSteps = 1 + (featureData.length * stepsPerFeature);
-        const scrollDistance = totalSteps * 150;
+        const scrollDistance = totalSteps * 100; // Reduced from 150 for faster scroll
 
         // Pin the container
         ScrollTrigger.create({
@@ -152,45 +152,45 @@ const Features = ({ isDarkMode }) => {
           const featureStartStep = 1 + (index * stepsPerFeature);
           const featureStartTime = featureStartStep * stepDuration;
 
-          // Phase 1: Background circle grows and STAYS (duration unchanged)
+          // Phase 1: Background circle grows faster
           tl.fromTo(bgRefs.current[index],
             { opacity: 0, scale: 0 },
-            { opacity: 1, scale: 1.5, duration: stepDuration * 2.0, ease: "power2.out" },
+            { opacity: 1, scale: 1.5, duration: stepDuration * 2.5, ease: "power2.out" },
             featureStartTime
           );
 
-          // Phase 2: Text content slides in from left (during circle growth)
+          // Phase 2: Text content slides in from left (faster)
           tl.fromTo(textRefs.current[index],
             { opacity: 0, x: -100 },
-            { opacity: 1, x: 0, duration: stepDuration * 0.4, ease: "power2.out" },
-            featureStartTime + (stepDuration * 0.3)
+            { opacity: 1, x: 0, duration: stepDuration * 0.3, ease: "power2.out" },
+            featureStartTime + (stepDuration * 0.2)
           );
 
           // Phase 3: Image slides in from right (slightly after text)
           tl.fromTo(imageRefs.current[index],
             { opacity: 0, x: 100 },
-            { opacity: 1, x: 0, duration: stepDuration * 0.4, ease: "power2.out" },
-            featureStartTime + (stepDuration * 0.5)
+            { opacity: 1, x: 0, duration: stepDuration * 0.3, ease: "power2.out" },
+            featureStartTime + (stepDuration * 0.35)
           );
 
-          // Fade out content EARLIER and FASTER before next feature
+          // Fade out content faster before next feature
           if (index < featureData.length - 1) {
-            const fadeOutTime = featureStartTime + (stepDuration * 1.8); // Start earlier (was 2.0)
+            const fadeOutTime = featureStartTime + (stepDuration * 1.4);
             
             tl.to([textRefs.current[index], imageRefs.current[index]],
-              { opacity: 0, duration: stepDuration * 0.2, ease: "power2.in" }, // Faster fade (was 0.3)
+              { opacity: 0, duration: stepDuration * 0.15, ease: "power2.in" },
               fadeOutTime
             );
           }
         });
       });
 
-      // Mobile: Apply same pinned animation for small screens
+      // Mobile: Even FASTER animation
       mm.add("(max-width: 767px)", () => {
-        // Calculate total scroll distance with reduced steps per feature
-        const stepsPerFeature = 2.5; // Reduced from 3
+        // Calculate total scroll distance with EVEN FASTER transitions for mobile
+        const stepsPerFeature = 1.5; // Reduced more for mobile (was 2.5)
         const totalSteps = 1 + (featureData.length * stepsPerFeature);
-        const scrollDistance = totalSteps * 150;
+        const scrollDistance = totalSteps * 80; // Reduced more for mobile (was 150)
 
         // Pin the container
         ScrollTrigger.create({
@@ -237,33 +237,33 @@ const Features = ({ isDarkMode }) => {
           const featureStartStep = 1 + (index * stepsPerFeature);
           const featureStartTime = featureStartStep * stepDuration;
 
-          // Phase 1: Background circle grows and STAYS (duration unchanged)
+          // Phase 1: Background circle grows faster on mobile
           tl.fromTo(bgRefs.current[index],
             { opacity: 0, scale: 0 },
-            { opacity: 1, scale: 1.5, duration: stepDuration * 2.0, ease: "power2.out" },
+            { opacity: 1, scale: 1.5, duration: stepDuration * 1.5, ease: "power2.out" },
             featureStartTime
           );
 
-          // Phase 2: Text content slides in from bottom (mobile-friendly)
+          // Phase 2: Text content slides in from bottom (faster on mobile)
           tl.fromTo(textRefs.current[index],
             { opacity: 0, y: 50 },
-            { opacity: 1, y: 0, duration: stepDuration * 0.5, ease: "power2.out" },
+            { opacity: 1, y: 0, duration: stepDuration * 0.35, ease: "power2.out" },
+            featureStartTime + (stepDuration * 0.2)
+          );
+
+          // Phase 3: Image slides in from bottom (faster on mobile)
+          tl.fromTo(imageRefs.current[index],
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: stepDuration * 0.35, ease: "power2.out" },
             featureStartTime + (stepDuration * 0.3)
           );
 
-          // Phase 3: Image slides in from bottom (slightly after text)
-          tl.fromTo(imageRefs.current[index],
-            { opacity: 0, y: 50 },
-            { opacity: 1, y: 0, duration: stepDuration * 0.5, ease: "power2.out" },
-            featureStartTime + (stepDuration * 0.5)
-          );
-
-          // Fade out content EARLIER and FASTER before next feature
+          // Fade out content even faster on mobile
           if (index < featureData.length - 1) {
-            const fadeOutTime = featureStartTime + (stepDuration * 1.8); // Start earlier (was 2.0)
+            const fadeOutTime = featureStartTime + (stepDuration * 1.2);
             
             tl.to([textRefs.current[index], imageRefs.current[index]],
-              { opacity: 0, duration: stepDuration * 0.2, ease: "power2.in" }, // Faster fade (was 0.3)
+              { opacity: 0, duration: stepDuration * 0.1, ease: "power2.in" },
               fadeOutTime
             );
           }
