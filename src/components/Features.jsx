@@ -100,7 +100,8 @@ const Features = ({ isDarkMode }) => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
       
-      mm.add("(min-width: 1024px)", () => {
+      // Apply same pinned animation to ALL screen sizes
+      mm.add("(min-width: 768px)", () => {
         // Calculate total scroll distance: header + (features * 3 phases each)
         const totalSteps = 1 + (featureData.length * 3); // 1 header + 3 phases per feature
         const scrollDistance = totalSteps * 150; // Increased from 100 to 150 for slower scroll
@@ -160,23 +161,23 @@ const Features = ({ isDarkMode }) => {
           // Phase 2: Text content slides in from left (during circle growth)
           tl.fromTo(textRefs.current[index],
             { opacity: 0, x: -100 },
-            { opacity: 1, x: 0, duration: stepDuration * 1.0, ease: "power2.out" },
-            featureStartTime + (stepDuration * 0.4)
+            { opacity: 1, x: 0, duration: stepDuration * 0.4, ease: "power2.out" },
+            featureStartTime + (stepDuration * 0.3)
           );
 
           // Phase 3: Image slides in from right (slightly after text)
           tl.fromTo(imageRefs.current[index],
             { opacity: 0, x: 100 },
-            { opacity: 1, x: 0, duration: stepDuration * 1.0, ease: "power2.out" },
-            featureStartTime + (stepDuration * 0.7)
+            { opacity: 1, x: 0, duration: stepDuration * 0.4, ease: "power2.out" },
+            featureStartTime + (stepDuration * 0.5)
           );
 
           // Fade out content before next feature (but keep circle visible)
           if (index < featureData.length - 1) {
-            const fadeOutTime = featureStartTime + (stepDuration * 2.5);
+            const fadeOutTime = featureStartTime + (stepDuration * 2.0);
             
             tl.to([textRefs.current[index], imageRefs.current[index]],
-              { opacity: 0, duration: stepDuration * 0.5, ease: "power2.in" },
+              { opacity: 0, duration: stepDuration * 0.3, ease: "power2.in" },
               fadeOutTime
             );
           }
@@ -184,66 +185,86 @@ const Features = ({ isDarkMode }) => {
         });
       });
 
-      // Mobile: simple scroll animations with slides
-      mm.add("(max-width: 1023px)", () => {
-        gsap.from(headerRef.current, {
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-          opacity: 0,
-          y: 30,
-          duration: 1,
-          ease: "power3.out"
+      // Mobile: Apply same pinned animation for small screens
+      mm.add("(max-width: 767px)", () => {
+        // Calculate total scroll distance: header + (features * 3 phases each)
+        const totalSteps = 1 + (featureData.length * 3);
+        const scrollDistance = totalSteps * 150;
+
+        // Pin the container
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top top",
+          end: `+=${scrollDistance}%`,
+          pin: containerRef.current,
+          pinSpacing: true,
+          scrub: 1,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            const currentStep = Math.floor(progress * totalSteps);
+            setActiveStep(currentStep);
+          }
         });
 
-        featureData.forEach((_, index) => {
-          // Background grows like a circle (stays round)
-          if (bgRefs.current[index]) {
-            gsap.from(bgRefs.current[index], {
-              scrollTrigger: {
-                trigger: bgRefs.current[index],
-                start: "top 90%",
-                toggleActions: "play none none reverse",
-              },
-              opacity: 0,
-              scale: 0,
-              duration: 2,
-              ease: "power3.out"
-            });
+        // Master timeline
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: `+=${scrollDistance}%`,
+            scrub: 1,
           }
+        });
 
-          // Text slides from left
-          if (textRefs.current[index]) {
-            gsap.from(textRefs.current[index], {
-              scrollTrigger: {
-                trigger: textRefs.current[index],
-                start: "top 85%",
-                toggleActions: "play none none reverse",
-              },
-              opacity: 0,
-              x: -50,
-              duration: 0.9,
-              delay: 0.15,
-              ease: "power3.out"
-            });
-          }
+        const stepDuration = 1 / totalSteps;
 
-          // Image slides from right
-          if (imageRefs.current[index]) {
-            gsap.from(imageRefs.current[index], {
-              scrollTrigger: {
-                trigger: imageRefs.current[index],
-                start: "top 85%",
-                toggleActions: "play none none reverse",
-              },
-              opacity: 0,
-              x: 50,
-              duration: 0.9,
-              delay: 0.25,
-              ease: "power3.out"
-            });
+        // Step 0: Show header
+        tl.fromTo(headerRef.current,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: stepDuration, ease: "power2.out" },
+          0
+        );
+
+        // Fade out header
+        tl.to(headerRef.current,
+          { opacity: 0, y: -30, duration: stepDuration, ease: "power2.in" },
+          stepDuration
+        );
+
+        // Animate each feature
+        featureData.forEach((feature, index) => {
+          const featureStartStep = 1 + (index * 3);
+          const featureStartTime = featureStartStep * stepDuration;
+
+          // Phase 1: Background circle grows and STAYS
+          tl.fromTo(bgRefs.current[index],
+            { opacity: 0, scale: 0 },
+            { opacity: 1, scale: 1.5, duration: stepDuration * 2.0, ease: "power2.out" },
+            featureStartTime
+          );
+
+          // Phase 2: Text content slides in from bottom (mobile-friendly)
+          tl.fromTo(textRefs.current[index],
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: stepDuration * 0.5, ease: "power2.out" },
+            featureStartTime + (stepDuration * 0.3)
+          );
+
+          // Phase 3: Image slides in from bottom (slightly after text)
+          tl.fromTo(imageRefs.current[index],
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: stepDuration * 0.5, ease: "power2.out" },
+            featureStartTime + (stepDuration * 0.5)
+          );
+
+          // Fade out content before next feature (but keep circle visible)
+          if (index < featureData.length - 1) {
+            const fadeOutTime = featureStartTime + (stepDuration * 2.0);
+            
+            tl.to([textRefs.current[index], imageRefs.current[index]],
+              { opacity: 0, duration: stepDuration * 0.3, ease: "power2.in" },
+              fadeOutTime
+            );
           }
         });
       });

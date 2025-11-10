@@ -21,19 +21,40 @@ const Discovery = ({ isDarkMode }) => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
       
-      // Desktop version - Vertical card scroll
+      // Desktop version - Vertical card scroll with viewport-responsive pin duration
       mm.add("(min-width: 1025px)", () => {
-        // ⭐ EASILY CUSTOMIZABLE BOUNDARIES ⭐
-        const SCROLL_DISTANCE = 250; // % of viewport height to scroll through (adjust this!)
-        const TOP_PADDING = 80;      // pixels from top (adjust this!)
-        const BOTTOM_PADDING = 80;   // pixels from bottom (adjust this!)
-        
         const rightSide = cardsContainerRef.current.parentElement;
         const cardsContainer = cardsContainerRef.current;
         
-        // Calculate scroll boundaries
-        const viewportHeight = rightSide.clientHeight;
-        const availableHeight = viewportHeight - TOP_PADDING - BOTTOM_PADDING;
+        // Get viewport dimensions
+        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth;
+        
+        // Calculate responsive scroll distance based on viewport height
+        let SCROLL_DISTANCE;
+        if (viewportHeight <= 700) {
+          SCROLL_DISTANCE = 400; // Shorter screens need more scroll distance
+        } else if (viewportHeight <= 800) {
+          SCROLL_DISTANCE = 350;
+        } else if (viewportHeight <= 900) {
+          SCROLL_DISTANCE = 300;
+        } else if (viewportHeight <= 1080) {
+          SCROLL_DISTANCE = 280;
+        } else {
+          SCROLL_DISTANCE = 250; // Taller screens need less
+        }
+        
+        // Adjust for ultra-wide screens
+        if (viewportWidth >= 2560) {
+          SCROLL_DISTANCE = SCROLL_DISTANCE * 0.9;
+        } else if (viewportWidth >= 1920) {
+          SCROLL_DISTANCE = SCROLL_DISTANCE * 0.95;
+        }
+        
+        const TOP_PADDING = 80;
+        const BOTTOM_PADDING = 80;
+        
+        const availableHeight = rightSide.clientHeight - TOP_PADDING - BOTTOM_PADDING;
         const totalCardsHeight = cardsContainer.scrollHeight;
         const scrollAmount = -(totalCardsHeight - availableHeight);
 
@@ -44,6 +65,7 @@ const Discovery = ({ isDarkMode }) => {
           end: `+=${SCROLL_DISTANCE}%`,
           pin: true,
           pinSpacing: true,
+          anticipatePin: 1,
         });
 
         // Animate cards vertically within boundaries
@@ -64,17 +86,29 @@ const Discovery = ({ isDarkMode }) => {
         );
       });
 
-      // Mobile version - Horizontal card scroll
+      // Mobile version - Horizontal card scroll with responsive pin
       mm.add("(max-width: 1024px)", () => {
-        // ⭐ EASILY CUSTOMIZABLE MOBILE BOUNDARIES ⭐
-        const SCROLL_DISTANCE = 200; // % of viewport height to scroll through (adjust this!)
-        const LEFT_PADDING = 0;      // pixels from left (adjust this!)
-        const RIGHT_PADDING = 100;   // pixels from right (adjust this!)
-        
         const cardsContainer = cardsContainerRef.current;
+        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth;
+        
+        // Responsive scroll distance for mobile based on screen size
+        let SCROLL_DISTANCE;
+        if (viewportWidth <= 480) {
+          SCROLL_DISTANCE = 250;
+        } else if (viewportWidth <= 768) {
+          SCROLL_DISTANCE = 220;
+        } else {
+          SCROLL_DISTANCE = 200;
+        }
+        
+        const LEFT_PADDING = 0;
+        const RIGHT_PADDING = 100;
+        
         const cardWidth = 320;
-        const totalWidth = (cardWidth * cardsRef.current.length) + ((cardsRef.current.length - 1) * 24);
-        const scrollAmount = -(totalWidth - window.innerWidth + RIGHT_PADDING);
+        const gap = 24;
+        const totalWidth = (cardWidth * cardsRef.current.length) + (gap * (cardsRef.current.length - 1));
+        const scrollAmount = -(totalWidth - viewportWidth + RIGHT_PADDING);
 
         ScrollTrigger.create({
           trigger: sectionRef.current,
@@ -82,6 +116,7 @@ const Discovery = ({ isDarkMode }) => {
           end: `+=${SCROLL_DISTANCE}%`,
           pin: true,
           pinSpacing: true,
+          anticipatePin: 1,
         });
 
         gsap.fromTo(cardsContainer,

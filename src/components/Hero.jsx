@@ -13,9 +13,7 @@ import Navbar from '../StylingComponents/Navbar.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Hero = ({ issDarkMode, toggleDarkMode }) => {
-
-  const [isDarkMode, setIsDarkMode] = useState(false);
+const Hero = ({ isDarkMode, toggleDarkMode }) => {
 
   const items = [
     {
@@ -46,11 +44,6 @@ const Hero = ({ issDarkMode, toggleDarkMode }) => {
       ]
     }
   ];
-
-  const handleThemeToggle = () => {
-    setIsDarkMode(!isDarkMode);
-    document.body.classList.toggle('dark-mode');
-  };
 
   const [menuOpen, setMenuOpen] = useState(false);
   
@@ -138,8 +131,8 @@ const Hero = ({ issDarkMode, toggleDarkMode }) => {
         <div className="hero-overlay"></div>
       </div>
       
-      {/* Navigation */}
-      <Navbar />
+      {/* Navigation - Pass props */}
+      <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
 
       {/* Hero Content */}
       <div className="hero-content-wrapper">
@@ -167,6 +160,7 @@ const Hero = ({ issDarkMode, toggleDarkMode }) => {
           <button
             type="button"
             className="hero-cta-button"
+            onClick={() => scrollToSection('calendar')}
             style={{ 
               backgroundColor: isDarkMode ? "#fff" : "#111",
               color: isDarkMode ? "#000" : "#fff"

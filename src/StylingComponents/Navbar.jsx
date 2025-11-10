@@ -5,10 +5,9 @@ import './Navbar.css';
 import logo from '../assets/Logo.png';
 import logoD from '../assets/LogoD.png';
 
-const Navbar = () => {
+const Navbar = ({ isDarkMode, toggleDarkMode }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(false);
 
     const navItems = [
         {
@@ -19,12 +18,12 @@ const Navbar = () => {
         {
             id: 2,
             name: "Patient Journey",
-            section: "patient-journey",
+            section: "stats",  // ✅ Changed from "patient-journey" to "stats"
         },
         {
             id: 3,
             name: "Platform",
-            section: "platform",
+            section: "discovery",  // ✅ Changed from "platform" to "discovery"
         },
         {
             id: 4,
@@ -47,12 +46,6 @@ const Navbar = () => {
 
     const toggleNavbar = () => {
         setIsOpen(!isOpen);
-    };
-
-    const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode);
-        // You can add logic here to actually change your app's theme
-        // For example: document.body.classList.toggle('dark-mode');
     };
 
     // Function to handle scroll event

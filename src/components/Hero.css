@@ -74,28 +74,27 @@ html, body {
   padding: 0;
 }
 
-/* Title Section - Below Navbar - MORE LEFT PADDING */
+/* Title Section - Base Styles (4K) */
 .hero-title-section {
-  padding: 140px 60px 0 160px;
-  max-width: 1400px;
+  padding: 280px 80px 0 200px;
+  max-width: 1600px;
   width: 100%;
 }
 
 .hero-title {
   text-align: left;
-  font-family: "Unna", serif;
+  font-family: 'alexandria', sans-serif;
   font-weight: 700;
-  font-style: italic;
-  font-size: 62px;
+  font-size: 78px;
   line-height: 1.1;
-  margin: 0 0 24px 0;
+  margin: 0 0 32px 0;
   letter-spacing: -0.01em;
   color: #ffffff;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .hero-title .highlight {
-  font-family: "Unna", serif;
+  font-family: 'alexandria', sans-serif;
   font-weight: 700;
   font-style: italic;
   background: linear-gradient(to right, #51E2D2 50%, #25A4E3);
@@ -107,7 +106,7 @@ html, body {
 /* Slogan */
 .hero-slogan {
   font-family: "Geist", sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -123,15 +122,15 @@ html, body {
   position: absolute;
   bottom: -8px;
   left: 0;
-  width: 60px;
+  width: 70px;
   height: 3px;
   background: linear-gradient(to right, #51E2D2, #25A4E3);
 }
 
-/* Description Section - Bottom Left - MORE LEFT PADDING */
+/* Description Section - Base Styles (4K) */
 .hero-description-section {
-  padding: 0 60px 60px 160px;
-  max-width: 700px;
+  padding: 0 80px 80px 200px;
+  max-width: 800px;
   width: 100%;
 }
 
@@ -142,10 +141,10 @@ html, body {
 
 .info-box-content {
   font-family: "Geist", sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.6;
   color: #ffffff;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -153,17 +152,17 @@ html, body {
 .info-box-features {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
   margin-bottom: 0;
 }
 
 .feature-badge {
   font-family: "Geist", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   color: #ffffff;
   background: transparent;
-  padding: 8px 16px;
+  padding: 9px 18px;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: none;
@@ -177,17 +176,17 @@ html, body {
   color: white;
   border: none;
   border-radius: calc(0.75rem - 0.35rem);
-  padding: 12px 24px;
+  padding: 14px 28px;
   font-family: "Geist", sans-serif;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: 20px;
+  margin-top: 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
+  min-height: 48px;
   gap: 8px;
 }
 
@@ -201,7 +200,7 @@ html, body {
 }
 
 .hero-cta-button .button-icon {
-  font-size: 16px;
+  font-size: 17px;
   transition: transform 0.3s ease;
 }
 
@@ -221,8 +220,85 @@ html, body {
 
 /* Responsive Breakpoints */
 
-/* Large Tablets and Small Desktops */
-@media (max-width: 1200px) {
+/* Large Desktop (1920px - 2559px) */
+@media (max-width: 2559px) and (min-width: 1920px) {
+  .hero-title {
+    font-size: 72px;
+  }
+  
+  .hero-title-section {
+    padding: 260px 70px 0 180px;
+    max-width: 1500px;
+  }
+  
+  .hero-description-section {
+    padding: 0 70px 70px 180px;
+    max-width: 750px;
+  }
+  
+  .info-box-content {
+    font-size: 19px;
+  }
+  
+  .hero-slogan {
+    font-size: 19px;
+  }
+  
+  .hero-slogan::before {
+    width: 65px;
+  }
+}
+
+/* Desktop (1440px - 1919px) */
+@media (max-width: 1919px) and (min-width: 1440px) {
+  .hero-title {
+    font-size: 68px;
+  }
+  
+  .hero-title-section {
+    padding: 240px 60px 0 160px;
+    max-width: 1400px;
+  }
+  
+  .hero-description-section {
+    padding: 0 60px 60px 160px;
+    max-width: 700px;
+  }
+  
+  .info-box-content {
+    font-size: 18px;
+  }
+  
+  .hero-slogan {
+    font-size: 18px;
+  }
+  
+  .hero-slogan::before {
+    width: 60px;
+  }
+  
+  .feature-badge {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+  
+  .hero-cta-button {
+    padding: 12px 24px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+  
+  .hero-cta-button .button-icon {
+    font-size: 16px;
+  }
+  
+  .info-box-features {
+    gap: 12px;
+  }
+}
+
+/* Standard Desktop (1200px - 1439px) */
+@media (max-width: 1439px) and (min-width: 1200px) {
   .hero-title {
     font-size: 64px;
   }
@@ -233,7 +309,7 @@ html, body {
   }
   
   .hero-title-section {
-    padding: 130px 50px 0 140px;
+    padding: 220px 50px 0 140px;
   }
   
   .hero-description-section {
@@ -249,8 +325,8 @@ html, body {
   }
 }
 
-/* Tablets */
-@media (max-width: 1024px) {
+/* Large Tablets and Small Desktops (1024px - 1199px) */
+@media (max-width: 1199px) and (min-width: 1024px) {
   .hero-video-container {
     border-radius: 0 0 30px 30px;
   }
@@ -271,7 +347,7 @@ html, body {
   }
   
   .hero-title-section {
-    padding: 120px 40px 0 100px;
+    padding: 200px 40px 0 100px;
   }
   
   .hero-description-section {
@@ -298,8 +374,8 @@ html, body {
   }
 }
 
-/* Mobile Landscape and Small Tablets */
-@media (max-width: 768px) {
+/* Tablets (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
   .hero-section {
     min-height: 100vh;
   }
@@ -323,7 +399,7 @@ html, body {
   }
   
   .hero-title-section {
-    padding: 110px 30px 0 50px;
+    padding: 180px 30px 0 50px;
   }
   
   .hero-overlay {
@@ -356,8 +432,8 @@ html, body {
   }
 }
 
-/* Mobile Portrait */
-@media (max-width: 480px) {
+/* Mobile Portrait (481px - 767px) */
+@media (max-width: 767px) and (min-width: 481px) {
   .hero-video-container {
     border-radius: 0 0 20px 20px;
   }
@@ -378,7 +454,7 @@ html, body {
   }
   
   .hero-title-section {
-    padding: 100px 20px 0 40px;
+    padding: 165px 20px 0 40px;
   }
   
   .hero-description-section {
@@ -399,11 +475,12 @@ html, body {
     padding: 14px 22px;
     font-size: 15px;
     margin-top: 18px;
+    width: 100%;
   }
 }
 
-/* Small Mobile */
-@media (max-width: 400px) {
+/* Small Mobile (401px - 480px) */
+@media (max-width: 480px) and (min-width: 401px) {
   .hero-title {
     font-size: 38px;
     margin-bottom: 14px;
@@ -419,7 +496,7 @@ html, body {
   }
   
   .hero-title-section {
-    padding: 90px 16px 0 32px;
+    padding: 150px 16px 0 32px;
   }
   
   .hero-description-section {
@@ -438,11 +515,12 @@ html, body {
   .hero-cta-button {
     padding: 13px 20px;
     font-size: 15px;
+    width: 100%;
   }
 }
 
-/* Very Small Mobile */
-@media (max-width: 330px) {
+/* Very Small Mobile (331px - 400px) */
+@media (max-width: 400px) and (min-width: 331px) {
   .hero-video-container {
     border-radius: 0 0 16px 16px;
   }
@@ -463,7 +541,7 @@ html, body {
   }
   
   .hero-title-section {
-    padding: 85px 12px 0 24px;
+    padding: 140px 12px 0 24px;
   }
   
   .hero-description-section {
@@ -482,9 +560,59 @@ html, body {
   .hero-cta-button {
     font-size: 14px;
     padding: 12px 18px;
+    width: 100%;
   }
   
   .info-box-features {
     gap: 8px;
+  }
+}
+
+/* Extra Small Mobile (≤330px) */
+@media (max-width: 330px) {
+  .hero-video-container {
+    border-radius: 0 0 14px 14px;
+  }
+  
+  .hero-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+  
+  .hero-slogan {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+  
+  .hero-slogan::before {
+    width: 28px;
+    height: 2px;
+  }
+  
+  .hero-title-section {
+    padding: 130px 10px 0 20px;
+  }
+  
+  .hero-description-section {
+    padding: 0 10px 10px 20px;
+  }
+  
+  .info-box-content {
+    font-size: 13px;
+  }
+  
+  .feature-badge {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+  
+  .hero-cta-button {
+    font-size: 13px;
+    padding: 11px 16px;
+    width: 100%;
+  }
+  
+  .info-box-features {
+    gap: 6px;
   }
 }

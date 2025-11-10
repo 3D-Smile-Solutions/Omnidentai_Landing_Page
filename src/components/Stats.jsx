@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { HiArrowRight } from 'react-icons/hi';
+import tooth3d from '../assets/tooth3d.png';
+
 import './Stats.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -18,8 +20,8 @@ const Stats = ({ isDarkMode }) => {
   const videoSectionRef = useRef(null);
   const videoFrameRef = useRef(null);
   const cornersRef = useRef([]);
-  const imageTopLeftRef = useRef(null);
-  const imageBottomRightRef = useRef(null);
+  const imageLeftRef = useRef(null);
+  const imageRightRef = useRef(null);
 
   // Smooth scroll to section
   const scrollToSection = (sectionId) => {
@@ -103,32 +105,28 @@ const Stats = ({ isDarkMode }) => {
         ease: 'back.out(1.7)'
       });
 
-      // Top Left Image Animation
-      gsap.from(imageTopLeftRef.current, {
+      // Left Image Animation
+      gsap.from(imageLeftRef.current, {
         scrollTrigger: {
-          trigger: imageTopLeftRef.current,
+          trigger: imageLeftRef.current,
           start: 'top 80%',
           toggleActions: 'play none none none'
         },
         opacity: 0,
         x: -50,
-        y: -50,
-        rotation: -15,
         duration: 1,
         ease: 'power3.out'
       });
 
-      // Bottom Right Image Animation
-      gsap.from(imageBottomRightRef.current, {
+      // Right Image Animation
+      gsap.from(imageRightRef.current, {
         scrollTrigger: {
-          trigger: imageBottomRightRef.current,
-          start: 'top 85%',
+          trigger: imageRightRef.current,
+          start: 'top 80%',
           toggleActions: 'play none none none'
         },
         opacity: 0,
         x: 50,
-        y: 50,
-        rotation: 15,
         duration: 1,
         ease: 'power3.out'
       });
@@ -186,15 +184,13 @@ const Stats = ({ isDarkMode }) => {
 
   return (
     <section className={`stats ${isDarkMode ? 'dark' : 'light'}`} ref={sectionRef}>
-      {/* Decorative Images */}
-      <div className="decorative-image top-left" ref={imageTopLeftRef}>
-        {/* Placeholder for top left image */}
-        <div className="image-placeholder"></div>
+      {/* Decorative Images at Horizontal Corners */}
+      <div className="decorative-image left-corner" ref={imageLeftRef}>
+        <img src={tooth3d} alt="Tooth 3D" className="tooth-image" />
       </div>
       
-      <div className="decorative-image bottom-right" ref={imageBottomRightRef}>
-        {/* Placeholder for bottom right image */}
-        <div className="image-placeholder"></div>
+      <div className="decorative-image right-corner" ref={imageRightRef}>
+        <img src={tooth3d} alt="Tooth 3D" className="tooth-image flipped" />
       </div>
 
       {/* Upper Section - Introduction */}

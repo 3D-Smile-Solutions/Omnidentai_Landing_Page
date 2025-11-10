@@ -21,9 +21,9 @@
 
 .pricing-container {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 80px 0 200px;
   position: relative;
   z-index: 1;
 }
@@ -32,6 +32,7 @@
 .pricing-header {
   text-align: left;
   margin-bottom: 24px;
+  max-width: 800px;
 }
 
 .pricing-label {
@@ -275,7 +276,7 @@
   color: rgba(0, 0, 0, 0.8);
 }
 
-/* Buttons */
+/* Buttons - Matches Hero CTA Styling */
 .card-action {
   margin-top: auto;
   padding-top: 20px;
@@ -286,25 +287,41 @@
   font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 15px;
   font-weight: 500;
-  padding: 14px 24px;
+  padding: 14px 28px;
   border: none;
-  border-radius: 50px;
+  border-radius: calc(0.75rem - 0.35rem);
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   margin-bottom: 20px;
-  height: 48px;
+  min-height: 48px;
   text-decoration: none;
-  background: rgb(0, 0, 0);
-  color: rgb(255, 255, 255);
+  background-color: #111;
+  color: #ffffff;
 }
 
 .pricing-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background-color: #333;
+  transform: translateY(-1px);
+}
+
+.pricing-btn:active {
+  transform: translateY(0);
+}
+
+.pricing-btn .button-icon {
+  font-size: 17px;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pricing-btn:hover .button-icon {
+  transform: translateX(3px);
 }
 
 /* Card Footer */
@@ -348,6 +365,7 @@
 
   .pricing-container {
     max-width: 1600px;
+    padding: 0 70px 0 180px;
   }
 
   .pricing-title {
@@ -395,6 +413,7 @@
 
   .pricing-container {
     max-width: 1500px;
+    padding: 0 60px 0 160px;
   }
 
   .pricing-title {
@@ -424,7 +443,8 @@
   }
 
   .pricing-container {
-    max-width: 1300px;
+    max-width: 1600px;
+    padding: 0 50px 0 140px;
   }
 
   .pricing-title {
@@ -462,7 +482,7 @@
   }
 
   .pricing-container {
-    padding: 0 35px;
+    padding: 0 40px 0 100px;
   }
 
   .pricing-title {
@@ -508,7 +528,7 @@
   }
 
   .pricing-container {
-    padding: 0 30px;
+    padding: 0 30px 0 50px;
   }
 
   .pricing-title {
@@ -580,7 +600,7 @@
   }
 
   .pricing-container {
-    padding: 0 25px;
+    padding: 0 20px 0 40px;
   }
 
   .pricing-label {
@@ -648,7 +668,7 @@
   }
 
   .pricing-container {
-    padding: 0 20px;
+    padding: 0 16px 0 32px;
   }
 
   .pricing-label {
@@ -711,7 +731,7 @@
   .pricing-btn {
     font-size: 14px;
     padding: 12px 20px;
-    height: 44px;
+    min-height: 44px;
   }
 
   .card-footer {
@@ -727,7 +747,7 @@
   }
 
   .pricing-container {
-    padding: 0 18px;
+    padding: 0 12px 0 24px;
   }
 
   .pricing-label {
@@ -812,7 +832,7 @@
   .pricing-btn {
     font-size: 13px;
     padding: 12px 18px;
-    height: 42px;
+    min-height: 42px;
     margin-bottom: 15px;
   }
 
@@ -834,7 +854,7 @@
   }
 
   .pricing-container {
-    padding: 0 15px;
+    padding: 0 10px 0 20px;
   }
 
   .pricing-label {
@@ -920,7 +940,7 @@
   .pricing-btn {
     font-size: 12px;
     padding: 11px 16px;
-    height: 40px;
+    min-height: 40px;
     margin-bottom: 12px;
   }
 
@@ -937,6 +957,10 @@
 
 /* Fix for <480px and improve card sizing & text */
 @media (max-width: 479px) {
+  .pricing-container {
+    padding: 0 12px 0 24px;
+  }
+
   .pricing-cards {
     display: flex !important;
     flex-direction: column !important;

@@ -4,7 +4,7 @@
 
   --logoloop-gap: 32px;
   --logoloop-logoHeight: 28px;
-  --logoloop-fadeColorAuto: #ffffff;
+  --logoloop-fadeColorAuto: transparent;
 }
 
 .logoloop--scale-hover {
@@ -12,11 +12,12 @@
   padding-bottom: calc(var(--logoloop-logoHeight) * 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
+/* Remove auto dark mode - handle this in parent component */
+/* @media (prefers-color-scheme: dark) {
   .logoloop {
     --logoloop-fadeColorAuto: #0b0b0b;
   }
-}
+} */
 
 .logoloop__track {
   display: flex;
@@ -28,6 +29,9 @@
 .logoloop__list {
   display: flex;
   align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .logoloop__item {
@@ -35,6 +39,7 @@
   margin-right: var(--logoloop-gap);
   font-size: var(--logoloop-logoHeight);
   line-height: 1;
+  list-style: none;
 }
 
 .logoloop__item:last-child {
@@ -54,7 +59,6 @@
   image-rendering: -webkit-optimize-contrast;
   -webkit-user-drag: none;
   pointer-events: none;
-  /* Links handle interaction */
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -89,7 +93,9 @@
   outline-offset: 2px;
 }
 
-.logoloop--fade::before,
+/* Fade gradients - removed to prevent black circle overlay */
+/* Use parent component's fade gradients instead */
+/* .logoloop--fade::before,
 .logoloop--fade::after {
   content: '';
   position: absolute;
@@ -116,6 +122,80 @@
     var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
     rgba(0, 0, 0, 0) 100%
   );
+} */
+
+/* Responsive Logo Sizes */
+
+/* Large Desktop: 1920px+ */
+@media (min-width: 1920px) {
+  .logoloop {
+    --logoloop-gap: 40px;
+    --logoloop-logoHeight: 32px;
+  }
+}
+
+/* Desktop: 1440px - 1919px */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .logoloop {
+    --logoloop-gap: 36px;
+    --logoloop-logoHeight: 30px;
+  }
+}
+
+/* Standard Desktop: 1200px - 1439px */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .logoloop {
+    --logoloop-gap: 32px;
+    --logoloop-logoHeight: 28px;
+  }
+}
+
+/* Large Tablets and Small Desktops: 1024px - 1199px */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .logoloop {
+    --logoloop-gap: 28px;
+    --logoloop-logoHeight: 26px;
+  }
+}
+
+/* Tablets: 768px - 1023px */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .logoloop {
+    --logoloop-gap: 24px;
+    --logoloop-logoHeight: 24px;
+  }
+}
+
+/* Mobile Portrait: 481px - 767px */
+@media (max-width: 767px) and (min-width: 481px) {
+  .logoloop {
+    --logoloop-gap: 20px;
+    --logoloop-logoHeight: 20px;
+  }
+}
+
+/* Small Mobile: 401px - 480px */
+@media (max-width: 480px) and (min-width: 401px) {
+  .logoloop {
+    --logoloop-gap: 18px;
+    --logoloop-logoHeight: 18px;
+  }
+}
+
+/* Very Small Mobile: 331px - 400px */
+@media (max-width: 400px) and (min-width: 331px) {
+  .logoloop {
+    --logoloop-gap: 16px;
+    --logoloop-logoHeight: 16px;
+  }
+}
+
+/* Extra Small Mobile: ≤330px */
+@media (max-width: 330px) {
+  .logoloop {
+    --logoloop-gap: 14px;
+    --logoloop-logoHeight: 14px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
