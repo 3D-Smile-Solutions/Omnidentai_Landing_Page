@@ -293,7 +293,7 @@ const Calendar = ({ isDarkMode }) => {
               
               <div className="footer-contact-section">
                 <p className="contact-label">Contact</p>
-                <a href="mailto:hello@omnident.com" className="contact-email">hello@omnident.com</a>
+                <a href="mailto:hello@omnident.com" className="contact-email">han@omnident.ai</a>
               </div>
             </div>
           </div>
