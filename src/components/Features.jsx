@@ -38,7 +38,7 @@ const Features = ({ isDarkMode }) => {
       id: 2,
       title: "Smart Reminders & Confirmations",
       description: "Automated reminders via SMS, email, and voice calls that reduce no-shows and keep patients informed.",
-      bgColor: "#0069DC",
+      bgColor: "#FFC9D7",
       image: f2,
       stats: [
         "60% Fewer No-Shows",
