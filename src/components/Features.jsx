@@ -102,9 +102,10 @@ const Features = ({ isDarkMode }) => {
       
       // Apply same pinned animation to ALL screen sizes
       mm.add("(min-width: 768px)", () => {
-        // Calculate total scroll distance: header + (features * 3 phases each)
-        const totalSteps = 1 + (featureData.length * 3); // 1 header + 3 phases per feature
-        const scrollDistance = totalSteps * 150; // Increased from 100 to 150 for slower scroll
+        // Calculate total scroll distance: header + (features * 2.5 phases each) - REDUCED from 3
+        const stepsPerFeature = 2.5; // Reduced from 3 to make it snappier
+        const totalSteps = 1 + (featureData.length * stepsPerFeature);
+        const scrollDistance = totalSteps * 150;
 
         // Pin the container
         ScrollTrigger.create({
@@ -146,12 +147,12 @@ const Features = ({ isDarkMode }) => {
           stepDuration
         );
 
-        // Animate each feature (each gets its own circle that grows and stays)
+        // Animate each feature
         featureData.forEach((feature, index) => {
-          const featureStartStep = 1 + (index * 3);
+          const featureStartStep = 1 + (index * stepsPerFeature);
           const featureStartTime = featureStartStep * stepDuration;
 
-          // Phase 1: Background circle grows and STAYS
+          // Phase 1: Background circle grows and STAYS (duration unchanged)
           tl.fromTo(bgRefs.current[index],
             { opacity: 0, scale: 0 },
             { opacity: 1, scale: 1.5, duration: stepDuration * 2.0, ease: "power2.out" },
@@ -172,23 +173,23 @@ const Features = ({ isDarkMode }) => {
             featureStartTime + (stepDuration * 0.5)
           );
 
-          // Fade out content before next feature (but keep circle visible)
+          // Fade out content EARLIER and FASTER before next feature
           if (index < featureData.length - 1) {
-            const fadeOutTime = featureStartTime + (stepDuration * 2.0);
+            const fadeOutTime = featureStartTime + (stepDuration * 1.8); // Start earlier (was 2.0)
             
             tl.to([textRefs.current[index], imageRefs.current[index]],
-              { opacity: 0, duration: stepDuration * 0.3, ease: "power2.in" },
+              { opacity: 0, duration: stepDuration * 0.2, ease: "power2.in" }, // Faster fade (was 0.3)
               fadeOutTime
             );
           }
-          // Note: circles never shrink - they all stay visible and stack
         });
       });
 
       // Mobile: Apply same pinned animation for small screens
       mm.add("(max-width: 767px)", () => {
-        // Calculate total scroll distance: header + (features * 3 phases each)
-        const totalSteps = 1 + (featureData.length * 3);
+        // Calculate total scroll distance with reduced steps per feature
+        const stepsPerFeature = 2.5; // Reduced from 3
+        const totalSteps = 1 + (featureData.length * stepsPerFeature);
         const scrollDistance = totalSteps * 150;
 
         // Pin the container
@@ -233,10 +234,10 @@ const Features = ({ isDarkMode }) => {
 
         // Animate each feature
         featureData.forEach((feature, index) => {
-          const featureStartStep = 1 + (index * 3);
+          const featureStartStep = 1 + (index * stepsPerFeature);
           const featureStartTime = featureStartStep * stepDuration;
 
-          // Phase 1: Background circle grows and STAYS
+          // Phase 1: Background circle grows and STAYS (duration unchanged)
           tl.fromTo(bgRefs.current[index],
             { opacity: 0, scale: 0 },
             { opacity: 1, scale: 1.5, duration: stepDuration * 2.0, ease: "power2.out" },
@@ -257,12 +258,12 @@ const Features = ({ isDarkMode }) => {
             featureStartTime + (stepDuration * 0.5)
           );
 
-          // Fade out content before next feature (but keep circle visible)
+          // Fade out content EARLIER and FASTER before next feature
           if (index < featureData.length - 1) {
-            const fadeOutTime = featureStartTime + (stepDuration * 2.0);
+            const fadeOutTime = featureStartTime + (stepDuration * 1.8); // Start earlier (was 2.0)
             
             tl.to([textRefs.current[index], imageRefs.current[index]],
-              { opacity: 0, duration: stepDuration * 0.3, ease: "power2.in" },
+              { opacity: 0, duration: stepDuration * 0.2, ease: "power2.in" }, // Faster fade (was 0.3)
               fadeOutTime
             );
           }
@@ -295,7 +296,7 @@ const Features = ({ isDarkMode }) => {
               className="feature-background"
               style={{ 
                 backgroundColor: feature.bgColor,
-                zIndex: index + 1 // Stack circles: newer ones on top
+                zIndex: index + 1
               }}
             />
 
@@ -303,7 +304,7 @@ const Features = ({ isDarkMode }) => {
             <div
               ref={el => textRefs.current[index] = el}
               className="feature-text-layer"
-              style={{ zIndex: 100 + index }} // Above all circles
+              style={{ zIndex: 100 + index }}
             >
               <div className="feature-text-content">
                 <span className="feature-number">0{feature.id}</span>
@@ -324,7 +325,7 @@ const Features = ({ isDarkMode }) => {
             <div
               ref={el => imageRefs.current[index] = el}
               className="feature-image-layer"
-              style={{ zIndex: 200 + index }} // Above text and circles
+              style={{ zIndex: 200 + index }}
             >
               <div className="image-frame">
                 <img src={feature.image} alt={feature.title} />

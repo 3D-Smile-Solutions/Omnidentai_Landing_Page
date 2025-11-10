@@ -101,8 +101,6 @@ const InfoGraphic = ({ isDarkMode }) => {
               logos={dentalLogos}
               speed={80}
               direction="left"
-              logoHeight={140}
-              gap={60}
               pauseOnHover
               scaleOnHover
               fadeOut

@@ -124,21 +124,21 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, isHovered, pauseOn
 };
 
 export const LogoLoop = memo(
-  ({
-    logos,
-    speed = 120,
-    direction = 'left',
-    width = '100%',
-    logoHeight = 28,
-    gap = 32,
-    pauseOnHover = true,
-    fadeOut = false,
-    fadeOutColor,
-    scaleOnHover = false,
-    ariaLabel = 'Partner logos',
-    className,
-    style
-  }) => {
+    ({
+      logos,
+      speed = 120,
+      direction = 'left',
+      width = '100%',
+      logoHeight,  // Remove the = 28 default
+      gap,         // Remove the = 32 default
+      pauseOnHover = true,
+      fadeOut = false,
+      fadeOutColor,
+      scaleOnHover = false,
+      ariaLabel = 'Partner logos',
+      className,
+      style
+    }) => {
     const containerRef = useRef(null);
     const trackRef = useRef(null);
     const seqRef = useRef(null);
@@ -173,13 +173,13 @@ export const LogoLoop = memo(
 
     const cssVariables = useMemo(
       () => ({
-        '--logoloop-gap': `${gap}px`,
-        '--logoloop-logoHeight': `${logoHeight}px`,
+        // Only set these if explicitly provided as props, otherwise let CSS handle it
+        ...(gap !== undefined && { '--logoloop-gap': `${gap}px` }),
+        ...(logoHeight !== undefined && { '--logoloop-logoHeight': `${logoHeight}px` }),
         ...(fadeOutColor && { '--logoloop-fadeColor': fadeOutColor })
       }),
       [gap, logoHeight, fadeOutColor]
     );
-
     const rootClassName = useMemo(
       () =>
         ['logoloop', fadeOut && 'logoloop--fade', scaleOnHover && 'logoloop--scale-hover', className]

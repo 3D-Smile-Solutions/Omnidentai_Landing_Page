@@ -129,75 +129,74 @@
 /* Large Desktop: 1920px+ */
 @media (min-width: 1920px) {
   .logoloop {
-    --logoloop-gap: 40px;
-    --logoloop-logoHeight: 32px;
+    --logoloop-gap: 60px;
+    --logoloop-logoHeight: 150px;
   }
 }
 
 /* Desktop: 1440px - 1919px */
 @media (min-width: 1440px) and (max-width: 1919px) {
   .logoloop {
-    --logoloop-gap: 36px;
-    --logoloop-logoHeight: 30px;
+    --logoloop-gap: 55px;
+    --logoloop-logoHeight: 90px;
   }
 }
 
 /* Standard Desktop: 1200px - 1439px */
 @media (min-width: 1200px) and (max-width: 1439px) {
   .logoloop {
-    --logoloop-gap: 32px;
-    --logoloop-logoHeight: 28px;
+    --logoloop-gap: 50px;
+    --logoloop-logoHeight: 150px;
   }
 }
 
 /* Large Tablets and Small Desktops: 1024px - 1199px */
 @media (min-width: 1024px) and (max-width: 1199px) {
   .logoloop {
-    --logoloop-gap: 28px;
-    --logoloop-logoHeight: 26px;
+    --logoloop-gap: 45px;
+    --logoloop-logoHeight: 140px;
   }
 }
 
 /* Tablets: 768px - 1023px */
 @media (max-width: 1023px) and (min-width: 768px) {
   .logoloop {
-    --logoloop-gap: 24px;
-    --logoloop-logoHeight: 24px;
+    --logoloop-gap: 40px;
+    --logoloop-logoHeight: 100px;
   }
 }
 
 /* Mobile Portrait: 481px - 767px */
 @media (max-width: 767px) and (min-width: 481px) {
   .logoloop {
-    --logoloop-gap: 20px;
-    --logoloop-logoHeight: 20px;
+    --logoloop-gap: 35px;
+    --logoloop-logoHeight: 100px;
   }
 }
 
 /* Small Mobile: 401px - 480px */
 @media (max-width: 480px) and (min-width: 401px) {
   .logoloop {
-    --logoloop-gap: 18px;
-    --logoloop-logoHeight: 18px;
+    --logoloop-gap: 30px;
+    --logoloop-logoHeight: 105px;
   }
 }
 
 /* Very Small Mobile: 331px - 400px */
 @media (max-width: 400px) and (min-width: 331px) {
   .logoloop {
-    --logoloop-gap: 16px;
-    --logoloop-logoHeight: 16px;
+    --logoloop-gap: 25px;
+    --logoloop-logoHeight: 40px;
   }
 }
 
 /* Extra Small Mobile: ≤330px */
 @media (max-width: 330px) {
   .logoloop {
-    --logoloop-gap: 14px;
-    --logoloop-logoHeight: 14px;
+    --logoloop-gap: 20px;
+    --logoloop-logoHeight: 105px;
   }
 }
-
 @media (prefers-reduced-motion: reduce) {
   .logoloop__track {
     transform: translate3d(0, 0, 0) !important;
