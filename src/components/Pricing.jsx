@@ -106,17 +106,22 @@ const Pricing = ({ isDarkMode }) => {
             { opacity: 0, x: -20 },
             { opacity: 1, x: 0, duration: 0.3, stagger: 0.1, ease: 'power2.out' },
             '-=0.2'
-          )
-          .fromTo(button,
+          );
+
+        // Only animate button if it exists
+        if (button) {
+          cardTimeline.fromTo(button,
             { opacity: 0, y: 10 },
             { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' },
             '-=0.2'
-          )
-          .fromTo(footer,
-            { opacity: 0 },
-            { opacity: 1, duration: 0.3, ease: 'power2.out' },
-            '-=0.2'
           );
+        }
+
+        cardTimeline.fromTo(footer,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.3, ease: 'power2.out' },
+          '-=0.2'
+        );
 
         mainTimeline.add(cardTimeline, `-=${0.6 - (index * 0.15)}`);
       });
@@ -183,14 +188,10 @@ const Pricing = ({ isDarkMode }) => {
               </li>
             </ul>
 
-            <div className="card-action">
-              <button className="swipe pricing-btn" onClick={() => scrollToSection('calendar')}>
-                Book A Strategy Call
-              </button>
-            </div>
-
             <p className="card-footer">
-              Runs as part of your OmniDent.ai subscription
+              $1,000 first-month credit from $2,000 implementation cost.<br />
+              Continued marketing services require retention (additional costs) or you<br />
+              can return to your previous marketing partner.
             </p>
           </div>
 
@@ -214,7 +215,7 @@ const Pricing = ({ isDarkMode }) => {
                 <span className="price-period">/mo</span>
               </div>
               <div className="card-subtitle">
-                +$5,000 implementation
+                +$2,000 implementation
               </div>
             </div>
 
@@ -238,11 +239,12 @@ const Pricing = ({ isDarkMode }) => {
                 Book A Demo
               </button>     
             </div>
-
+            
             <p className="card-footer">
-              Includes SAVE marketing activation credit managed by<br />
+              Includes $1,000 marketing activation credit managed by<br />
               Omnicient.ai core
             </p>
+
           </div>
 
           {/* Optional Card - Right Side */}
@@ -276,19 +278,9 @@ const Pricing = ({ isDarkMode }) => {
               </li>
             </ul>
 
-            <div className="card-action">
-              <a 
-                href="https://itfactorgroup.com/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="swipe pricing-btn"
-              >
-                Grow Social Media
-              </a>
-            </div>
-
             <p className="card-footer">
-              Runs as part of your OmniDent.ai subscription
+              Contact our team to learn about social media growth packages<br />
+              and pricing options for your practice.
             </p>
           </div>
         </div>

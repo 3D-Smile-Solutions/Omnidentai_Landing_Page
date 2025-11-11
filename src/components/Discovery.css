@@ -20,8 +20,7 @@
   background-size: cover;
   pointer-events: none;
   border-radius: 1rem;
-  /* Crop out bottom right corner where watermark is */
-  clip-path: inset(0 0 10px 0); /* Adjust the 80px value to crop more/less */
+  clip-path: inset(0 0 10px 0);
 }
 
 /* Dark Overlay on Background */
@@ -162,16 +161,16 @@
   margin-bottom: 10px;
 }
 
-/* Spotlight Card - Smaller Square */
+/* Spotlight Card - Adjusted for larger icon boxes */
 .custom-spotlight-card {
   background: rgba(13, 7, 22, 0.7);
   backdrop-filter: blur(10px);
   border-radius: 16px;
-  padding: 28px;
+  padding: 32px;
   border: 1px solid rgba(81, 226, 210, 0.2);
   transition: all 0.3s ease;
   width: 100%;
-  max-width: 380px;
+  max-width: 480px;
   aspect-ratio: 1 / 1;
   display: flex;
   flex-direction: column;
@@ -186,15 +185,15 @@
   background: rgba(13, 7, 22, 0.85);
 }
 
-/* Channel Icon Box */
+/* Channel Icon Box - REDUCED SIZE */
 .channel-icon-box {
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
+  margin-bottom: 20px;
   background: rgba(81, 226, 210, 0.15);
   transition: all 0.3s ease;
   flex-shrink: 0;
@@ -211,13 +210,13 @@
   color: #51E2D2;
 }
 
-/* Channel Content */
+/* Channel Content - LARGER FONTS */
 .channel-title {
   font-family: 'Geist', sans-serif;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
   letter-spacing: 0.3px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   color: #ffffff;
   flex-shrink: 0;
   line-height: 1.2;
@@ -225,10 +224,10 @@
 
 .channel-description {
   font-family: 'Geist', sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   flex-grow: 1;
 }
 
@@ -241,10 +240,10 @@
 
 .channel-features li {
   font-family: 'Geist', sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 6px;
-  line-height: 1.4;
+  margin-bottom: 8px;
+  line-height: 1.5;
 }
 
 /* Channel Button - HIDDEN */
@@ -284,14 +283,13 @@
 }
 
 .discovery.light .custom-spotlight-card {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: rgba(81, 226, 210, 0.3);
+  background: rgba(230, 233, 250, 0.75); /* Very subtle teal tint */
+  border-color: rgba(81, 226, 210, 0.4);
 }
 
 .discovery.light .custom-spotlight-card:hover {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(230, 250, 248, 0.85);
 }
-
 .discovery.light .channel-title {
   color: #1a1a1a;
 }
@@ -302,6 +300,19 @@
 
 .discovery.light .channel-features li {
   color: rgba(26, 26, 26, 0.7);
+}
+
+/* Dark icons for light mode */
+.discovery.light .channel-icon {
+  color: #1a1a1a;
+}
+
+.discovery.light .channel-icon-box {
+  background: rgba(81, 226, 210, 0.15);
+}
+
+.discovery.light .custom-spotlight-card:hover .channel-icon-box {
+  background: rgba(81, 226, 210, 0.25);
 }
 
 /* Responsive Design - Matching Hero Padding */
@@ -318,6 +329,31 @@
   
   .discovery-title {
     font-size: 50px;
+  }
+  
+  /* Reduced icon box for big screens */
+  .channel-icon-box {
+    width: 85px;
+    height: 85px;
+    border-radius: 18px;
+  }
+  
+  /* SMALL icon stays the same */
+  .channel-icon {
+    width: 26px;
+    height: 26px;
+  }
+  
+  .channel-title {
+    font-size: 22px;
+  }
+  
+  .channel-description {
+    font-size: 18px;
+  }
+  
+  .channel-features li {
+    font-size: 16px;
   }
 }
 
@@ -336,16 +372,31 @@
   }
   
   .custom-spotlight-card {
-    max-width: 360px;
-    padding: 26px;
+    max-width: 460px;
+    padding: 34px;
+  }
+  
+  .channel-icon-box {
+    width: 75px;
+    height: 75px;
+    border-radius: 16px;
+  }
+  
+  .channel-icon {
+    width: 26px;
+    height: 26px;
   }
   
   .channel-title {
-    font-size: 17px;
+    font-size: 20px;
   }
   
   .channel-description {
-    font-size: 14px;
+    font-size: 17px;
+  }
+  
+  .channel-features li {
+    font-size: 15px;
   }
 }
 
@@ -368,13 +419,14 @@
   }
   
   .custom-spotlight-card {
-    max-width: 340px;
-    padding: 24px;
+    max-width: 440px;
+    padding: 32px;
   }
   
   .channel-icon-box {
-    width: 48px;
-    height: 48px;
+    width: 70px;
+    height: 70px;
+    border-radius: 14px;
   }
   
   .channel-icon {
@@ -383,15 +435,15 @@
   }
   
   .channel-title {
-    font-size: 17px;
+    font-size: 19px;
   }
   
   .channel-description {
-    font-size: 14px;
+    font-size: 16px;
   }
   
   .channel-features li {
-    font-size: 12px;
+    font-size: 14px;
   }
   
   .channels-stack {
@@ -399,7 +451,7 @@
   }
 }
 
-/* Large Tablets and Small Desktops (1024px - 1199px) - Tablet Horizontal Scroll Layout */
+/* Large Tablets and Small Desktops (1024px - 1199px) */
 @media (max-width: 1199px) and (min-width: 1024px) {
   .discovery-wrapper {
     flex-direction: column;
@@ -429,7 +481,6 @@
     margin-bottom: 60px;
   }
   
-  /* Horizontal scroll for tablet */
   .discovery-right {
     width: 100%;
     height: auto;
@@ -443,9 +494,33 @@
   }
   
   .custom-spotlight-card {
-    width: 320px;
-    min-width: 320px;
-    max-width: 320px;
+    width: 400px;
+    min-width: 400px;
+    max-width: 400px;
+    padding: 32px;
+  }
+  
+  .channel-icon-box {
+    width: 65px;
+    height: 65px;
+    border-radius: 14px;
+  }
+  
+  .channel-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .channel-title {
+    font-size: 18px;
+  }
+  
+  .channel-description {
+    font-size: 16px;
+  }
+  
+  .channel-features li {
+    font-size: 14px;
   }
 }
 
@@ -492,22 +567,33 @@
   }
   
   .custom-spotlight-card {
-    width: 300px;
-    min-width: 300px;
-    max-width: 300px;
-    padding: 24px;
+    width: 360px;
+    min-width: 360px;
+    max-width: 360px;
+    padding: 28px;
+  }
+  
+  .channel-icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+  }
+  
+  .channel-icon {
+    width: 24px;
+    height: 24px;
   }
   
   .channel-title {
-    font-size: 16px;
+    font-size: 18px;
   }
   
   .channel-description {
-    font-size: 14px;
+    font-size: 16px;
   }
   
   .channel-features li {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 
@@ -556,15 +642,16 @@
   }
   
   .custom-spotlight-card {
-    width: 280px;
-    min-width: 280px;
-    max-width: 280px;
-    padding: 22px;
+    width: 330px;
+    min-width: 330px;
+    max-width: 330px;
+    padding: 26px;
   }
   
   .channel-icon-box {
-    width: 48px;
-    height: 48px;
+    width: 58px;
+    height: 58px;
+    border-radius: 12px;
   }
   
   .channel-icon {
@@ -573,15 +660,15 @@
   }
   
   .channel-title {
-    font-size: 16px;
+    font-size: 17px;
   }
   
   .channel-description {
-    font-size: 14px;
+    font-size: 15px;
   }
   
   .channel-features li {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 
@@ -630,10 +717,10 @@
   }
   
   .custom-spotlight-card {
-    width: 260px;
-    min-width: 260px;
-    max-width: 260px;
-    padding: 20px;
+    width: 310px;
+    min-width: 310px;
+    max-width: 310px;
+    padding: 24px;
   }
   
   .card-step {
@@ -641,8 +728,9 @@
   }
   
   .channel-icon-box {
-    width: 44px;
-    height: 44px;
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
   }
   
   .channel-icon {
@@ -651,15 +739,15 @@
   }
   
   .channel-title {
-    font-size: 15px;
+    font-size: 16px;
   }
   
   .channel-description {
-    font-size: 13px;
+    font-size: 14px;
   }
   
   .channel-features li {
-    font-size: 11px;
+    font-size: 13px;
   }
 }
 
@@ -708,22 +796,33 @@
   }
   
   .custom-spotlight-card {
-    width: 240px;
-    min-width: 240px;
-    max-width: 240px;
-    padding: 18px;
+    width: 285px;
+    min-width: 285px;
+    max-width: 285px;
+    padding: 22px;
+  }
+  
+  .channel-icon-box {
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+  }
+  
+  .channel-icon {
+    width: 22px;
+    height: 22px;
   }
   
   .channel-title {
-    font-size: 14px;
+    font-size: 15px;
   }
   
   .channel-description {
-    font-size: 12px;
+    font-size: 14px;
   }
   
   .channel-features li {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
 
@@ -772,21 +871,32 @@
   }
   
   .custom-spotlight-card {
-    width: 220px;
-    min-width: 220px;
-    max-width: 220px;
-    padding: 16px;
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
+    padding: 20px;
+  }
+  
+  .channel-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+  }
+  
+  .channel-icon {
+    width: 20px;
+    height: 20px;
   }
   
   .channel-title {
-    font-size: 13px;
+    font-size: 14px;
   }
   
   .channel-description {
-    font-size: 11px;
+    font-size: 13px;
   }
   
   .channel-features li {
-    font-size: 10px;
+    font-size: 12px;
   }
 }

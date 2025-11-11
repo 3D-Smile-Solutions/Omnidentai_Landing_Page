@@ -85,7 +85,7 @@
 }
 
 .logo-loop-container {
-  height: 120px;
+  height: 240px;
   position: relative;
   overflow: hidden;
   border-radius: 20px;
@@ -220,6 +220,10 @@
   .infographic-container {
     padding: 0 70px 0 180px;
   }
+  
+  .logo-loop-container {
+    height: 240px;
+  }
 }
 
 /* Desktop: 1440px - 1919px */
@@ -227,12 +231,20 @@
   .infographic-container {
     padding: 0 60px 0 160px;
   }
+  
+  .logo-loop-container {
+    height: 220px;
+  }
 }
 
 /* Standard Desktop: 1200px - 1439px */
 @media (max-width: 1439px) and (min-width: 1200px) {
   .infographic-container {
     padding: 0 50px 0 140px;
+  }
+  
+  .logo-loop-container {
+    height: 200px;
   }
 }
 
@@ -255,7 +267,7 @@
   }
   
   .logo-loop-container {
-    height: 100px;
+    height: 180px;
   }
   
   .cta-title {
@@ -303,7 +315,7 @@
   }
   
   .logo-loop-container {
-    height: 90px;
+    height: 160px;
     border-radius: 16px;
   }
   
@@ -368,7 +380,7 @@
   }
   
   .logo-loop-container {
-    height: 85px;
+    height: 140px;
     border-radius: 14px;
   }
   
@@ -437,7 +449,7 @@
   }
   
   .logo-loop-container {
-    height: 80px;
+    height: 130px;
     border-radius: 12px;
   }
   
@@ -512,7 +524,7 @@
   }
   
   .logo-loop-container {
-    height: 75px;
+    height: 120px;
     border-radius: 10px;
   }
   
@@ -587,7 +599,7 @@
   }
   
   .logo-loop-container {
-    height: 70px;
+    height: 110px;
     border-radius: 8px;
   }
   
