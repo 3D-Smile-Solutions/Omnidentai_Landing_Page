@@ -51,7 +51,7 @@ const Discovery = ({ isDarkMode }) => {
           SCROLL_DISTANCE = SCROLL_DISTANCE * 0.95;
         }
         
-        const TOP_PADDING = 80;
+        const TOP_PADDING = 220;
         const BOTTOM_PADDING = 80;
         
         const availableHeight = rightSide.clientHeight - TOP_PADDING - BOTTOM_PADDING;
@@ -61,7 +61,7 @@ const Discovery = ({ isDarkMode }) => {
         // Pin the entire section
         ScrollTrigger.create({
           trigger: sectionRef.current,
-          start: 'top top',
+          start: 'top-=100 top',
           end: `+=${SCROLL_DISTANCE}%`,
           pin: true,
           pinSpacing: true,
@@ -78,7 +78,7 @@ const Discovery = ({ isDarkMode }) => {
             ease: 'none',
             scrollTrigger: {
               trigger: sectionRef.current,
-              start: 'top top',
+              start: 'top-=100 top',
               end: `+=${SCROLL_DISTANCE}%`,
               scrub: 1,
             }
@@ -118,7 +118,7 @@ const Discovery = ({ isDarkMode }) => {
 
         ScrollTrigger.create({
           trigger: sectionRef.current,
-          start: 'top top',
+          start: 'top-=100 top',
           end: `+=${SCROLL_DISTANCE}%`,
           pin: true,
           pinSpacing: true,
@@ -134,7 +134,7 @@ const Discovery = ({ isDarkMode }) => {
             ease: 'none',
             scrollTrigger: {
               trigger: sectionRef.current,
-              start: 'top top',
+              start: 'top-=100 top',
               end: `+=${SCROLL_DISTANCE}%`,
               scrub: 1,
             }

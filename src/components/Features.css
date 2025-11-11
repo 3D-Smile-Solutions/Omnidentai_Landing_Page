@@ -356,14 +356,14 @@
     text-align: center;
   }
 
-  /* Image layer absolute, positioned in lower portion - MORE GAP FROM TEXT */
+  /* Image layer absolute, positioned in lower portion - LARGER IMAGES */
   .feature-image-layer {
     position: absolute;
     bottom: 8%;
     left: 50%;
     transform: translateX(-50%);
-    width: 60%;
-    max-width: 280px;
+    width: 75%;
+    max-width: 350px;
     height: auto;
     padding: 0;
     opacity: 0;
@@ -373,7 +373,7 @@
     width: 100%;
     height: auto;
     aspect-ratio: 1;
-    max-width: 280px;
+    max-width: 350px;
     padding: 10px;
   }
 
@@ -443,11 +443,11 @@
     padding: 0 16px;
   }
 
-  /* Image with more bottom space */
+  /* Larger images */
   .feature-image-layer {
     bottom: 6%;
-    width: 62%;
-    max-width: 260px;
+    width: 77%;
+    max-width: 330px;
   }
 
   .feature-number {
@@ -501,7 +501,7 @@
 
   .feature-image-layer {
     bottom: -40%;
-    width: 61%;
+    width: 76%;
   }
 
   .feature-layer-title {
@@ -531,11 +531,11 @@
     padding: 0 14px;
   }
 
-  /* Image at bottom with good spacing */
+  /* Larger images */
   .feature-image-layer {
     bottom: -35%;
-    width: 64%;
-    max-width: 240px;
+    width: 79%;
+    max-width: 300px;
   }
 
   .feature-layer-title {
@@ -579,8 +579,8 @@
 
   .feature-image-layer {
     bottom: -54%;
-    width: 58%;
-    max-width: 250px;
+    width: 73%;
+    max-width: 320px;
   }
 
   .feature-layer-title {
@@ -606,8 +606,8 @@
 
   .feature-image-layer {
     bottom: -42%;
-    width: 55%;
-    max-width: 220px;
+    width: 70%;
+    max-width: 290px;
   }
 
   .feature-layer-title {
@@ -643,8 +643,8 @@
 
   .feature-image-layer {
     bottom: -51%;
-    width: 50%;
-    max-width: 200px;
+    width: 65%;
+    max-width: 270px;
   }
 
   .feature-layer-title {
@@ -669,7 +669,7 @@
 
   .image-frame {
     padding: 6px;
-    max-width: 200px;
+    max-width: 270px;
   }
 
   .bullet-icon {
@@ -688,8 +688,8 @@
 
   .feature-image-layer {
     bottom: -58%;
-    width: 45%;
-    max-width: 180px;
+    width: 60%;
+    max-width: 240px;
   }
 
   .feature-layer-title {
@@ -714,7 +714,7 @@
 
   .image-frame {
     padding: 5px;
-    max-width: 180px;
+    max-width: 240px;
     border-radius: 12px;
   }
 
@@ -744,11 +744,11 @@
     padding: 0 14px;
   }
 
-  /* Image at bottom with good spacing */
+  /* Larger images */
   .feature-image-layer {
     bottom: -35%;
-    width: 64%;
-    max-width: 240px;
+    width: 79%;
+    max-width: 300px;
   }
 
 }
@@ -776,8 +776,8 @@
 
   .feature-image-layer {
     bottom: 8%;
-    width: 38%;
-    max-width: 230px;
+    width: 50%;
+    max-width: 300px;
   }
 
   .feature-text-content {
