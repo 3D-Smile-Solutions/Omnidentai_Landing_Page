@@ -496,20 +496,20 @@
 /* Specific styling for 425px (common mobile size) */
 @media (max-width: 425px) {
   .feature-text-layer {
-    top: 4.5%;
+    top: 20.5%;
   }
 
   .feature-image-layer {
-    bottom: 7%;
+    bottom: -40%;
     width: 61%;
   }
 
   .feature-layer-title {
-    font-size: 21px;
+    font-size: 31px;
   }
 
   .feature-layer-description {
-    font-size: 13px;
+    font-size: 16px;
     margin-bottom: 12px;
   }
 }
@@ -527,32 +527,58 @@
 
   /* Text higher for tiny screens */
   .feature-text-layer {
-    top: 3%;
+    top: 20%;
     padding: 0 14px;
   }
 
   /* Image at bottom with good spacing */
   .feature-image-layer {
-    bottom: 5%;
+    bottom: -35%;
     width: 64%;
     max-width: 240px;
   }
 
   .feature-layer-title {
-    font-size: 20px;
+    font-size: 30px;
     margin-bottom: 7px;
   }
 
   .feature-layer-description {
-    font-size: 12.5px;
-    margin-bottom: 12px;
+    font-size: 16.5px;
+    margin-bottom: 1px;
   }
 
   .stat-bullet {
-    font-size: 11px;
+    font-size: 14px;
   }
 
   .feature-stats-list {
+    margin-top: 20px;
+    gap: 6px;
+  }
+}
+@media (max-width: 320px) {
+  /* Text higher for tiny screens */
+  .feature-text-layer {
+    top: 15%;
+    padding: 0 14px;
+  }
+
+  /* Image at bottom with good spacing */
+  .feature-image-layer {
+    bottom: -35%;
+    width: 64%;
+    max-width: 240px;
+  }
+
+}
+@media (max-width: 425px) {
+  .stat-bullet {
+    font-size: 14px;
+  }
+
+  .feature-stats-list {
+    margin-top: 20px;
     gap: 6px;
   }
 }
