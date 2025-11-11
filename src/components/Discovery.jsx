@@ -92,14 +92,20 @@ const Discovery = ({ isDarkMode }) => {
         const viewportHeight = window.innerHeight;
         const viewportWidth = window.innerWidth;
         
-        // Responsive scroll distance for mobile based on screen size
+        // Increased scroll distance for mobile/tablet to ensure full card scrolling
         let SCROLL_DISTANCE;
-        if (viewportWidth <= 480) {
-          SCROLL_DISTANCE = 250;
+        if (viewportWidth <= 375) {
+          SCROLL_DISTANCE = 400; // Extra small phones
+        } else if (viewportWidth <= 425) {
+          SCROLL_DISTANCE = 380; // Small phones
+        } else if (viewportWidth <= 480) {
+          SCROLL_DISTANCE = 360; // Medium phones
         } else if (viewportWidth <= 768) {
-          SCROLL_DISTANCE = 220;
+          SCROLL_DISTANCE = 400; // Large phones/small tablets
+        } else if (viewportWidth <= 1024) {
+          SCROLL_DISTANCE = 420; // Tablets
         } else {
-          SCROLL_DISTANCE = 200;
+          SCROLL_DISTANCE = 300; // Fallback
         }
         
         const LEFT_PADDING = 0;
