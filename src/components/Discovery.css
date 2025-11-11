@@ -20,6 +20,8 @@
   background-size: cover;
   pointer-events: none;
   border-radius: 1rem;
+  /* Crop out bottom right corner where watermark is */
+  clip-path: inset(0 0 10px 0); /* Adjust the 80px value to crop more/less */
 }
 
 /* Dark Overlay on Background */
