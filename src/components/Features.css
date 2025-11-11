@@ -563,11 +563,11 @@
 /* For screens below 425px width AND tall heights (800px+) */
 @media (max-width: 425px) and (min-height: 800px) {
   .feature-text-layer {
-    top: 18%;
+    top: 24%;
   }
 
   .feature-image-layer {
-    bottom: -38%;
+    bottom: -68%;
   }
 }
 
@@ -578,7 +578,7 @@
   }
 
   .feature-image-layer {
-    bottom: -34%;
+    bottom: -54%;
     width: 58%;
     max-width: 250px;
   }
@@ -601,11 +601,11 @@
 /* For screens below 425px width AND shorter heights (600px - 699px) */
 @media (max-width: 425px) and (min-height: 600px) and (max-height: 699px) {
   .feature-text-layer {
-    top: 14%;
+    top: 18%;
   }
 
   .feature-image-layer {
-    bottom: -12%;
+    bottom: -42%;
     width: 55%;
     max-width: 220px;
   }
@@ -638,11 +638,11 @@
 /* For screens below 425px width AND very short heights (500px - 599px) */
 @media (max-width: 425px) and (min-height: 500px) and (max-height: 599px) {
   .feature-text-layer {
-    top: 15%;
+    top: 18%;
   }
 
   .feature-image-layer {
-    bottom: -31%;
+    bottom: -51%;
     width: 50%;
     max-width: 200px;
   }
