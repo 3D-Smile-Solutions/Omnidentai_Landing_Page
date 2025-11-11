@@ -203,7 +203,23 @@ const Discovery = ({ isDarkMode }) => {
 
     }, sectionRef);
 
-    return () => ctx.revert();
+    // 🟢 Add this part BELOW your GSAP setup (still inside useEffect)
+    ScrollTrigger.addEventListener("refreshInit", () => {
+      ScrollTrigger.refresh();
+    });
+
+    window.addEventListener("resize", () => {
+      ScrollTrigger.refresh();
+    });
+
+    // 🧹 Cleanup
+    return () => {
+      ctx.revert();
+      window.removeEventListener("resize", () => {
+        ScrollTrigger.refresh();
+      });
+    };
+
   }, []);
 
   return (
@@ -264,7 +280,6 @@ const Discovery = ({ isDarkMode }) => {
               spotlightColor="rgba(81, 226, 210, 0.2)"
             >
               <div className="channel-icon-box">
-                <FiMonitor className="channel-icon" />
               </div>
               <h3 className="channel-title">WEBSITE CHAT WIDGET</h3>
               <p className="channel-description">
@@ -283,7 +298,6 @@ const Discovery = ({ isDarkMode }) => {
               spotlightColor="rgba(81, 226, 210, 0.2)"
             >
               <div className="channel-icon-box">
-                <FiPhone className="channel-icon" />
               </div>
               <h3 className="channel-title">PHONE CALL ACCESS</h3>
               <p className="channel-description">
