@@ -185,7 +185,7 @@ const Features = ({ isDarkMode }) => {
         });
       });
 
-      // Mobile: Even FASTER animation
+      // Mobile: FASTER animation with QUICKER header fade
       mm.add("(max-width: 767px)", () => {
         // Calculate total scroll distance with EVEN FASTER transitions for mobile
         const stepsPerFeature = 1.5; // Reduced more for mobile (was 2.5)
@@ -219,17 +219,17 @@ const Features = ({ isDarkMode }) => {
 
         const stepDuration = 1 / totalSteps;
 
-        // Step 0: Show header
+        // Step 0: Show header - FASTER
         tl.fromTo(headerRef.current,
           { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: stepDuration, ease: "power2.out" },
+          { opacity: 1, y: 0, duration: stepDuration * 0.6, ease: "power2.out" },
           0
         );
 
-        // Fade out header
+        // Fade out header - MUCH FASTER and EARLIER
         tl.to(headerRef.current,
-          { opacity: 0, y: -30, duration: stepDuration, ease: "power2.in" },
-          stepDuration
+          { opacity: 0, y: -30, duration: stepDuration * 0.4, ease: "power2.in" },
+          stepDuration * 0.5
         );
 
         // Animate each feature
