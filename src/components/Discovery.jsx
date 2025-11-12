@@ -204,9 +204,6 @@ const Discovery = ({ isDarkMode }) => {
     }, sectionRef);
 
     // 🟢 Add this part BELOW your GSAP setup (still inside useEffect)
-    ScrollTrigger.addEventListener("refreshInit", () => {
-      ScrollTrigger.refresh();
-    });
 
     window.addEventListener("resize", () => {
       ScrollTrigger.refresh();
