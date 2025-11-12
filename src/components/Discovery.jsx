@@ -277,6 +277,7 @@ const Discovery = ({ isDarkMode }) => {
               spotlightColor="rgba(81, 226, 210, 0.2)"
             >
               <div className="channel-icon-box">
+                <FiMessageSquare className="channel-icon" />
               </div>
               <h3 className="channel-title">WEBSITE CHAT WIDGET</h3>
               <p className="channel-description">
@@ -295,6 +296,7 @@ const Discovery = ({ isDarkMode }) => {
               spotlightColor="rgba(81, 226, 210, 0.2)"
             >
               <div className="channel-icon-box">
+                <FiMessageSquare className="channel-icon" />
               </div>
               <h3 className="channel-title">PHONE CALL ACCESS</h3>
               <p className="channel-description">
