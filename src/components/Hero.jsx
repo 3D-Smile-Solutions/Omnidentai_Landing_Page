@@ -1,57 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { HiMenu, HiX } from 'react-icons/hi';
+import { HiArrowRight } from 'react-icons/hi';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Hero.css';
-import heroGif from '../assets/Hero.gif';
 import heroBG from '../assets/HeroBgAnimation.mp4';
-import NavLogo from '../assets/Logo.png';
-import { HiArrowRight } from 'react-icons/hi';
-
-import CardNav from '../StylingComponents/CardNav.jsx';
 import Navbar from '../StylingComponents/Navbar.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = ({ isDarkMode, toggleDarkMode }) => {
-
-  const items = [
-    {
-      label: "Products",
-      bgColor: "#0D0716",
-      textColor: "#fff",
-      links: [
-        { label: "Features", href: "#features", ariaLabel: "View Features" },
-        { label: "Platform", href: "#platform", ariaLabel: "Platform Overview" }
-      ]
-    },
-    {
-      label: "Solutions", 
-      bgColor: "#170D27",
-      textColor: "#fff",
-      links: [
-        { label: "Patient Journey", href: "#patient-journey", ariaLabel: "Patient Journey" },
-        { label: "SmileNexus", href: "#smilenexus", ariaLabel: "SmileNexus Solution" }
-      ]
-    },
-    {
-      label: "Company",
-      bgColor: "#271E37", 
-      textColor: "#fff",
-      links: [
-        { label: "Pricing", href: "#pricing", ariaLabel: "View Pricing" },
-        { label: "Results", href: "#results", ariaLabel: "View Results" }
-      ]
-    }
-  ];
-
   const [menuOpen, setMenuOpen] = useState(false);
   
   // Refs for animations
   const heroRef = useRef(null);
+  const heroContainerRef = useRef(null);
   const heroTextRef = useRef(null);
-  const heroSloganRef = useRef(null);
-  const infoBox1Ref = useRef(null);
+  const infoBoxRef = useRef(null);
+  const scrollTextRef = useRef(null);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -69,44 +34,59 @@ const Hero = ({ isDarkMode, toggleDarkMode }) => {
   // GSAP Animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero Title Animation
-      gsap.from(heroTextRef.current, {
+      // Hero Container Scale & Fade - Shrinks and fades as you scroll past it
+      gsap.to(heroContainerRef.current, {
         scrollTrigger: {
-          trigger: heroTextRef.current,
-          start: 'top 80%',
-          toggleActions: 'play reverse play reverse'
+          trigger: heroRef.current,
+          start: 'top top',
+          end: 'bottom top', // Completes when hero exits viewport
+          scrub: 1,
+          // markers: true, // Uncomment to debug
         },
+        scale: 0.85,
         opacity: 0,
-        y: 30,
-        duration: 1,
-        ease: 'power3.out'
+        borderRadius: '40px',
+        ease: 'none'
       });
 
-      // Slogan Animation
-      gsap.from(heroSloganRef.current, {
-        scrollTrigger: {
-          trigger: heroSloganRef.current,
-          start: 'top 80%',
-          toggleActions: 'play reverse play reverse'
-        },
+      // Hero Title Animation - Initial Load
+      gsap.from(heroTextRef.current, {
         opacity: 0,
-        y: 20,
-        duration: 0.8,
+        y: 30,
+        duration: 1.2,
         ease: 'power3.out',
         delay: 0.3
       });
 
-      // Info Box Animation
-      gsap.from(infoBox1Ref.current, {
+      // Info Box Animation - Initial Load
+      gsap.from(infoBoxRef.current, {
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        ease: 'power3.out',
+        delay: 0.6
+      });
+
+      // Scroll Text Animation - Initial Load
+      gsap.from(scrollTextRef.current, {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        ease: 'power2.out',
+        delay: 0.9
+      });
+
+      // Fade out scroll text on scroll
+      gsap.to(scrollTextRef.current, {
         scrollTrigger: {
-          trigger: infoBox1Ref.current,
-          start: 'top 90%',
-          toggleActions: 'play reverse play reverse'
+          trigger: heroRef.current,
+          start: 'top top',
+          end: '20% top',
+          scrub: 1,
         },
         opacity: 0,
-        y: 30,
-        duration: 0.8,
-        ease: 'power2.out'
+        y: -20,
+        ease: 'none'
       });
     }, heroRef);
 
@@ -114,61 +94,52 @@ const Hero = ({ isDarkMode, toggleDarkMode }) => {
   }, []);
 
   return (
-    <section className={`hero-section ${isDarkMode ? 'dark' : 'light'}`} ref={heroRef}>
-      {/* Video Background Container with rounded corners */}
-      <div className="hero-video-container">
-        <video 
-          className="hero-video-bg" 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-        >
-          <source src={heroBG} type="video/mp4" />
-        </video>
+    <section className={`hero-section ${isDarkMode ? 'dark' : 'light'}`} ref={heroRef} id="home">
+      {/* Rounded Container - This is what scales */}
+      <div className="hero-rounded-container" ref={heroContainerRef}>
         
-        {/* Dark Overlay */}
-        <div className="hero-overlay"></div>
-      </div>
-      
-      {/* Navigation - Pass props */}
-      <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-
-      {/* Hero Content */}
-      <div className="hero-content-wrapper">
-        {/* Title Section - Below Navbar */}
-        <div className="hero-title-section" ref={heroTextRef}>
-          <h1 className="hero-title">
-            <span className="highlight">DO MORE DENTISTRY</span>
-          </h1>
+        {/* Video Background */}
+        <div className="hero-video-container">
+          <video 
+            className="hero-video-bg" 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+          >
+            <source src={heroBG} type="video/mp4" />
+          </video>
+          
+          {/* Dark Overlay */}
+          <div className="hero-overlay"></div>
         </div>
         
-        {/* Description Section - Bottom Left */}
-        <div className="hero-description-section" ref={infoBox1Ref}>
-          <div className="info-box-description">
-            <p className="info-box-content">
-              Unlock the power of precision dentistry with OmniDent AI unified platform that brings together AI chatflow, imaging insights and advanced analytics for smarter clinical decisions.
-            </p>
-            <div className="info-box-features">
+        {/* Navigation - Pass props */}
+        <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+
+        {/* Hero Content */}
+        <div className="hero-content-wrapper">
+          {/* Title Section - Center Aligned */}
+          <div className="hero-title-section" ref={heroTextRef}>
+            <h1 className="hero-title">
+              <span className="hero-title-line">DO MORE DENTISTRY</span>
+            </h1>
+            
+            {/* Subtitle */}
+            <p className="hero-subtitle">Unlock the power of precision dentistry with OmniDent, a unified platform that brings together AI charting,<br /> imaging insights and advanced analytics for smarter clinical decisions.</p>
+            
+            {/* Feature Tags */}
+            <div className="info-features" ref={infoBoxRef}>
               <span className="feature-badge">HIPAA Compliant</span>
               <span className="feature-badge">OmniChannel</span>
               <span className="feature-badge">30-day money back guarantee</span>
             </div>
           </div>
           
-          {/* CTA Button below description */}
-          <button
-            type="button"
-            className="hero-cta-button"
-            onClick={() => scrollToSection('calendar')}
-            style={{ 
-              backgroundColor: isDarkMode ? "#fff" : "#111",
-              color: isDarkMode ? "#000" : "#fff"
-            }}
-          >
-            Book a Demo
-            <HiArrowRight className="button-icon" />
-          </button>
+          {/* Scroll to Explore Text - Center Bottom */}
+          <div className="hero-scroll-text" ref={scrollTextRef}>
+            <p>Scroll to Explore</p>
+          </div>
         </div>
       </div>
     </section>

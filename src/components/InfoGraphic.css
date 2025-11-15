@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700&family=Geist:wght@400;500;600&display=swap');
 
 .infographic {
-  padding: 120px 0 80px;
+  padding: 80px 0 0;
   position: relative;
   transition: all 0.3s ease;
   overflow: hidden;
@@ -24,29 +24,29 @@
 
 .infographic-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   position: relative;
   z-index: 10;
 }
 
 .integration-label {
   display: inline-block;
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 500;
   color: #5EBEC4;
-  margin-bottom: 20px;
-  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 .infographic-title {
-  font-family: 'Alexandria', sans-serif;
+  font-family: 'Times Now SemiLight', 'Times Now SemiLight Placeholder', sans-serif;
   font-size: 52px;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 24px;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -0.06em;
 }
 
 .infographic.light .infographic-title {
@@ -54,7 +54,7 @@
 }
 
 .infographic.dark .infographic-title {
-  color: #ffffff;
+  color: rgb(234, 231, 224);
 }
 
 .highlight {
@@ -64,9 +64,10 @@
 }
 
 .infographic-subtitle {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 1.5;
+  font-weight: 300;
   max-width: 700px;
   margin: 0 auto;
 }
@@ -76,11 +77,11 @@
 }
 
 .infographic.dark .infographic-subtitle {
-  color: #a0a0a0;
+  color: rgba(234, 231, 224, 0.8);
 }
 
 .logo-loop-wrapper {
-  margin: 80px 0 100px;
+  margin: 50px 0 0;
   position: relative;
 }
 
@@ -166,12 +167,13 @@
 }
 
 .cta-title {
-  font-family: 'Alexandria', sans-serif;
+  font-family: 'Times Now SemiLight', 'Times Now SemiLight Placeholder', sans-serif;
   font-size: 48px;
-  font-weight: 700;
-  color: white;
+  font-weight: 400;
+  color: rgb(234, 231, 224);
   margin-bottom: 30px;
   line-height: 1.2;
+  letter-spacing: -0.06em;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -179,7 +181,7 @@
   border: none;
   border-radius: calc(0.75rem - 0.35rem);
   padding: 12px 24px;
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 14px;
   cursor: pointer;
@@ -217,8 +219,20 @@
 
 /* Large Desktop: 1920px - 2559px */
 @media (max-width: 2559px) and (min-width: 1920px) {
+  .infographic {
+    padding: 70px 0 0;
+  }
+  
   .infographic-container {
     padding: 0 70px 0 180px;
+  }
+  
+  .infographic-header {
+    margin-bottom: 35px;
+  }
+  
+  .logo-loop-wrapper {
+    margin: 45px 0 0;
   }
   
   .logo-loop-container {
@@ -228,8 +242,20 @@
 
 /* Desktop: 1440px - 1919px */
 @media (max-width: 1919px) and (min-width: 1440px) {
+  .infographic {
+    padding: 70px 0 0;
+  }
+  
   .infographic-container {
     padding: 0 60px 0 160px;
+  }
+  
+  .infographic-header {
+    margin-bottom: 35px;
+  }
+  
+  .logo-loop-wrapper {
+    margin: 45px 0 0;
   }
   
   .logo-loop-container {
@@ -239,8 +265,20 @@
 
 /* Standard Desktop: 1200px - 1439px */
 @media (max-width: 1439px) and (min-width: 1200px) {
+  .infographic {
+    padding: 60px 0 0;
+  }
+  
   .infographic-container {
     padding: 0 50px 0 140px;
+  }
+  
+  .infographic-header {
+    margin-bottom: 35px;
+  }
+  
+  .logo-loop-wrapper {
+    margin: 40px 0 0;
   }
   
   .logo-loop-container {
@@ -251,11 +289,15 @@
 /* Large Tablets and Small Desktops: 1024px - 1199px */
 @media (max-width: 1199px) and (min-width: 1024px) {
   .infographic {
-    padding: 100px 0 60px;
+    padding: 55px 0 0;
   }
   
   .infographic-container {
     padding: 0 40px 0 100px;
+  }
+  
+  .infographic-header {
+    margin-bottom: 30px;
   }
   
   .infographic-title {
@@ -263,7 +305,7 @@
   }
   
   .logo-loop-wrapper {
-    margin: 60px 0 80px;
+    margin: 35px 0 0;
   }
   
   .logo-loop-container {
@@ -283,7 +325,7 @@
 /* Tablets: 768px - 1023px */
 @media (max-width: 1023px) and (min-width: 768px) {
   .infographic {
-    padding: 80px 0 50px;
+    padding: 50px 0 0;
   }
   
   .infographic-container {
@@ -291,11 +333,16 @@
   }
   
   .infographic-header {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+  }
+  
+  .integration-label {
+    margin-bottom: 10px;
   }
   
   .infographic-title {
     font-size: 36px;
+    margin-bottom: 14px;
   }
   
   .infographic-title br {
@@ -311,7 +358,7 @@
   }
   
   .logo-loop-wrapper {
-    margin: 50px 0 60px;
+    margin: 30px 0 0;
   }
   
   .logo-loop-container {
@@ -348,7 +395,7 @@
 /* Mobile Portrait: 481px - 767px */
 @media (max-width: 767px) and (min-width: 481px) {
   .infographic {
-    padding: 70px 0 45px;
+    padding: 45px 0 0;
   }
   
   .infographic-container {
@@ -356,11 +403,16 @@
   }
   
   .infographic-header {
-    margin-bottom: 45px;
+    margin-bottom: 28px;
+  }
+  
+  .integration-label {
+    margin-bottom: 10px;
   }
   
   .infographic-title {
     font-size: 34px;
+    margin-bottom: 12px;
   }
   
   .infographic-title br {
@@ -376,7 +428,7 @@
   }
   
   .logo-loop-wrapper {
-    margin: 45px 0 55px;
+    margin: 28px 0 0;
   }
   
   .logo-loop-container {
@@ -413,7 +465,7 @@
 /* Small Mobile: 401px - 480px */
 @media (max-width: 480px) and (min-width: 401px) {
   .infographic {
-    padding: 60px 0 40px;
+    padding: 40px 0 0;
   }
   
   .infographic-container {
@@ -421,15 +473,17 @@
   }
   
   .infographic-header {
-    margin-bottom: 40px;
+    margin-bottom: 25px;
   }
   
   .integration-label {
     font-size: 12px;
+    margin-bottom: 8px;
   }
   
   .infographic-title {
     font-size: 28px;
+    margin-bottom: 12px;
   }
   
   .infographic-title br {
@@ -445,7 +499,7 @@
   }
   
   .logo-loop-wrapper {
-    margin: 40px 0 50px;
+    margin: 25px 0 0;
   }
   
   .logo-loop-container {
@@ -488,7 +542,7 @@
 /* Very Small Mobile: 331px - 400px */
 @media (max-width: 400px) and (min-width: 331px) {
   .infographic {
-    padding: 55px 0 35px;
+    padding: 35px 0 0;
   }
   
   .infographic-container {
@@ -496,15 +550,17 @@
   }
   
   .infographic-header {
-    margin-bottom: 35px;
+    margin-bottom: 22px;
   }
   
   .integration-label {
     font-size: 11px;
+    margin-bottom: 8px;
   }
   
   .infographic-title {
     font-size: 26px;
+    margin-bottom: 10px;
   }
   
   .infographic-title br {
@@ -520,7 +576,7 @@
   }
   
   .logo-loop-wrapper {
-    margin: 35px 0 45px;
+    margin: 22px 0 0;
   }
   
   .logo-loop-container {
@@ -563,7 +619,7 @@
 /* Extra Small Mobile: ≤330px */
 @media (max-width: 330px) {
   .infographic {
-    padding: 50px 0 30px;
+    padding: 30px 0 0;
   }
   
   .infographic-container {
@@ -571,15 +627,17 @@
   }
   
   .infographic-header {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
   
   .integration-label {
     font-size: 10px;
+    margin-bottom: 8px;
   }
   
   .infographic-title {
     font-size: 24px;
+    margin-bottom: 10px;
   }
   
   .infographic-title br {
@@ -595,7 +653,7 @@
   }
   
   .logo-loop-wrapper {
-    margin: 30px 0 40px;
+    margin: 20px 0 0;
   }
   
   .logo-loop-container {

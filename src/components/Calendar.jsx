@@ -1,25 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FiCalendar, FiChevronDown } from 'react-icons/fi';
 import Cal, { getCalApi } from "@calcom/embed-react";
 import footerBg from '../assets/Footer.jpg';
 import './Calendar.css';
 import NavLogo from '../assets/Logo.png';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const Calendar = ({ isDarkMode }) => {
-  // Refs for animations
-  const sectionRef = useRef(null);
-  const labelRef = useRef(null);
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
+  // Refs
   const calendarEmbedRef = useRef(null);
-  const scrollIndicatorRef = useRef(null);
-  const footerRef = useRef(null);
-  const footerTopRef = useRef(null);
-  const footerBottomRef = useRef(null);
 
   // State for responsive calendar dimensions and scroll indicator
   const [calendarDimensions, setCalendarDimensions] = useState({
@@ -105,110 +93,9 @@ const Calendar = ({ isDarkMode }) => {
       }
     };
   }, []);
-
-  // GSAP Scroll Animations
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Label Animation
-      gsap.from(labelRef.current, {
-        scrollTrigger: {
-          trigger: labelRef.current,
-          start: 'top 80%',
-          once: true
-        },
-        opacity: 0,
-        y: -20,
-        duration: 0.5,
-        ease: 'power2.out'
-      });
-
-      // Title Animation
-      gsap.from(titleRef.current, {
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top 80%',
-          once: true
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        delay: 0.1,
-        ease: 'power3.out'
-      });
-
-      // Subtitle Animation
-      gsap.from(subtitleRef.current, {
-        scrollTrigger: {
-          trigger: subtitleRef.current,
-          start: 'top 80%',
-          once: true
-        },
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        delay: 0.2,
-        ease: 'power2.out'
-      });
-
-      // Calendar Embed Animation
-      gsap.from(calendarEmbedRef.current, {
-        scrollTrigger: {
-          trigger: calendarEmbedRef.current,
-          start: 'top 80%',
-          once: true
-        },
-        opacity: 0,
-        y: 50,
-        scale: 0.95,
-        duration: 0.8,
-        delay: 0.3,
-        ease: 'power2.out'
-      });
-
-      // Scroll Indicator Animation
-      if (scrollIndicatorRef.current) {
-        gsap.to(scrollIndicatorRef.current, {
-          y: 10,
-          duration: 1.5,
-          repeat: -1,
-          yoyo: true,
-          ease: 'power1.inOut'
-        });
-      }
-
-      // Footer Animations
-      gsap.from(footerTopRef.current, {
-        scrollTrigger: {
-          trigger: footerTopRef.current,
-          start: 'top 85%',
-          once: true
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.7,
-        ease: 'power2.out'
-      });
-
-      gsap.from(footerBottomRef.current, {
-        scrollTrigger: {
-          trigger: footerBottomRef.current,
-          start: 'top 90%',
-          once: true
-        },
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        delay: 0.2,
-        ease: 'power2.out'
-      });
-
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
   
   return (
-    <section className={`calendar-section ${isDarkMode ? 'dark' : 'light'}`} ref={sectionRef}>
+    <section className={`calendar-section ${isDarkMode ? 'dark' : 'light'}`}>
       <div className="calendar-bg-wrapper">
         <img src={footerBg} alt="" className="calendar-bg-image"/>
         <div className="calendar-overlay"></div>
@@ -216,12 +103,12 @@ const Calendar = ({ isDarkMode }) => {
       
       <div className="calendar-container">
         <div className="calendar-header">
-          <span className="section-label" ref={labelRef}>• Integration</span>
-          <h2 className="calendar-title" ref={titleRef}>
+          <span className="section-label">• Integration</span>
+          <h2 className="calendar-title">
             Ready to Transform Your Practice?
             <br />Book Your Discovery Call
           </h2>
-          <p className="calendar-subtitle" ref={subtitleRef}>
+          <p className="calendar-subtitle">
             See OmniDent.ai in action. Get a personalized demo and learn
             <br />how we can revolutionize your patient experience.
           </p>
@@ -255,7 +142,7 @@ const Calendar = ({ isDarkMode }) => {
                 }}
               />
               {showScrollIndicator && (
-                <div className="scroll-indicator" ref={scrollIndicatorRef}>
+                <div className="scroll-indicator">
                   <FiChevronDown className="scroll-icon" />
                   <span>Scroll to see more dates</span>
                 </div>
@@ -264,9 +151,9 @@ const Calendar = ({ isDarkMode }) => {
           </div>
         </div>
 
-        <footer className="footer-info" ref={footerRef}>
+        <footer className="footer-info">
           {/* Top Section - Navigation and Contact */}
-          <div className="footer-top" ref={footerTopRef}>
+          <div className="footer-top">
             <div className="footer-left">
               <div className="footer-nav-section">
                 <h4 className="footer-section-title">Quick Links</h4>
@@ -299,7 +186,7 @@ const Calendar = ({ isDarkMode }) => {
           </div>
 
           {/* Bottom Section - Logo, Location and Copyright */}
-          <div className="footer-bottom" ref={footerBottomRef}>
+          <div className="footer-bottom">
             <div className="footer-bottom-content">
               <div className="footer-logo-wrapper">
                 <img src={NavLogo} alt="OmniDent AI Logo" className="footer-logo" />

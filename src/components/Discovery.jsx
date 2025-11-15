@@ -1,316 +1,348 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { HiArrowRight } from 'react-icons/hi';
-import SpotlightCard from './SpotlightCard';
 import './Discovery.css';
-import { FiMessageSquare, FiMonitor, FiPhone } from 'react-icons/fi';
+import cardCover from '../assets/Testi.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Discovery = ({ isDarkMode }) => {
   const sectionRef = useRef(null);
-  const leftSideRef = useRef(null);
-  const cardsContainerRef = useRef(null);
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const ctaRef = useRef(null);
-  const cardsRef = useRef([]);
+  const cardContainerRef = useRef(null);
+  const stickyHeaderRef = useRef(null);
+  const card1Ref = useRef(null);
+  const card2Ref = useRef(null);
+  const card3Ref = useRef(null);
+  const isGapAnimationCompletedRef = useRef(false);
+  const isFlipAnimationCompletedRef = useRef(false);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const initAnimations = () => {
+        ScrollTrigger.getAll().forEach((trigger) => {
+          if (trigger.vars.trigger?.closest('.discovery')) trigger.kill();
+        });
+
       const mm = gsap.matchMedia();
-      
-      // Desktop version - Vertical card scroll with viewport-responsive pin duration
-      mm.add("(min-width: 1025px)", () => {
-        const rightSide = cardsContainerRef.current.parentElement;
-        const cardsContainer = cardsContainerRef.current;
-        
-        // Get viewport dimensions
-        const viewportHeight = window.innerHeight;
-        const viewportWidth = window.innerWidth;
-        
-        // Calculate responsive scroll distance based on viewport height
-        let SCROLL_DISTANCE;
-        if (viewportHeight <= 700) {
-          SCROLL_DISTANCE = 400; // Shorter screens need more scroll distance
-        } else if (viewportHeight <= 800) {
-          SCROLL_DISTANCE = 350;
-        } else if (viewportHeight <= 900) {
-          SCROLL_DISTANCE = 300;
-        } else if (viewportHeight <= 1080) {
-          SCROLL_DISTANCE = 280;
-        } else {
-          SCROLL_DISTANCE = 250; // Taller screens need less
-        }
-        
-        // Adjust for ultra-wide screens
-        if (viewportWidth >= 2560) {
-          SCROLL_DISTANCE = SCROLL_DISTANCE * 0.9;
-        } else if (viewportWidth >= 1920) {
-          SCROLL_DISTANCE = SCROLL_DISTANCE * 0.95;
-        }
-        
-        const TOP_PADDING = 220;
-        const BOTTOM_PADDING = 80;
-        
-        const availableHeight = rightSide.clientHeight - TOP_PADDING - BOTTOM_PADDING;
-        const totalCardsHeight = cardsContainer.scrollHeight;
-        const scrollAmount = -(totalCardsHeight - availableHeight);
 
-        // Pin the entire section
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: 'top-=100 top',
-          end: `+=${SCROLL_DISTANCE}%`,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-        });
+      /* --------------------------------------------------------------
+      MOBILE – Slide‑over‑one‑by‑one (Smooth onUpdate version)
+      -------------------------------------------------------------- */
+      mm.add("(max-width: 999px)", () => {
+        // Header is always visible on mobile
+        gsap.set(stickyHeaderRef.current, { opacity: 1, y: 0 });
 
-        // Animate cards vertically within boundaries
-        gsap.fromTo(cardsContainer,
-          {
-            y: TOP_PADDING
-          },
-          {
-            y: scrollAmount + TOP_PADDING,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top-=100 top',
-              end: `+=${SCROLL_DISTANCE}%`,
-              scrub: 1,
-            }
-          }
-        );
-      });
+        // Initial stacked positions
+        gsap.set(card1Ref.current, { y: "0%", scale: 1, zIndex: 3 });
+        gsap.set(card2Ref.current, { y: "120%", scale: 0.9, zIndex: 2 });
+        gsap.set(card3Ref.current, { y: "240%", scale: 0.8, zIndex: 1 });
 
-      // Mobile version - Horizontal card scroll with responsive pin
-      mm.add("(max-width: 1024px)", () => {
-        const cardsContainer = cardsContainerRef.current;
-        const viewportHeight = window.innerHeight;
-        const viewportWidth = window.innerWidth;
-        
-        // Increased scroll distance for mobile/tablet to ensure full card scrolling
-        let SCROLL_DISTANCE;
-        if (viewportWidth <= 375) {
-          SCROLL_DISTANCE = 400; // Extra small phones
-        } else if (viewportWidth <= 425) {
-          SCROLL_DISTANCE = 380; // Small phones
-        } else if (viewportWidth <= 480) {
-          SCROLL_DISTANCE = 360; // Medium phones
-        } else if (viewportWidth <= 768) {
-          SCROLL_DISTANCE = 400; // Large phones/small tablets
-        } else if (viewportWidth <= 1024) {
-          SCROLL_DISTANCE = 420; // Tablets
-        } else {
-          SCROLL_DISTANCE = 300; // Fallback
-        }
-        
-        const LEFT_PADDING = 0;
-        const RIGHT_PADDING = 100;
-        
-        const cardWidth = 320;
-        const gap = 24;
-        const totalWidth = (cardWidth * cardsRef.current.length) + (gap * (cardsRef.current.length - 1));
-        const scrollAmount = -(totalWidth - viewportWidth + RIGHT_PADDING);
+        let lastProgress = 0;
 
         ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: 'top-=100 top',
-          end: `+=${SCROLL_DISTANCE}%`,
+          trigger: sectionRef.current.querySelector(".sticky"),
+          start: "top top",
+          end: `+=${window.innerHeight * 3}`,
           pin: true,
           pinSpacing: true,
-          anticipatePin: 1,
+          scrub: 1,
+          onUpdate: (self) => {
+            const p = self.progress;
+            const direction = p > lastProgress ? "down" : "up";
+            lastProgress = p;
+
+            // Smooth interpolation function
+            const smoothInterpolate = (start, end, progress) => {
+              return start + (end - start) * progress;
+            };
+
+            /* ---------- Phase 1: Card 2 slides over Card 1 (0% - 33%) ---------- */
+            if (p <= 0.33) {
+              const prog = gsap.utils.mapRange(0, 0.33, 0, 1, p);
+              const y2 = smoothInterpolate(120, 0, prog);
+              const scale2 = smoothInterpolate(0.9, 1, prog);
+              const scale1 = smoothInterpolate(1, 0.9, prog);
+              
+              gsap.to(card2Ref.current, { 
+                y: `${y2}%`,
+                scale: scale2,
+                duration: 0.1 // Small duration for smoothness
+              });
+              
+              gsap.to(card1Ref.current, { 
+                scale: scale1,
+                duration: 0.1
+              });
+
+              // Z-index changes halfway through phase 1
+              if (prog > 0.5) {
+                gsap.set(card1Ref.current, { zIndex: 2 });
+                gsap.set(card2Ref.current, { zIndex: 3 });
+              } else {
+                gsap.set(card1Ref.current, { zIndex: 3 });
+                gsap.set(card2Ref.current, { zIndex: 2 });
+              }
+            }
+
+            /* ---------- Phase 2: Card 3 slides over Card 2 (33% - 66%) ---------- */
+            if (p >= 0.33 && p <= 0.66) {
+              const prog = gsap.utils.mapRange(0.33, 0.66, 0, 1, p);
+              const y3 = smoothInterpolate(240, 0, prog);
+              const scale3 = smoothInterpolate(0.8, 1, prog);
+              const scale2 = smoothInterpolate(1, 0.9, prog);
+              
+              gsap.to(card3Ref.current, { 
+                y: `${y3}%`,
+                scale: scale3,
+                duration: 0.1
+              });
+              
+              gsap.to(card2Ref.current, { 
+                scale: scale2,
+                duration: 0.1
+              });
+
+              // Z-index changes halfway through phase 2
+              if (prog > 0.5) {
+                gsap.set(card2Ref.current, { zIndex: 2 });
+                gsap.set(card3Ref.current, { zIndex: 3 });
+              } else {
+                gsap.set(card2Ref.current, { zIndex: 3 });
+                gsap.set(card3Ref.current, { zIndex: 2 });
+              }
+            }
+
+            /* ---------- Handle reverse scrolling ---------- */
+            if (direction === "up") {
+              // When scrolling back up, reset z-indexes appropriately
+              if (p < 0.16) { // Before midpoint of phase 1
+                gsap.set(card1Ref.current, { zIndex: 3 });
+                gsap.set(card2Ref.current, { zIndex: 2 });
+              } else if (p < 0.33 && p >= 0.16) { // After midpoint of phase 1
+                gsap.set(card1Ref.current, { zIndex: 2 });
+                gsap.set(card2Ref.current, { zIndex: 3 });
+              } else if (p < 0.5 && p >= 0.33) { // Before midpoint of phase 2
+                gsap.set(card2Ref.current, { zIndex: 3 });
+                gsap.set(card3Ref.current, { zIndex: 2 });
+              } else if (p >= 0.5 && p <= 0.66) { // After midpoint of phase 2
+                gsap.set(card2Ref.current, { zIndex: 2 });
+                gsap.set(card3Ref.current, { zIndex: 3 });
+              }
+            }
+          },
         });
 
-        gsap.fromTo(cardsContainer,
-          {
-            x: LEFT_PADDING
-          },
-          {
-            x: scrollAmount + LEFT_PADDING,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top-=100 top',
-              end: `+=${SCROLL_DISTANCE}%`,
-              scrub: 1,
-            }
-          }
-        );
+        return () => {};
       });
 
-      // Animate title
-      gsap.from(titleRef.current, {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none'
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        ease: 'power3.out'
-      });
+      // Desktop: Original animations (unchanged)
+      mm.add("(min-width: 1000px)", () => {
+        // Reset mobile styles
+        gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], {
+          y: 0,
+          scale: 1,
+          rotation: 0,
+          clearProps: "all"
+        });
 
-      // Animate subtitle
-      gsap.from(subtitleRef.current, {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none none'
-        },
-        opacity: 0,
-        y: 20,
-        duration: 0.8,
-        delay: 0.2,
-        ease: 'power3.out'
-      });
-
-      // Animate CTA button
-      gsap.from(ctaRef.current, {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
-          toggleActions: 'play none none none'
-        },
-        opacity: 0,
-        y: 20,
-        duration: 0.8,
-        delay: 0.4,
-        ease: 'power3.out'
-      });
-
-      // Animate individual cards on entry
-      cardsRef.current.forEach((card, index) => {
-        if (!card) return;
-
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
-          },
+        // Set initial state for header
+        gsap.set(stickyHeaderRef.current, {
           opacity: 0,
-          scale: 0.9,
-          duration: 0.6,
-          delay: index * 0.1,
-          ease: 'power2.out'
+          y: 40,
         });
-      });
 
-    }, sectionRef);
+        ScrollTrigger.create({
+          trigger: sectionRef.current.querySelector(".sticky"),
+          start: "top top",
+          end: `+=${window.innerHeight * 4}px`,
+          scrub: 1,
+          pin: true,
+          pinSpacing: true,
+          onUpdate: (self) => {
+            const progress = self.progress;
 
-    // 🟢 Add this part BELOW your GSAP setup (still inside useEffect)
+            // Header animation - slides up from behind cards
+            if (progress >= 0.05 && progress <= 0.2) {
+              const headerProgress = gsap.utils.mapRange(0.05, 0.2, 0, 1, progress);
+              const yValue = gsap.utils.mapRange(0, 1, 100, 0, headerProgress);
+              const opacityValue = gsap.utils.mapRange(0, 1, 0, 1, headerProgress);
 
-    window.addEventListener("resize", () => {
-      ScrollTrigger.refresh();
-    });
+              gsap.set(stickyHeaderRef.current, {
+                y: yValue,
+                opacity: opacityValue,
+              });
+            } else if (progress < 0.05) {
+              gsap.set(stickyHeaderRef.current, {
+                y: 100,
+                opacity: 0,
+              });
+            } else if (progress > 0.2) {
+              gsap.set(stickyHeaderRef.current, {
+                y: 0,
+                opacity: 1,
+              });
+            }
 
-    // 🧹 Cleanup
-    return () => {
-      ctx.revert();
-      window.removeEventListener("resize", () => {
-        ScrollTrigger.refresh();
+            // Card container width animation
+            if (progress <= 0.25) {
+              const widthPercentage = gsap.utils.mapRange(0, 0.25, 75, 60, progress);
+              gsap.set(cardContainerRef.current, { width: `${widthPercentage}%` });
+            } else {
+              gsap.set(cardContainerRef.current, { width: "60%" });
+            }
+
+            // Gap and border-radius animation
+            if (progress >= 0.35 && !isGapAnimationCompletedRef.current) {
+              gsap.to(cardContainerRef.current, {
+                gap: "20px",
+                duration: 0.5,
+                ease: "power3.out",
+              });
+
+              gsap.to(["#card-1", "#card-2", "#card-3"], {
+                borderRadius: "20px",
+                duration: 0.5,
+                ease: "power3.out",
+              });
+
+              isGapAnimationCompletedRef.current = true;
+            } else if (progress < 0.35 && isGapAnimationCompletedRef.current) {
+              gsap.to(cardContainerRef.current, {
+                gap: "0px",
+                duration: 0.5,
+                ease: "power3.out",
+              });
+
+              gsap.to("#card-1", {
+                borderRadius: "20px 0 0 20px",
+                duration: 0.5,
+                ease: "power3.out",
+              });
+
+              gsap.to("#card-2", {
+                borderRadius: "0px",
+                duration: 0.5,
+                ease: "power3.out",
+              });
+
+              gsap.to("#card-3", {
+                borderRadius: "0 20px 20px 0",
+                duration: 0.5,
+                ease: "power3.out",
+              });
+
+              isGapAnimationCompletedRef.current = false;
+            }
+
+            // Flip animation - Forward (scrolling down)
+            if (progress >= 0.7 && !isFlipAnimationCompletedRef.current) {
+              gsap.to(".discovery .card", {
+                rotationY: 180,
+                duration: 0.75,
+                ease: "power3.inOut",
+                stagger: 0.1,
+              });
+
+              gsap.to([".discovery #card-1", ".discovery #card-3"], {
+                y: 30,
+                rotationZ: (i) => [-15, 15][i],
+                duration: 0.75,
+                ease: "power3.inOut",
+              });
+
+              isFlipAnimationCompletedRef.current = true;
+            } 
+            // Flip animation - Reverse (scrolling back up)
+            else if (progress < 0.7 && isFlipAnimationCompletedRef.current) {
+              gsap.to(".discovery .card", {
+                rotationY: 0,
+                duration: 0.75,
+                ease: "power3.inOut",
+                stagger: 0.1,
+              });
+
+              gsap.to([".discovery #card-1", ".discovery #card-3"], {
+                y: 0,
+                rotationZ: 0,
+                duration: 0.75,
+                ease: "power3.inOut",
+              });
+
+              isFlipAnimationCompletedRef.current = false;
+            }
+          },
+        });
+
+        return () => {};
       });
     };
 
+    initAnimations();
+
+    let resizeTimer;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        initAnimations();
+      }, 250);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.vars.trigger?.closest('.discovery')) {
+          trigger.kill();
+        }
+      });
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
     <section className={`discovery ${isDarkMode ? 'dark' : 'light'}`} ref={sectionRef}>
-      {/* Background first, then overlay on top */}
-      <div className="discovery-background"></div>
-      <div className="discovery-overlay"></div>
-      
-      <div className="discovery-wrapper">
-        {/* Left Side - Static Content */}
-        <div className="discovery-left" ref={leftSideRef}>
-          <div className="discovery-left-content">
-            <div className="discovery-eyebrow">How it connects</div>
-            <h1 className="discovery-title" ref={titleRef}>
-              One AI, Three Ways<br />
-              to <span className="highlight">Connect with Patients</span>
-            </h1>
-            <p className="discovery-subtitle" ref={subtitleRef}>
-              OmniDent.ai is a single intelligent system that patients can reach through their 
-              preferred communication channel - text, web chat, or phone call.
-            </p>
-            
-            <button 
-              className="discovery-cta-button" 
-              ref={ctaRef}
-            >
-              Explore Channels
-              <HiArrowRight className="button-icon" />
-            </button>
+      <section className='sticky'>
+        <div className="sticky-header" ref={stickyHeaderRef}>
+          <h1>One AI, Three Ways to Connect with Patients</h1>
+        </div>
+        <div className="card-container" ref={cardContainerRef}>
+          <div className="card" id="card-1" ref={card1Ref}>
+            <div className="card-front">
+              <img src={cardCover} alt="Text Message Access" />
+            </div>
+            <div className="card-back">
+              <div className="card-back-content">
+                <span className="card-span">( 01 )</span>
+                <p className="card-title">Text Message Access</p>
+                <p className="card-description">Patients text your practice number and instantly connect with OmniDent.ai for scheduling, questions, and more.</p>
+              </div>
+            </div>
+          </div>
+          <div className="card" id="card-2" ref={card2Ref}>
+            <div className="card-front">
+              <img src={cardCover} alt="Website Chat Widget" />
+            </div>
+            <div className="card-back">
+              <div className="card-back-content">
+                <span className="card-span">( 02 )</span>
+                <p className="card-title">Website Chat Widget</p>
+                <p className="card-description">A sleek chat bubble on your website connects visitors directly to OmniDent.ai for instant assistance.</p>
+              </div>
+            </div>
+          </div>
+          <div className="card" id="card-3" ref={card3Ref}>
+            <div className="card-front">
+              <img src={cardCover} alt="Phone Call Access" />
+            </div>
+            <div className="card-back">
+              <div className="card-back-content">
+                <span className="card-span">( 03 )</span>
+                <p className="card-title">Phone Call Access</p>
+                <p className="card-description">Patients call your practice number and speak naturally with OmniDent.ai's voice assistant.</p>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Right Side - Scrolling Cards */}
-        <div className="discovery-right">
-          <div className="channels-stack" ref={cardsContainerRef}>
-            <SpotlightCard 
-              ref={el => cardsRef.current[0] = el}
-              className="custom-spotlight-card" 
-              spotlightColor="rgba(81, 226, 210, 0.2)"
-            >
-              <div className="channel-icon-box">
-                <FiMessageSquare className="channel-icon" />
-              </div>
-              <h3 className="channel-title">TEXT MESSAGE ACCESS</h3>
-              <p className="channel-description">
-                Patients text your practice number and instantly connect with OmniDent.ai for scheduling, questions, and more.
-              </p>
-              <ul className="channel-features">
-                <li>• Prefer quick text conversations</li>
-                <li>• Want to book on-the-go</li>
-                <li>• Need appointment reminders</li>
-              </ul>
-            </SpotlightCard>
-
-            <SpotlightCard 
-              ref={el => cardsRef.current[1] = el}
-              className="custom-spotlight-card" 
-              spotlightColor="rgba(81, 226, 210, 0.2)"
-            >
-              <div className="channel-icon-box">
-                <FiMessageSquare className="channel-icon" />
-              </div>
-              <h3 className="channel-title">WEBSITE CHAT WIDGET</h3>
-              <p className="channel-description">
-                A sleek chat bubble on your website connects visitors directly to OmniDent.ai for instant assistance.
-              </p>
-              <ul className="channel-features">
-                <li>• Are browsing your website</li>
-                <li>• Have immediate questions</li>
-                <li>• Want to book instantly</li>
-              </ul>
-            </SpotlightCard>
-
-            <SpotlightCard 
-              ref={el => cardsRef.current[2] = el}
-              className="custom-spotlight-card" 
-              spotlightColor="rgba(81, 226, 210, 0.2)"
-            >
-              <div className="channel-icon-box">
-                <FiMessageSquare className="channel-icon" />
-              </div>
-              <h3 className="channel-title">PHONE CALL ACCESS</h3>
-              <p className="channel-description">
-                Patients call your practice number and speak naturally with your OmniDent.ai's voice assistant.
-              </p>
-              <ul className="channel-features">
-                <li>• Prefer talking to typing</li>
-                <li>• Need complex help</li>
-                <li>• Call after hours</li>
-              </ul>
-            </SpotlightCard>
-          </div>
-        </div>
-      </div>
+      </section>
     </section>
   );
 };

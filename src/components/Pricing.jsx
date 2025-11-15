@@ -13,12 +13,12 @@ const Pricing = ({ isDarkMode }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Main timeline with pin
+      // Main timeline with pin - extended for sequential card animations
       const mainTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=150%',
+          end: '+=200%', // Extended to accommodate sequential animations
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -40,9 +40,9 @@ const Pricing = ({ isDarkMode }) => {
         '-=0.3'
       );
 
-      // Animate cards with stagger - center card first, then sides
+      // FIRST: Animate center card (Core Platform) with all its internals
       mainTimeline.fromTo(
-        cardsRef.current[1], // Center card (Core Platform)
+        cardsRef.current[1], // Center card
         { opacity: 0, y: 100, scale: 0.8 },
         {
           opacity: 1,
@@ -54,35 +54,19 @@ const Pricing = ({ isDarkMode }) => {
         '-=0.2'
       );
 
-      // Animate side cards together
-      mainTimeline.fromTo(
-        [cardsRef.current[0], cardsRef.current[2]], // Left and right cards
-        { opacity: 0, y: 100, scale: 0.8 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out'
-        },
-        '-=0.6'
-      );
+      // Animate center card internals
+      const centerCard = cardsRef.current[1];
+      if (centerCard) {
+        const cardTitle = centerCard.querySelector('.card-title');
+        const cardDescription = centerCard.querySelector('.card-description');
+        const priceSection = centerCard.querySelector('.price-section:not(.price-section-empty)');
+        const features = centerCard.querySelectorAll('.card-features li');
+        const button = centerCard.querySelector('.pricing-btn');
+        const footer = centerCard.querySelector('.card-footer');
 
-      // Animate card internals
-      cardsRef.current.forEach((card, index) => {
-        if (!card) return;
+        const centerTimeline = gsap.timeline();
 
-        const cardTitle = card.querySelector('.card-title');
-        const cardDescription = card.querySelector('.card-description');
-        const priceSection = card.querySelector('.price-section:not(.price-section-empty)');
-        const features = card.querySelectorAll('.card-features li');
-        const button = card.querySelector('.pricing-btn');
-        const footer = card.querySelector('.card-footer');
-
-        const cardTimeline = gsap.timeline();
-
-        cardTimeline
+        centerTimeline
           .fromTo(cardTitle,
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
@@ -94,37 +78,136 @@ const Pricing = ({ isDarkMode }) => {
           );
 
         if (priceSection) {
-          cardTimeline.fromTo(priceSection,
+          centerTimeline.fromTo(priceSection,
             { opacity: 0, scale: 0.8 },
             { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' },
             '-=0.2'
           );
         }
 
-        cardTimeline
+        centerTimeline
           .fromTo(features,
             { opacity: 0, x: -20 },
             { opacity: 1, x: 0, duration: 0.3, stagger: 0.1, ease: 'power2.out' },
             '-=0.2'
           );
 
-        // Only animate button if it exists
         if (button) {
-          cardTimeline.fromTo(button,
+          centerTimeline.fromTo(button,
             { opacity: 0, y: 10 },
             { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' },
             '-=0.2'
           );
         }
 
-        cardTimeline.fromTo(footer,
+        centerTimeline.fromTo(footer,
           { opacity: 0 },
           { opacity: 1, duration: 0.3, ease: 'power2.out' },
           '-=0.2'
         );
 
-        mainTimeline.add(cardTimeline, `-=${0.6 - (index * 0.15)}`);
-      });
+        mainTimeline.add(centerTimeline, '-=0.6');
+      }
+
+      // Add a pause/hold after center card is complete
+      mainTimeline.to({}, { duration: 0.3 });
+
+      // SECOND: Animate left card (Built In) as user scrolls more
+      mainTimeline.fromTo(
+        cardsRef.current[0], // Left card
+        { opacity: 0, y: 100, scale: 0.8 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: 'power3.out'
+        }
+      );
+
+      // Animate left card internals
+      const leftCard = cardsRef.current[0];
+      if (leftCard) {
+        const cardTitle = leftCard.querySelector('.card-title');
+        const cardDescription = leftCard.querySelector('.card-description');
+        const features = leftCard.querySelectorAll('.card-features li');
+        const footer = leftCard.querySelector('.card-footer');
+
+        const leftTimeline = gsap.timeline();
+
+        leftTimeline
+          .fromTo(cardTitle,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
+          )
+          .fromTo(cardDescription,
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' },
+            '-=0.2'
+          )
+          .fromTo(features,
+            { opacity: 0, x: -20 },
+            { opacity: 1, x: 0, duration: 0.3, stagger: 0.1, ease: 'power2.out' },
+            '-=0.2'
+          )
+          .fromTo(footer,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.3, ease: 'power2.out' },
+            '-=0.2'
+          );
+
+        mainTimeline.add(leftTimeline, '-=0.6');
+      }
+
+      // Add another pause
+      mainTimeline.to({}, { duration: 0.2 });
+
+      // THIRD: Animate right card (Optional) as user scrolls even more
+      mainTimeline.fromTo(
+        cardsRef.current[2], // Right card
+        { opacity: 0, y: 100, scale: 0.8 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: 'power3.out'
+        }
+      );
+
+      // Animate right card internals
+      const rightCard = cardsRef.current[2];
+      if (rightCard) {
+        const cardTitle = rightCard.querySelector('.card-title');
+        const cardDescription = rightCard.querySelector('.card-description');
+        const features = rightCard.querySelectorAll('.card-features li');
+        const footer = rightCard.querySelector('.card-footer');
+
+        const rightTimeline = gsap.timeline();
+
+        rightTimeline
+          .fromTo(cardTitle,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
+          )
+          .fromTo(cardDescription,
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' },
+            '-=0.2'
+          )
+          .fromTo(features,
+            { opacity: 0, x: -20 },
+            { opacity: 1, x: 0, duration: 0.3, stagger: 0.1, ease: 'power2.out' },
+            '-=0.2'
+          )
+          .fromTo(footer,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.3, ease: 'power2.out' },
+            '-=0.2'
+          );
+
+        mainTimeline.add(rightTimeline, '-=0.6');
+      }
 
       // Hold at the end
       mainTimeline.to({}, { duration: 0.3 });

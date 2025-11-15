@@ -1,54 +1,59 @@
 import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
-import Testi from '../assets/Testi.jpg';
 import './Results.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Results = ({ isDarkMode }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   
-  // Refs for animations
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
-  const carouselRef = useRef(null);
+  const sliderRef = useRef(null);
 
   const testimonials = [
     {
       text: "In just 3 months, our bookings grew 60%. Patients get answers instantly, and my staff finally has breathing room instead of being stuck on the phone.",
-      author: "Dr. Sarah Martinez"
+      author: "Dr. Sarah Martinez",
+      title: "Founder & Dentist",
+      company: "Smile Dental Care",
     },
     {
-      text: "This has been our best investment. Patient satisfaction is higher, staff stress is lower, and were booking 3x more consultations than before.",
-      author: "Dr. James Wilson"
+      text: "This has been our best investment. Patient satisfaction is higher, staff stress is lower, and we're booking 3x more consultations than before.",
+      author: "Dr. James Wilson",
+      title: "Chief Dental Officer",
+      company: "Wilson Dental Group",
     },
     {
       text: "The SMS and chat integration feels natural. Patients now book while browsing our site, and our no-shows dropped by 40% since reminders go out automatically.",
-      author: "Dr. Michael Chen"
+      author: "Dr. Michael Chen",
+      title: "Practice Owner",
+      company: "Chen Family Dentistry",
     },
     {
       text: "OmniDent.ai saves us 15 hours a week on scheduling. The AI even understands dental terms, so patients feel heard and my front desk can focus on care instead of logistics.",
-      author: "Dr. Emily Rodriguez"
+      author: "Dr. Emily Rodriguez",
+      title: "Managing Partner",
+      company: "Rodriguez Dental Associates",
     }
   ];
 
-  // Auto-rotate carousel every 3 seconds
+  // Auto-rotate slider
   useEffect(() => {
+    if (!isAutoPlaying) return;
+    
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(interval);
-  }, [testimonials.length]);
+  }, [testimonials.length, isAutoPlaying]);
 
   // GSAP Animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title Animation
       gsap.from(titleRef.current, {
         scrollTrigger: {
           trigger: titleRef.current,
@@ -61,105 +66,143 @@ const Results = ({ isDarkMode }) => {
         ease: 'power3.out'
       });
 
-      // Title Accent Animation
-      const accent = titleRef.current.querySelector('.title-accent');
-      if (accent) {
-        gsap.from(accent, {
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: 'top 80%',
-            once: true
-          },
-          opacity: 0,
-          x: -30,
-          duration: 0.7,
-          delay: 0.2,
-          ease: 'power2.out'
-        });
-      }
-
-      // Carousel Animation
-      gsap.from(carouselRef.current, {
+      gsap.from(sliderRef.current, {
         scrollTrigger: {
-          trigger: carouselRef.current,
+          trigger: sliderRef.current,
           start: 'top 85%',
           once: true
         },
         opacity: 0,
-        x: 50,
+        y: 50,
         duration: 0.8,
         delay: 0.3,
         ease: 'power2.out'
       });
-
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
-  // Animate testimonial change
-  useEffect(() => {
-    const testimonialText = carouselRef.current?.querySelector('.testimonial-text');
-    const testimonialAuthor = carouselRef.current?.querySelector('.testimonial-author');
-
-    if (testimonialText && testimonialAuthor) {
-      gsap.fromTo(
-        [testimonialText, testimonialAuthor],
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 1.0, ease: 'power2.inOut' }
-      );
-    }
-  }, [currentIndex]);
-
   const handlePrev = () => {
+    setIsAutoPlaying(false);
     setCurrentIndex((prevIndex) => 
       prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
     );
   };
 
   const handleNext = () => {
+    setIsAutoPlaying(false);
     setCurrentIndex((prevIndex) => 
       (prevIndex + 1) % testimonials.length
     );
   };
 
+  const handleDotClick = (index) => {
+    setIsAutoPlaying(false);
+    setCurrentIndex(index);
+  };
+
   return (
     <section 
-      className={`results ${isDarkMode ? 'dark' : 'light'}`} 
-      style={{ backgroundImage: `url(${Testi})` }}
+      className={`results ${isDarkMode ? 'dark' : 'light'}`}
       ref={sectionRef}
     >
-      {/* Background overlay for better text readability */}
-      <div className="results-bg-overlay"></div>
-      
       <div className="results-container">
-        <div className="results-content">
-          <div className="results-text">
-            <h2 className="results-title" ref={titleRef}>
-              <span className="title-accent">Elite practices</span>
-              <br />
-              are already winning
-            </h2>
-          </div>
+        <h2 className="results-title" ref={titleRef}>
+          Hear <span className="title-accent">from</span> our partners
+        </h2>
 
-          <div className="testimonial-carousel" ref={carouselRef}>
-            <button className="carousel-btn prev" onClick={handlePrev} aria-label="Previous testimonial">
-              <IoIosArrowBack size={24} />
-            </button>
+        <div className="testimonial-slider" ref={sliderRef}>
+          {/* Navigation Arrow - Previous */}
+          <button 
+            className="slider-arrow prev" 
+            onClick={handlePrev}
+            aria-label="Previous testimonial"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              strokeWidth={2} 
+              stroke="currentColor" 
+              className="arrow-icon"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+            </svg>
+          </button>
 
-            <div className="testimonial-content">
-              <p className="testimonial-text">
-                {testimonials[currentIndex].text}
-              </p>
-              <div className="testimonial-author">
-                — {testimonials[currentIndex].author}
-              </div>
+          {/* Slider Track */}
+          <div className="slider-track">
+            <div 
+              className="slider-inner"
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {testimonials.map((testimonial, index) => (
+                <div key={index} className="testimonial-card">
+                  <div className="card-background"></div>
+                  
+                  <div className="card-content">
+                    <div className="card-photo">
+                      <img 
+                        src={testimonial.image} 
+                        alt={testimonial.author}
+                        onError={(e) => {
+                          e.target.src = 'https://via.placeholder.com/320x320/1a1a1a/5EBEC4?text=Client';
+                        }}
+                      />
+                    </div>
+
+                    <div className="card-text">
+                      <p className="testimonial-quote">
+                        "{testimonial.text}"
+                      </p>
+
+                      <div className="testimonial-author-section">
+                        <div className="author-info">
+                          <h4 className="author-name">{testimonial.author}</h4>
+                          <p className="author-title">{testimonial.title}</p>
+                        </div>
+                        
+                        <div className="company-logo">
+                          <span className="company-name">{testimonial.company}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-
-            <button className="carousel-btn next" onClick={handleNext} aria-label="Next testimonial">
-              <IoIosArrowForward size={24} />
-            </button>
           </div>
+
+          {/* Navigation Arrow - Next */}
+          <button 
+            className="slider-arrow next" 
+            onClick={handleNext}
+            aria-label="Next testimonial"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              strokeWidth={2} 
+              stroke="currentColor" 
+              className="arrow-icon"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Pagination Dots */}
+        <div className="slider-dots">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              className={`dot ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => handleDotClick(index)}
+              aria-label={`Go to testimonial ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>

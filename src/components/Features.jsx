@@ -13,20 +13,17 @@ import f6 from '../assets/f6.png';
 gsap.registerPlugin(ScrollTrigger);
 
 const Features = ({ isDarkMode }) => {
-  const [activeStep, setActiveStep] = useState(0);
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
   const headerRef = useRef(null);
-  const bgRefs = useRef([]);
-  const textRefs = useRef([]);
-  const imageRefs = useRef([]);
+  const itemRefs = useRef([]);
 
   const featureData = [
     {
       id: 1,
       title: "AI-Powered Scheduling",
       description: "Intelligent appointment booking that understands patient preferences, provider availability, and treatment requirements.",
-      bgColor: "#6bffcbff",
+      bgColor: "#1A3A52",
       image: f1,
       stats: [
         "95% Booking Efficiency",
@@ -38,7 +35,7 @@ const Features = ({ isDarkMode }) => {
       id: 2,
       title: "Smart Reminders & Confirmations",
       description: "Automated reminders via SMS, email, and voice calls that reduce no-shows and keep patients informed.",
-      bgColor: "#FFC9D7",
+      bgColor: "#4A2C3E",
       image: f2,
       stats: [
         "60% Fewer No-Shows",
@@ -50,7 +47,7 @@ const Features = ({ isDarkMode }) => {
       id: 3,
       title: "Insurance Verification",
       description: "Instant insurance eligibility checks and coverage verification to streamline the billing process.",
-      bgColor: "#D0D7F5",
+      bgColor: "#2C3E50",
       image: f3,
       stats: [
         "2 sec Verification",
@@ -62,7 +59,7 @@ const Features = ({ isDarkMode }) => {
       id: 4,
       title: "Treatment Plan Communication",
       description: "Clear, automated communication of treatment plans, costs, and next steps to improve case acceptance.",
-      bgColor: "#2aceb3ff",
+      bgColor: "#524A52",
       image: f4,
       stats: [
         "85% Acceptance Rate",
@@ -74,7 +71,7 @@ const Features = ({ isDarkMode }) => {
       id: 5,
       title: "Post-Treatment Follow-up",
       description: "Automated follow-up messages to check on patient recovery and schedule necessary appointments.",
-      bgColor: "#F2EAC8",
+      bgColor: "#3D4C5C",
       image: f5,
       stats: [
         "92% Satisfaction",
@@ -86,7 +83,7 @@ const Features = ({ isDarkMode }) => {
       id: 6,
       title: "Practice Analytics Dashboard",
       description: "Real-time insights into practice performance, patient flow, and revenue metrics for data-driven decisions.",
-      bgColor: "#9FD7FA",
+      bgColor: "#4A3644",
       image: f6,
       stats: [
         "50+ Key Metrics",
@@ -99,27 +96,36 @@ const Features = ({ isDarkMode }) => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
-      
-      // Desktop: Faster animation
-      mm.add("(min-width: 768px)", () => {
-        // Calculate total scroll distance with FASTER transitions
-        const stepsPerFeature = 1.8; // Reduced from 2.5 for faster speed
-        const totalSteps = 1 + (featureData.length * stepsPerFeature);
-        const scrollDistance = totalSteps * 100; // Reduced from 150 for faster scroll
 
-        // Pin the container
+      // Desktop: Horizontal scroll with preview effect
+      mm.add("(min-width: 768px)", () => {
+        // Header animation - show on entry
+        gsap.fromTo(headerRef.current,
+          { opacity: 0, y: 50 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 1,
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+              end: "top 50%",
+              scrub: 1
+            }
+          }
+        );
+
+        // Calculate scroll distance
+        const totalCards = featureData.length;
+        const scrollDistance = totalCards * 120;
+
+        // Pin the section
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: "top top",
           end: `+=${scrollDistance}%`,
-          pin: containerRef.current,
-          pinSpacing: true,
+          pin: true,
           scrub: 1,
-          onUpdate: (self) => {
-            const progress = self.progress;
-            const currentStep = Math.floor(progress * totalSteps);
-            setActiveStep(currentStep);
-          }
         });
 
         // Master timeline
@@ -132,79 +138,87 @@ const Features = ({ isDarkMode }) => {
           }
         });
 
-        const stepDuration = 1 / totalSteps;
+        const stepDuration = 1 / totalCards;
 
-        // Step 0: Show header
-        tl.fromTo(headerRef.current,
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: stepDuration, ease: "power2.out" },
-          0
-        );
-
-        // Fade out header
+        // Fade out header when first card starts appearing
         tl.to(headerRef.current,
-          { opacity: 0, y: -50, duration: stepDuration, ease: "power2.in" },
-          stepDuration
+          { 
+            opacity: 0, 
+            duration: stepDuration * 0.5,
+            ease: "power2.inOut"
+          },
+          stepDuration * 0.1
         );
 
-        // Animate each feature
-        featureData.forEach((feature, index) => {
-          const featureStartStep = 1 + (index * stepsPerFeature);
-          const featureStartTime = featureStartStep * stepDuration;
+        // Animate each card with preview/peek effect
+        itemRefs.current.forEach((card, index) => {
+          if (!card) return;
 
-          // Phase 1: Background circle grows faster
-          tl.fromTo(bgRefs.current[index],
-            { opacity: 0, scale: 0 },
-            { opacity: 1, scale: 1.5, duration: stepDuration * 2.5, ease: "power2.out" },
-            featureStartTime
-          );
+          const startTime = index * stepDuration;
+          const previewStart = startTime - stepDuration * 0.4;
 
-          // Phase 2: Text content slides in from left (faster)
-          tl.fromTo(textRefs.current[index],
-            { opacity: 0, x: -100 },
-            { opacity: 1, x: 0, duration: stepDuration * 0.3, ease: "power2.out" },
-            featureStartTime + (stepDuration * 0.2)
-          );
+          // Set initial state - card is hidden on the right
+          gsap.set(card, {
+            clipPath: 'inset(0 0 0 100%)',
+            width: '15%',
+            right: 0,
+            left: 'auto'
+          });
 
-          // Phase 3: Image slides in from right (slightly after text)
-          tl.fromTo(imageRefs.current[index],
-            { opacity: 0, x: 100 },
-            { opacity: 1, x: 0, duration: stepDuration * 0.3, ease: "power2.out" },
-            featureStartTime + (stepDuration * 0.35)
-          );
-
-          // Fade out content faster before next feature
-          if (index < featureData.length - 1) {
-            const fadeOutTime = featureStartTime + (stepDuration * 1.4);
-            
-            tl.to([textRefs.current[index], imageRefs.current[index]],
-              { opacity: 0, duration: stepDuration * 0.15, ease: "power2.in" },
-              fadeOutTime
+          // Phase 1: Preview - Show narrow peek from the right (if not first card)
+          if (index > 0) {
+            tl.to(card,
+              { 
+                clipPath: 'inset(0 0 0 85%)',
+                duration: stepDuration * 0.4,
+                ease: "power1.out"
+              },
+              previewStart
             );
           }
+
+          // Phase 2: Full reveal - Expand to full width
+          tl.to(card,
+            { 
+              clipPath: 'inset(0 0 0 0%)',
+              width: '100%',
+              duration: stepDuration * 0.6,
+              ease: "power2.inOut"
+            },
+            startTime
+          );
         });
       });
 
-      // Mobile: FASTER animation with QUICKER header fade
+      // Mobile: Bottom-to-top with preview effect
       mm.add("(max-width: 767px)", () => {
-        // Calculate total scroll distance with EVEN FASTER transitions for mobile
-        const stepsPerFeature = 1.5; // Reduced more for mobile (was 2.5)
-        const totalSteps = 1 + (featureData.length * stepsPerFeature);
-        const scrollDistance = totalSteps * 80; // Reduced more for mobile (was 150)
+        // Header animation - show on entry
+        gsap.fromTo(headerRef.current,
+          { opacity: 0, y: 30 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 1,
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+              end: "top 50%",
+              scrub: 1
+            }
+          }
+        );
 
-        // Pin the container
+        // Calculate scroll distance
+        const totalCards = featureData.length;
+        const scrollDistance = totalCards * 100;
+
+        // Pin the section
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: "top top",
           end: `+=${scrollDistance}%`,
-          pin: containerRef.current,
-          pinSpacing: true,
+          pin: true,
           scrub: 1,
-          onUpdate: (self) => {
-            const progress = self.progress;
-            const currentStep = Math.floor(progress * totalSteps);
-            setActiveStep(currentStep);
-          }
         });
 
         // Master timeline
@@ -217,56 +231,55 @@ const Features = ({ isDarkMode }) => {
           }
         });
 
-        const stepDuration = 1 / totalSteps;
+        const stepDuration = 1 / totalCards;
 
-        // Step 0: Show header - FASTER
-        tl.fromTo(headerRef.current,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: stepDuration * 0.6, ease: "power2.out" },
-          0
-        );
-
-        // Fade out header - MUCH FASTER and EARLIER
+        // Fade out header when first card starts appearing
         tl.to(headerRef.current,
-          { opacity: 0, y: -30, duration: stepDuration * 0.4, ease: "power2.in" },
-          stepDuration * 0.5
+          { 
+            opacity: 0, 
+            duration: stepDuration * 0.5,
+            ease: "power2.inOut"
+          },
+          stepDuration * 0.1
         );
 
-        // Animate each feature
-        featureData.forEach((feature, index) => {
-          const featureStartStep = 1 + (index * stepsPerFeature);
-          const featureStartTime = featureStartStep * stepDuration;
+        // Animate each card with preview from bottom
+        itemRefs.current.forEach((card, index) => {
+          if (!card) return;
 
-          // Phase 1: Background circle grows faster on mobile
-          tl.fromTo(bgRefs.current[index],
-            { opacity: 0, scale: 0 },
-            { opacity: 1, scale: 1.5, duration: stepDuration * 1.5, ease: "power2.out" },
-            featureStartTime
-          );
+          const startTime = index * stepDuration;
+          const previewStart = startTime - stepDuration * 0.4;
 
-          // Phase 2: Text content slides in from bottom (faster on mobile)
-          tl.fromTo(textRefs.current[index],
-            { opacity: 0, y: 50 },
-            { opacity: 1, y: 0, duration: stepDuration * 0.35, ease: "power2.out" },
-            featureStartTime + (stepDuration * 0.2)
-          );
+          // Set initial state - card is hidden at the bottom
+          gsap.set(card, {
+            clipPath: 'inset(100% 0 0 0)',
+            height: '20%',
+            bottom: 0,
+            top: 'auto'
+          });
 
-          // Phase 3: Image slides in from bottom (faster on mobile)
-          tl.fromTo(imageRefs.current[index],
-            { opacity: 0, y: 50 },
-            { opacity: 1, y: 0, duration: stepDuration * 0.35, ease: "power2.out" },
-            featureStartTime + (stepDuration * 0.3)
-          );
-
-          // Fade out content even faster on mobile
-          if (index < featureData.length - 1) {
-            const fadeOutTime = featureStartTime + (stepDuration * 1.2);
-            
-            tl.to([textRefs.current[index], imageRefs.current[index]],
-              { opacity: 0, duration: stepDuration * 0.1, ease: "power2.in" },
-              fadeOutTime
+          // Phase 1: Preview - Show small peek from bottom (if not first card)
+          if (index > 0) {
+            tl.to(card,
+              { 
+                clipPath: 'inset(80% 0 0 0)',
+                duration: stepDuration * 0.4,
+                ease: "power1.out"
+              },
+              previewStart
             );
           }
+
+          // Phase 2: Full reveal - Expand to full height
+          tl.to(card,
+            { 
+              clipPath: 'inset(0% 0 0 0)',
+              height: '100%',
+              duration: stepDuration * 0.6,
+              ease: "power2.inOut"
+            },
+            startTime
+          );
         });
       });
 
@@ -276,58 +289,39 @@ const Features = ({ isDarkMode }) => {
   }, [featureData.length]);
 
   return (
-    <section className={`features-sequence ${isDarkMode ? 'dark-mode' : 'light-mode'}`} ref={sectionRef}>
-      <div className="features-sequence-container" ref={containerRef}>
-        {/* Header */}
-        <div className="features-header-sequence" ref={headerRef}>
-          <span className="features-label">See The Difference</span>
-          <h2 className="features-heading">
-            Core Features<br />
-            That Drive Results
-          </h2>
-        </div>
+    <section className={`features-horizontal ${isDarkMode ? 'dark-mode' : 'light-mode'}`} ref={sectionRef}>
+      {/* Header */}
+      <div className="features-horizontal-header" ref={headerRef}>
+        <span className="features-label">See The Difference</span>
+        <h2 className="features-heading">
+          Core Features That Drive Results
+        </h2>
+      </div>
 
-        {/* Features */}
+      {/* Horizontal scroll container */}
+      <div className="features-horizontal-container" ref={containerRef}>
         {featureData.map((feature, index) => (
-          <div key={feature.id} className="feature-layer">
-            {/* Each feature has its own circle that grows and stays */}
-            <div
-              ref={el => bgRefs.current[index] = el}
-              className="feature-background"
-              style={{ 
-                backgroundColor: feature.bgColor,
-                zIndex: index + 1
-              }}
-            />
-
-            {/* Text Content */}
-            <div
-              ref={el => textRefs.current[index] = el}
-              className="feature-text-layer"
-              style={{ zIndex: 100 + index }}
-            >
-              <div className="feature-text-content">
+          <div 
+            key={feature.id} 
+            className="feature-card"
+            ref={el => itemRefs.current[index] = el}
+            style={{ backgroundColor: feature.bgColor }}
+          >
+            <div className="feature-card-inner">
+              <div className="feature-card-content">
                 <span className="feature-number">0{feature.id}</span>
-                <h3 className="feature-layer-title">{feature.title}</h3>
-                <p className="feature-layer-description">{feature.description}</p>
-                <ul className="feature-stats-list">
+                <h3 className="feature-title">{feature.title}</h3>
+                <p className="feature-description">{feature.description}</p>
+                <ul className="feature-stats">
                   {feature.stats.map((stat, idx) => (
-                    <li key={idx} className="stat-bullet">
-                      <span className="bullet-icon">✓</span>
+                    <li key={idx} className="feature-stat">
+                      <span className="stat-icon">✓</span>
                       {stat}
                     </li>
                   ))}
                 </ul>
               </div>
-            </div>
-
-            {/* Image */}
-            <div
-              ref={el => imageRefs.current[index] = el}
-              className="feature-image-layer"
-              style={{ zIndex: 200 + index }}
-            >
-              <div className="image-frame">
+              <div className="feature-card-image">
                 <img src={feature.image} alt={feature.title} />
               </div>
             </div>

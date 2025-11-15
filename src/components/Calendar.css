@@ -1,6 +1,6 @@
 .calendar-section {
   background: linear-gradient(135deg, #0A0F1C 0%, #050810 100%);
-  padding: 100px 0 0;
+  padding: 0 0 0;
   position: relative;
   transition: all 0.3s ease;
   width: 100%;
@@ -51,7 +51,7 @@
 .calendar-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 80px 20px 0;
   position: relative;
   z-index: 1;
 }
@@ -64,38 +64,37 @@
   flex-direction: column;
   color: white;
   text-align: center;
-  margin-bottom: 60px;
-  gap: 10px;
+  margin-bottom: 40px;
+  gap: 5px;
 }
 
 .section-label {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 500;
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #06b6d4;
 }
 
 .calendar-title {
-  font-family: 'Alexandria', sans-serif;
+  font-family: 'Times Now SemiLight', 'Times Now SemiLight Placeholder', sans-serif;
   font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  line-height: 1.2;
-  background: linear-gradient(135deg, #ffffff, #ffffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: 400;
+  margin-bottom: 12px;
+  line-height: 1.1;
+  letter-spacing: -0.06em;
+  color: rgb(234, 231, 224);
 }
 
 .calendar-subtitle {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 18px;
-  color: #e2e2e2;
-  line-height: 1.6;
+  color: rgba(234, 231, 224, 0.8);
+  line-height: 1.5;
+  font-weight: 300;
 }
 
 /* Calendar Embed Container */
@@ -122,8 +121,8 @@
   justify-content: center;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
   border-bottom: 1px solid rgba(6, 182, 212, 0.1);
 }
 
@@ -133,10 +132,10 @@
 }
 
 .calendar-widget-header span {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 18px;
   font-weight: 500;
-  color: #ffffff;
+  color: rgb(234, 231, 224);
 }
 
 .calendar-embed-container {
@@ -175,7 +174,7 @@
 }
 
 .scroll-indicator span {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.8);
   white-space: nowrap;
@@ -293,7 +292,7 @@
 }
 
 .footer-section-title {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 600;
   color: #06b6d4;
@@ -314,7 +313,7 @@
 }
 
 .footer-link {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 15px;
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
@@ -357,7 +356,7 @@
 }
 
 .footer-cta-section h3 {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
@@ -371,7 +370,7 @@
   color: #ffffff;
   border: 1px solid rgba(6, 182, 212, 0.3);
   border-radius: 50px;
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
@@ -410,7 +409,7 @@
 }
 
 .contact-label {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.4);
   margin-bottom: 8px;
@@ -419,7 +418,7 @@
 }
 
 .contact-email {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
@@ -485,7 +484,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  font-family: 'Geist', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.3);
 }
@@ -590,7 +589,7 @@
   }
 
   .calendar-header {
-    margin-bottom: 50px;
+    margin-bottom: 35px;
   }
 
   .calendar-title {
@@ -622,6 +621,8 @@
     flex-direction: column;
     align-items: center;
     gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
   }
 
   .calendar-icon {
@@ -680,15 +681,17 @@
   }
 
   .calendar-header {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
 
   .section-label {
     font-size: 12px;
+    margin-bottom: 6px;
   }
 
   .calendar-title {
     font-size: 28px;
+    margin-bottom: 10px;
   }
 
   .calendar-subtitle {
@@ -701,6 +704,11 @@
 
   .calendar-widget {
     padding: 15px;
+  }
+
+  .calendar-widget-header {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
   }
 
   .calendar-widget-header span {

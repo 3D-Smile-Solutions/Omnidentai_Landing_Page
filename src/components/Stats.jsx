@@ -179,15 +179,6 @@ const Stats = ({ isDarkMode }) => {
 
   return (
     <section className={`stats ${isDarkMode ? 'dark' : 'light'}`} ref={sectionRef}>
-      {/* Decorative Images at Horizontal Corners */}
-      <div className="decorative-image left-corner" ref={imageLeftRef}>
-        <img src={tooth3d} alt="Tooth 3D" className="tooth-image" />
-      </div>
-      
-      <div className="decorative-image right-corner" ref={imageRightRef}>
-        <img src={tooth3d} alt="Tooth 3D" className="tooth-image flipped" />
-      </div>
-
       {/* Upper Section - Introduction */}
       <div className="intro-section">
         <div className="intro-content">
@@ -195,12 +186,14 @@ const Stats = ({ isDarkMode }) => {
           
           <h1 className="intro-title" ref={titleRef}>
             Transforming dentistry through precision AI.<br />
-            Discover the power of <span className="highlight">OmniDent.</span>
           </h1>
           
           <div className="intro-features" ref={featuresRef}>
             <p>
-              Unlocking personalised dental care with intelligent diagnostics, automated notes, and streamlined workflows that put patients first. This approach improves outcomes and practice efficiency, delivering expert support and measurable results every day.
+              Unlocking personalised dental care with intelligent diagnostics, automated notes, and streamlined workflows that put patients first.
+            </p>
+            <p>
+              This approach improves outcomes and practice efficiency, delivering expert support and measurable results every day.
             </p>
           </div>
           

@@ -18,12 +18,12 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
         {
             id: 2,
             name: "Patient Journey",
-            section: "stats",  // ✅ Changed from "patient-journey" to "stats"
+            section: "stats",
         },
         {
             id: 3,
             name: "Platform",
-            section: "discovery",  // ✅ Changed from "platform" to "discovery"
+            section: "discovery",
         },
         {
             id: 4,
@@ -48,7 +48,6 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
         setIsOpen(!isOpen);
     };
 
-    // Function to handle scroll event
     const handleScroll = () => {
         if (window.scrollY > 50) {
             setIsScrolled(true);
@@ -57,7 +56,6 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
         }
     };
 
-    // Function to scroll to section or open external link
     const handleNavClick = (item) => {
         if (item.isExternal) {
             window.open(item.url, '_blank', 'noopener,noreferrer');
@@ -66,16 +64,14 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
         }
     };
 
-    // Function to scroll to section
     const scrollToSection = (sectionId) => {
         const element = document.getElementById(sectionId);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            setIsOpen(false); // Close mobile menu after clicking
+            setIsOpen(false);
         }
     };
 
-    // Adding event listener on mount and removing on unmount
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
         return () => {
@@ -84,63 +80,92 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
     }, []);
 
     return (
-        <div
-            id="navbar"
-            className={`navbar ${isScrolled ? "navbar-scrolled" : ""} ${isDarkMode ? "navbar-dark" : "navbar-light"}`}
-        >
-            {/* Logo */}
-            <div className="navbar-logo-container">
-                <button 
-                    onClick={() => scrollToSection('home')} 
-                    className="navbar-logo-button"
-                >
-                    <img src={isDarkMode ? logo : logoD} alt="OmniDent AI Logo"/>
-                </button>
-            </div>
-
-            {/* Hamburger Menu for Mobile */}
-            <div className="navbar-hamburger">
-                <button
-                    onClick={toggleNavbar}
-                    className="navbar-hamburger-button"
-                >
-                    <FaBars size={24} />
-                </button>
-            </div>
-
-            {/* Navbar items and buttons */}
-            <div className={`navbar-menu ${isOpen ? "navbar-menu-open" : ""}`}>
-                {/* Logo and close icon Inside Toggle Menu */}
-                <div className="navbar-mobile-header">
-                    {/* Logo */}
+        <div className={`navbar-wrapper ${isDarkMode ? "navbar-dark-mode" : "navbar-light-mode"}`}>
+            <div
+                className={`navbar-container ${isScrolled ? "navbar-scrolled" : ""}`}
+            >
+                {/* Logo */}
+                <div className="navbar-logo-section">
                     <button 
                         onClick={() => scrollToSection('home')} 
                         className="navbar-logo-button"
                     >
                         <img src={isDarkMode ? logo : logoD} alt="OmniDent AI Logo"/>
                     </button>
-                    {/* Close Icon */}
-                    <div className="navbar-close-container">
-                        <button
-                            onClick={toggleNavbar}
-                            className="navbar-close-button"
-                        >
-                            <IoMdClose size={28} />
-                        </button>
-                    </div>
                 </div>
 
-                {/* Divider */}
-                <div className="navbar-divider"></div>
-
-                <div className="navbar-content">
-                    {/* Navbar items */}
-                    <ul className="navbar-items">
+                {/* Desktop Navigation */}
+                <nav className="navbar-nav-desktop">
+                    <ul className="navbar-nav-items">
                         {navItems.map((item) => (
                             <li key={item.id}>
                                 <button 
                                     onClick={() => handleNavClick(item)}
-                                    className="navbar-link"
+                                    className="navbar-nav-link"
+                                >
+                                    {item.name}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+
+                {/* Desktop Buttons */}
+                <div className="navbar-cta-section">
+                    <button 
+                        className="navbar-darkmode-toggle"
+                        onClick={toggleDarkMode}
+                        aria-label="Toggle dark mode"
+                    >
+                        {isDarkMode ? <FaSun size={18} /> : <FaMoon size={18} />}
+                    </button>
+                    <button 
+                        className="navbar-cta-button"
+                        onClick={() => scrollToSection('calendar')}
+                    >
+                        Get In Touch
+                    </button>
+                </div>
+
+                {/* Mobile Hamburger */}
+                <div className="navbar-mobile-toggle">
+                    <button
+                        onClick={toggleNavbar}
+                        className="navbar-hamburger-button"
+                        aria-label="Toggle menu"
+                    >
+                        <FaBars size={24} />
+                    </button>
+                </div>
+            </div>
+
+            {/* Mobile Menu Overlay */}
+            <div className={`navbar-mobile-menu ${isOpen ? "navbar-mobile-menu-open" : ""}`}>
+                <div className="navbar-mobile-header">
+                    <button 
+                        onClick={() => scrollToSection('home')} 
+                        className="navbar-logo-button"
+                    >
+                        <img src={isDarkMode ? logo : logoD} alt="OmniDent AI Logo"/>
+                    </button>
+                    <button
+                        onClick={toggleNavbar}
+                        className="navbar-mobile-close"
+                        aria-label="Close menu"
+                    >
+                        <IoMdClose size={28} />
+                    </button>
+                </div>
+
+                <div className="navbar-mobile-divider"></div>
+
+                <nav className="navbar-mobile-nav">
+                    <ul className="navbar-mobile-items">
+                        {navItems.map((item) => (
+                            <li key={item.id}>
+                                <button 
+                                    onClick={() => handleNavClick(item)}
+                                    className="navbar-mobile-link"
                                 >
                                     {item.name}
                                 </button>
@@ -148,24 +173,34 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
                         ))}
                     </ul>
 
-                    {/* Buttons */}
-                    <div className="navbar-buttons">
+                    <div className="navbar-mobile-buttons">
                         <button 
-                            className="navbar-button navbar-button-darkmode"
+                            className="navbar-mobile-darkmode"
                             onClick={toggleDarkMode}
                             aria-label="Toggle dark mode"
                         >
                             {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
                         </button>
                         <button 
-                            className="navbar-button navbar-button-demo"
-                            onClick={() => scrollToSection('calendar')}
+                            className="navbar-mobile-cta"
+                            onClick={() => {
+                                scrollToSection('calendar');
+                                setIsOpen(false);
+                            }}
                         >
-                            Request a Demo
+                            Get In Touch
                         </button>
                     </div>
-                </div>
+                </nav>
             </div>
+
+            {/* Mobile Menu Backdrop */}
+            {isOpen && (
+                <div 
+                    className="navbar-mobile-backdrop"
+                    onClick={toggleNavbar}
+                ></div>
+            )}
         </div>
     );
 };
