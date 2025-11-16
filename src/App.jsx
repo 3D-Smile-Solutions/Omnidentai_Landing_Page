@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
-import 'lenis/dist/lenis.css';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Results from './components/Results';
@@ -21,27 +19,7 @@ const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
-    // Initialize Lenis smooth scroll globally
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smooth: true,
-      smoothTouch: false,
-      wheelMultiplier: 0.8, // Slightly slower scroll
-      touchMultiplier: 1.5,
-    });
-
-    // Integrate Lenis with GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-
-    gsap.ticker.lagSmoothing(0);
-
-    // CRITICAL FIX: Refresh ScrollTrigger after everything loads
-    // This ensures all measurements are correct
+    // Refresh ScrollTrigger after everything loads
     const refreshScrollTrigger = () => {
       ScrollTrigger.refresh();
     };
@@ -64,11 +42,11 @@ const App = () => {
     };
     window.addEventListener('resize', handleResize);
 
-    // Simple approach: just hide the scrollbar to prevent fast dragging
-    // Users can still scroll smoothly with mouse wheel or trackpad
+    // Custom scrollbar styling
     const style = document.createElement('style');
     style.textContent = `
       html {
+        scroll-behavior: smooth;
         scrollbar-width: thin;
         scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
       }
@@ -94,8 +72,6 @@ const App = () => {
 
     // Cleanup
     return () => {
-      lenis.destroy();
-      gsap.ticker.remove((time) => lenis.raf(time * 1000));
       window.removeEventListener('load', refreshScrollTrigger);
       window.removeEventListener('resize', handleResize);
       document.head.removeChild(style);
