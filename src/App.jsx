@@ -31,6 +31,7 @@ const App = () => {
       touchMultiplier: 1.5,
     });
 
+    // Integrate Lenis with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
     gsap.ticker.add((time) => {
@@ -38,6 +39,30 @@ const App = () => {
     });
 
     gsap.ticker.lagSmoothing(0);
+
+    // CRITICAL FIX: Refresh ScrollTrigger after everything loads
+    // This ensures all measurements are correct
+    const refreshScrollTrigger = () => {
+      ScrollTrigger.refresh();
+    };
+
+    // Refresh multiple times to ensure proper calculation
+    setTimeout(refreshScrollTrigger, 100);
+    setTimeout(refreshScrollTrigger, 500);
+    setTimeout(refreshScrollTrigger, 1000);
+    
+    // Also refresh on window load (for images and fonts)
+    window.addEventListener('load', refreshScrollTrigger);
+
+    // Refresh on resize with debounce
+    let resizeTimer;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 250);
+    };
+    window.addEventListener('resize', handleResize);
 
     // Simple approach: just hide the scrollbar to prevent fast dragging
     // Users can still scroll smoothly with mouse wheel or trackpad
@@ -71,6 +96,8 @@ const App = () => {
     return () => {
       lenis.destroy();
       gsap.ticker.remove((time) => lenis.raf(time * 1000));
+      window.removeEventListener('load', refreshScrollTrigger);
+      window.removeEventListener('resize', handleResize);
       document.head.removeChild(style);
     };
   }, []);

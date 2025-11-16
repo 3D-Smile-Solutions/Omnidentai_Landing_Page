@@ -109,6 +109,7 @@ const Features = ({ isDarkMode }) => {
           end: `+=${scrollDistance}%`,
           pin: true,
           scrub: 1,
+          invalidateOnRefresh: true, // Recalculate on refresh
         });
 
         // Master timeline
@@ -118,6 +119,7 @@ const Features = ({ isDarkMode }) => {
             start: "top top",
             end: `+=${scrollDistance}%`,
             scrub: 1,
+            invalidateOnRefresh: true,
           }
         });
 
@@ -196,9 +198,14 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // Calculate scroll distance - FIXED: Reduced to eliminate extra space
+        // Calculate scroll distance - Adjusted for mobile tall screens
         const totalCards = featureData.length;
-        const scrollDistance = (totalCards * 85) + 15; // Reduced from 100 to 85 per card
+        const viewportHeight = window.innerHeight;
+        
+        // Adjust scroll distance based on viewport height
+        // For tall screens (>900px), reduce multiplier
+        const heightMultiplier = viewportHeight > 900 ? 75 : 85;
+        const scrollDistance = (totalCards * heightMultiplier) + 15;
 
         // Pin the section
         ScrollTrigger.create({
@@ -207,6 +214,7 @@ const Features = ({ isDarkMode }) => {
           end: `+=${scrollDistance}%`,
           pin: true,
           scrub: 1,
+          invalidateOnRefresh: true, // Recalculate on refresh
         });
 
         // Master timeline
@@ -216,6 +224,7 @@ const Features = ({ isDarkMode }) => {
             start: "top top",
             end: `+=${scrollDistance}%`,
             scrub: 1,
+            invalidateOnRefresh: true,
           }
         });
 
@@ -278,7 +287,15 @@ const Features = ({ isDarkMode }) => {
 
     }, sectionRef);
 
-    return () => ctx.revert();
+    // Refresh ScrollTrigger after component mounts and images load
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
+    return () => {
+      clearTimeout(refreshTimer);
+      ctx.revert();
+    };
   }, [featureData.length]);
 
   return (
