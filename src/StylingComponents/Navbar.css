@@ -4,11 +4,18 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 9999;
   padding: 20px;
   display: flex;
   justify-content: center;
   pointer-events: none;
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.menu-open {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
 }
 
 /* ======================== NAVBAR CONTAINER ======================== */
@@ -295,12 +302,17 @@
   transform: translateX(100%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
-  z-index: 1100;
+  z-index: 10001;
+  pointer-events: auto;
   
   display: flex;
   flex-direction: column;
   
   overflow-y: auto;
+}
+
+.navbar-mobile-menu * {
+  pointer-events: auto;
 }
 
 .navbar-light-mode .navbar-mobile-menu {
@@ -319,6 +331,7 @@
   justify-content: space-between;
   padding: 20px 24px;
   flex-shrink: 0;
+  pointer-events: auto;
 }
 
 .navbar-mobile-header .navbar-logo-button img {
@@ -336,6 +349,7 @@
   color: rgba(234, 231, 224, 0.9);
   transition: opacity 0.2s ease, transform 0.2s ease;
   border-radius: 6px;
+  pointer-events: auto;
 }
 
 .navbar-light-mode .navbar-mobile-close {
@@ -371,6 +385,7 @@
   justify-content: space-between;
   padding: 32px 24px;
   gap: 32px;
+  pointer-events: auto;
 }
 
 .navbar-mobile-items {
@@ -381,6 +396,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  pointer-events: auto;
 }
 
 .navbar-mobile-link {
@@ -397,6 +413,7 @@
   color: rgba(234, 231, 224, 0.9);
   
   transition: color 0.2s ease, transform 0.2s ease;
+  pointer-events: auto;
 }
 
 .navbar-light-mode .navbar-mobile-link {
@@ -418,6 +435,7 @@
   flex-direction: column;
   gap: 16px;
   width: 100%;
+  pointer-events: auto;
 }
 
 /* Mobile Dark Mode Toggle */
@@ -439,6 +457,7 @@
   
   cursor: pointer;
   transition: all 0.2s ease;
+  pointer-events: auto;
 }
 
 .navbar-light-mode .navbar-mobile-darkmode {
@@ -484,6 +503,7 @@
   
   cursor: pointer;
   transition: all 0.2s ease;
+  pointer-events: auto;
 }
 
 .navbar-mobile-cta:hover {
@@ -514,9 +534,10 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 1050;
+  z-index: 10000;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  pointer-events: auto;
 }
 
 /* ======================== RESPONSIVE BREAKPOINTS ======================== */
@@ -557,8 +578,8 @@
   }
 }
 
-/* Desktop Breakpoint (1024px and above) */
-@media (min-width: 1024px) {
+/* Desktop Breakpoint (1110px and above) */
+@media (min-width: 1110px) {
   .navbar-wrapper {
     padding: 32px 40px;
   }

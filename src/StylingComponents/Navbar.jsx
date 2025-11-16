@@ -59,7 +59,8 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
     const handleNavClick = (item) => {
         if (item.isExternal) {
             window.open(item.url, '_blank', 'noopener,noreferrer');
-        } else {
+            setIsOpen(false);
+        } else if (item.section) {
             scrollToSection(item.section);
         }
     };
@@ -71,6 +72,20 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
             setIsOpen(false);
         }
     };
+
+    // Lock/unlock body scroll when mobile menu opens/closes
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        // Cleanup function
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
@@ -89,6 +104,7 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
                     <button 
                         onClick={() => scrollToSection('home')} 
                         className="navbar-logo-button"
+                        type="button"
                     >
                         <img src={isDarkMode ? logo : logoD} alt="OmniDent AI Logo"/>
                     </button>
@@ -102,6 +118,7 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
                                 <button 
                                     onClick={() => handleNavClick(item)}
                                     className="navbar-nav-link"
+                                    type="button"
                                 >
                                     {item.name}
                                 </button>
@@ -112,16 +129,18 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
 
                 {/* Desktop Buttons */}
                 <div className="navbar-cta-section">
-                    <button 
+                    {/* <button 
                         className="navbar-darkmode-toggle"
                         onClick={toggleDarkMode}
                         aria-label="Toggle dark mode"
+                        type="button"
                     >
                         {isDarkMode ? <FaSun size={18} /> : <FaMoon size={18} />}
-                    </button>
+                    </button> */}
                     <button 
                         className="navbar-cta-button"
                         onClick={() => scrollToSection('calendar')}
+                        type="button"
                     >
                         Get In Touch
                     </button>
@@ -133,6 +152,7 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
                         onClick={toggleNavbar}
                         className="navbar-hamburger-button"
                         aria-label="Toggle menu"
+                        type="button"
                     >
                         <FaBars size={24} />
                     </button>
@@ -143,8 +163,12 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
             <div className={`navbar-mobile-menu ${isOpen ? "navbar-mobile-menu-open" : ""}`}>
                 <div className="navbar-mobile-header">
                     <button 
-                        onClick={() => scrollToSection('home')} 
+                        onClick={() => {
+                            scrollToSection('home');
+                            setIsOpen(false);
+                        }} 
                         className="navbar-logo-button"
+                        type="button"
                     >
                         <img src={isDarkMode ? logo : logoD} alt="OmniDent AI Logo"/>
                     </button>
@@ -152,6 +176,7 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
                         onClick={toggleNavbar}
                         className="navbar-mobile-close"
                         aria-label="Close menu"
+                        type="button"
                     >
                         <IoMdClose size={28} />
                     </button>
@@ -166,6 +191,7 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
                                 <button 
                                     onClick={() => handleNavClick(item)}
                                     className="navbar-mobile-link"
+                                    type="button"
                                 >
                                     {item.name}
                                 </button>
@@ -174,19 +200,21 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
                     </ul>
 
                     <div className="navbar-mobile-buttons">
-                        <button 
+                        {/* <button 
                             className="navbar-mobile-darkmode"
                             onClick={toggleDarkMode}
                             aria-label="Toggle dark mode"
+                            type="button"
                         >
                             {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
-                        </button>
+                        </button> */}
                         <button 
                             className="navbar-mobile-cta"
                             onClick={() => {
                                 scrollToSection('calendar');
                                 setIsOpen(false);
                             }}
+                            type="button"
                         >
                             Get In Touch
                         </button>

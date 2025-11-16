@@ -17,7 +17,7 @@ import './App.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     // Initialize Lenis smooth scroll globally
@@ -25,6 +25,9 @@ const App = () => {
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smooth: true,
+      smoothTouch: false,
+      wheelMultiplier: 0.8, // Slightly slower scroll
+      touchMultiplier: 1.5,
     });
 
     lenis.on('scroll', ScrollTrigger.update);
@@ -35,10 +38,39 @@ const App = () => {
 
     gsap.ticker.lagSmoothing(0);
 
+    // Simple approach: just hide the scrollbar to prevent fast dragging
+    // Users can still scroll smoothly with mouse wheel or trackpad
+    const style = document.createElement('style');
+    style.textContent = `
+      html {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+      }
+      
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+    `;
+    document.head.appendChild(style);
+
     // Cleanup
     return () => {
       lenis.destroy();
       gsap.ticker.remove((time) => lenis.raf(time * 1000));
+      document.head.removeChild(style);
     };
   }, []);
 
@@ -68,8 +100,6 @@ const App = () => {
         <div id="calendar" className="snap-section">
           <Calendar isDarkMode={isDarkMode} />
           </div>
-        {/*
-        */}
       </div>
     </div>
   );

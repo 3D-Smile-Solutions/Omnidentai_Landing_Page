@@ -25,113 +25,75 @@ const Discovery = ({ isDarkMode }) => {
       const mm = gsap.matchMedia();
 
       /* --------------------------------------------------------------
-      MOBILE – Slide‑over‑one‑by‑one (Smooth onUpdate version)
+      MOBILE – Cards slide up over each other
       -------------------------------------------------------------- */
       mm.add("(max-width: 999px)", () => {
-        // Header is always visible on mobile
-        gsap.set(stickyHeaderRef.current, { opacity: 1, y: 0 });
-
-        // Initial stacked positions
-        gsap.set(card1Ref.current, { y: "0%", scale: 1, zIndex: 3 });
-        gsap.set(card2Ref.current, { y: "120%", scale: 0.9, zIndex: 2 });
-        gsap.set(card3Ref.current, { y: "240%", scale: 0.8, zIndex: 1 });
-
-        let lastProgress = 0;
-
-        ScrollTrigger.create({
-          trigger: sectionRef.current.querySelector(".sticky"),
-          start: "top top",
-          end: `+=${window.innerHeight * 3}`,
-          pin: true,
-          pinSpacing: true,
-          scrub: 1,
-          onUpdate: (self) => {
-            const p = self.progress;
-            const direction = p > lastProgress ? "down" : "up";
-            lastProgress = p;
-
-            // Smooth interpolation function
-            const smoothInterpolate = (start, end, progress) => {
-              return start + (end - start) * progress;
-            };
-
-            /* ---------- Phase 1: Card 2 slides over Card 1 (0% - 33%) ---------- */
-            if (p <= 0.33) {
-              const prog = gsap.utils.mapRange(0, 0.33, 0, 1, p);
-              const y2 = smoothInterpolate(120, 0, prog);
-              const scale2 = smoothInterpolate(0.9, 1, prog);
-              const scale1 = smoothInterpolate(1, 0.9, prog);
-              
-              gsap.to(card2Ref.current, { 
-                y: `${y2}%`,
-                scale: scale2,
-                duration: 0.1 // Small duration for smoothness
-              });
-              
-              gsap.to(card1Ref.current, { 
-                scale: scale1,
-                duration: 0.1
-              });
-
-              // Z-index changes halfway through phase 1
-              if (prog > 0.5) {
-                gsap.set(card1Ref.current, { zIndex: 2 });
-                gsap.set(card2Ref.current, { zIndex: 3 });
-              } else {
-                gsap.set(card1Ref.current, { zIndex: 3 });
-                gsap.set(card2Ref.current, { zIndex: 2 });
-              }
-            }
-
-            /* ---------- Phase 2: Card 3 slides over Card 2 (33% - 66%) ---------- */
-            if (p >= 0.33 && p <= 0.66) {
-              const prog = gsap.utils.mapRange(0.33, 0.66, 0, 1, p);
-              const y3 = smoothInterpolate(240, 0, prog);
-              const scale3 = smoothInterpolate(0.8, 1, prog);
-              const scale2 = smoothInterpolate(1, 0.9, prog);
-              
-              gsap.to(card3Ref.current, { 
-                y: `${y3}%`,
-                scale: scale3,
-                duration: 0.1
-              });
-              
-              gsap.to(card2Ref.current, { 
-                scale: scale2,
-                duration: 0.1
-              });
-
-              // Z-index changes halfway through phase 2
-              if (prog > 0.5) {
-                gsap.set(card2Ref.current, { zIndex: 2 });
-                gsap.set(card3Ref.current, { zIndex: 3 });
-              } else {
-                gsap.set(card2Ref.current, { zIndex: 3 });
-                gsap.set(card3Ref.current, { zIndex: 2 });
-              }
-            }
-
-            /* ---------- Handle reverse scrolling ---------- */
-            if (direction === "up") {
-              // When scrolling back up, reset z-indexes appropriately
-              if (p < 0.16) { // Before midpoint of phase 1
-                gsap.set(card1Ref.current, { zIndex: 3 });
-                gsap.set(card2Ref.current, { zIndex: 2 });
-              } else if (p < 0.33 && p >= 0.16) { // After midpoint of phase 1
-                gsap.set(card1Ref.current, { zIndex: 2 });
-                gsap.set(card2Ref.current, { zIndex: 3 });
-              } else if (p < 0.5 && p >= 0.33) { // Before midpoint of phase 2
-                gsap.set(card2Ref.current, { zIndex: 3 });
-                gsap.set(card3Ref.current, { zIndex: 2 });
-              } else if (p >= 0.5 && p <= 0.66) { // After midpoint of phase 2
-                gsap.set(card2Ref.current, { zIndex: 2 });
-                gsap.set(card3Ref.current, { zIndex: 3 });
-              }
-            }
-          },
+        const stickySection = sectionRef.current.querySelector(".sticky");
+        const cardContainer = cardContainerRef.current;
+        
+        // Make cards absolute positioned for stacking
+        gsap.set(cardContainer, { 
+          position: 'relative', 
+          height: '400px' 
+        });
+        
+        gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], {
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          x: '-50%',
+          width: '90%',
+          maxWidth: '350px'
+        });
+        
+        // Set initial positions - Card 2 and 3 below Card 1
+        gsap.set(card1Ref.current, { 
+          y: 0,
+          zIndex: 1,
+          rotateZ: -5
+        });
+        gsap.set(card2Ref.current, { 
+          y: '110%',
+          zIndex: 2,
+          rotateZ: 0
+        });
+        gsap.set(card3Ref.current, { 
+          y: '220%',
+          zIndex: 3,
+          rotateZ: 5
         });
 
-        return () => {};
+        // Create timeline for the animations
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: stickySection,
+            start: "top top",
+            end: `+=${window.innerHeight * 2}`,
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            pinSpacing: true
+          }
+        });
+
+        // Card 2 slides up over Card 1
+        tl.to(card2Ref.current, {
+          y: 0,
+          duration: 1,
+          ease: "none"
+        })
+        // Card 3 slides up over Card 2
+        .to(card3Ref.current, {
+          y: 0,
+          duration: 1,
+          ease: "none"
+        }, ">");
+
+        return () => {
+          // Reset on cleanup
+          gsap.set(cardContainer, { clearProps: 'all' });
+          gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], { clearProps: 'all' });
+        };
       });
 
       // Desktop: Original animations (unchanged)
@@ -190,7 +152,7 @@ const Discovery = ({ isDarkMode }) => {
               gsap.set(cardContainerRef.current, { width: "60%" });
             }
 
-            // Gap and border-radius animation
+            // Gap and border-radius animation - UPDATED TO 10px
             if (progress >= 0.35 && !isGapAnimationCompletedRef.current) {
               gsap.to(cardContainerRef.current, {
                 gap: "20px",
@@ -199,7 +161,7 @@ const Discovery = ({ isDarkMode }) => {
               });
 
               gsap.to(["#card-1", "#card-2", "#card-3"], {
-                borderRadius: "20px",
+                borderRadius: "10px",
                 duration: 0.5,
                 ease: "power3.out",
               });
@@ -213,7 +175,7 @@ const Discovery = ({ isDarkMode }) => {
               });
 
               gsap.to("#card-1", {
-                borderRadius: "20px 0 0 20px",
+                borderRadius: "10px 0 0 10px",
                 duration: 0.5,
                 ease: "power3.out",
               });
@@ -225,7 +187,7 @@ const Discovery = ({ isDarkMode }) => {
               });
 
               gsap.to("#card-3", {
-                borderRadius: "0 20px 20px 0",
+                borderRadius: "0 10px 10px 0",
                 duration: 0.5,
                 ease: "power3.out",
               });
@@ -302,12 +264,12 @@ const Discovery = ({ isDarkMode }) => {
     <section className={`discovery ${isDarkMode ? 'dark' : 'light'}`} ref={sectionRef}>
       <section className='sticky'>
         <div className="sticky-header" ref={stickyHeaderRef}>
-          <h1>One AI, Three Ways to Connect with Patients</h1>
+          <h1>One AI, <span className="title-accent">Three Ways</span> to Connect with Patients</h1>
         </div>
         <div className="card-container" ref={cardContainerRef}>
           <div className="card" id="card-1" ref={card1Ref}>
             <div className="card-front">
-              <img src={cardCover} alt="Text Message Access" />
+              <div className="card-image" style={{ backgroundImage: `url(${cardCover})` }}></div>
             </div>
             <div className="card-back">
               <div className="card-back-content">
@@ -319,7 +281,7 @@ const Discovery = ({ isDarkMode }) => {
           </div>
           <div className="card" id="card-2" ref={card2Ref}>
             <div className="card-front">
-              <img src={cardCover} alt="Website Chat Widget" />
+              <div className="card-image" style={{ backgroundImage: `url(${cardCover})` }}></div>
             </div>
             <div className="card-back">
               <div className="card-back-content">
@@ -331,7 +293,7 @@ const Discovery = ({ isDarkMode }) => {
           </div>
           <div className="card" id="card-3" ref={card3Ref}>
             <div className="card-front">
-              <img src={cardCover} alt="Phone Call Access" />
+              <div className="card-image" style={{ backgroundImage: `url(${cardCover})` }}></div>
             </div>
             <div className="card-back">
               <div className="card-back-content">

@@ -113,7 +113,7 @@ button:focus-visible {
   position: relative;
   z-index: 10;
   margin-top: 100vh; /* Push content down by hero height */
-  min-height: 100vh;
+  min-height: 100%;
   padding: 0;
 }
 
@@ -121,7 +121,7 @@ button:focus-visible {
 .snap-section {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   margin: 0;
   padding: 0;
 }

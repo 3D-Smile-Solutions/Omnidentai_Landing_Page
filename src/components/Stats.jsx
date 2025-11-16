@@ -185,7 +185,7 @@ const Stats = ({ isDarkMode }) => {
           <span className="intro-badge" ref={badgeRef}>• Introduction</span>
           
           <h1 className="intro-title" ref={titleRef}>
-            Transforming dentistry through precision AI.<br />
+            Transforming <span className="title-accent">dentistry</span> through precision AI.
           </h1>
           
           <div className="intro-features" ref={featuresRef}>

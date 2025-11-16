@@ -122,7 +122,7 @@ const Hero = ({ isDarkMode, toggleDarkMode }) => {
           {/* Title Section - Center Aligned */}
           <div className="hero-title-section" ref={heroTextRef}>
             <h1 className="hero-title">
-              <span className="hero-title-line">DO MORE DENTISTRY</span>
+              DO MORE <span className="title-accent">DENTISTRY</span>
             </h1>
             
             {/* Subtitle */}

@@ -3,7 +3,7 @@
   width: 100%;
   overflow: hidden;
   padding: clamp(60px, 8vh, 100px) clamp(20px, 5vw, 80px);
-  min-height: auto;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,7 +21,7 @@
 
 /* Dark Mode (default) */
 .stats.dark {
-  background: #1a1a1a;
+  background: #14181b;
 }
 
 /* Light Mode */
@@ -59,15 +59,21 @@
 }
 
 .intro-title {
-  font-family: 'Times Now SemiLight', 'Times New Roman', serif;
-  font-size: clamp(32px, 5vw, 54px);
-  font-weight: 300;
+  font-family: 'Times Now SemiLight', 'Times Now SemiLight Placeholder', sans-serif;
+  font-size: calc(1rem * 4);
+  font-weight: 400;
   font-style: normal;
-  line-height: 1.1;
-  letter-spacing: -0.05em;
-  color: #ffffff;
+  line-height: 100%;
+  letter-spacing: -0.06em;
+  color: rgb(234, 231, 224);
   margin: 0;
   max-width: 1100px;
+}
+
+.title-accent {
+  font-family: 'Times Now SemiLight Italic', 'Times Now SemiLight Italic Placeholder', sans-serif;
+  font-style: italic;
+  color: rgb(234, 231, 224);
 }
 
 .intro-title .highlight {
@@ -260,6 +266,10 @@
   color: #1a1a1a;
 }
 
+.stats.light .title-accent {
+  color: #1a1a1a;
+}
+
 .stats.light .intro-features p {
   color: rgba(26, 26, 26, 0.8);
   text-shadow: none;
@@ -299,6 +309,34 @@
 
 /* Responsive Design */
 
+/* Large Desktop: 1920px+ */
+@media (min-width: 1920px) {
+  .intro-title {
+    font-size: calc(1rem * 4);
+  }
+}
+
+/* Desktop: 1440px - 1919px */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .intro-title {
+    font-size: calc(1rem * 4);
+  }
+}
+
+/* Standard Desktop: 1200px - 1439px */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .intro-title {
+    font-size: calc(1rem * 3.75);
+  }
+}
+
+/* Medium Desktop: 1024px - 1199px */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .intro-title {
+    font-size: calc(1rem * 3.5);
+  }
+}
+
 /* Tablets (768px - 1023px) */
 @media (max-width: 1023px) and (min-width: 768px) {
   .stats {
@@ -310,7 +348,7 @@
   }
   
   .intro-title {
-    font-size: clamp(28px, 5vw, 44px);
+    font-size: calc(1rem * 3.25);
   }
   
   .intro-features {
@@ -327,6 +365,13 @@
   }
 }
 
+/* Mobile Landscape: 600px - 767px */
+@media (min-width: 600px) and (max-width: 767px) {
+  .intro-title {
+    font-size: calc(1rem * 2.75);
+  }
+}
+
 /* Mobile (767px and below) */
 @media (max-width: 767px) {
   .stats {
@@ -338,7 +383,7 @@
   }
   
   .intro-title {
-    font-size: clamp(24px, 6vw, 36px);
+    font-size: calc(1rem * 2.75);
   }
   
   .intro-features {
@@ -381,6 +426,13 @@
   }
 }
 
+/* Mobile Portrait: 480px - 599px */
+@media (min-width: 480px) and (max-width: 599px) {
+  .intro-title {
+    font-size: calc(1rem * 2.5);
+  }
+}
+
 /* Very Small Mobile (≤480px) */
 @media (max-width: 480px) {
   .stats {
@@ -392,7 +444,7 @@
   }
   
   .intro-title {
-    font-size: clamp(22px, 7vw, 30px);
+    font-size: calc(1rem * 2.5);
   }
   
   .intro-features p {
@@ -405,6 +457,20 @@
   }
 }
 
+/* Small Mobile: 360px - 479px */
+@media (min-width: 360px) and (max-width: 479px) {
+  .intro-title {
+    font-size: calc(1rem * 2.25);
+  }
+}
+
+/* Extra Small Mobile (≤359px) */
+@media (max-width: 359px) {
+  .intro-title {
+    font-size: calc(1rem * 2);
+  }
+}
+
 /* Extra Small Mobile (≤330px) */
 @media (max-width: 330px) {
   .stats {
@@ -412,7 +478,7 @@
   }
   
   .intro-title {
-    font-size: clamp(20px, 8vw, 26px);
+    font-size: calc(1rem * 2);
   }
   
   .intro-features p {

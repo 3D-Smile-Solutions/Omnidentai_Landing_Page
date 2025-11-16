@@ -73,8 +73,8 @@ html, body {
   bottom: 0;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, 0.6) 100%
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 0, 0, 0.6) 100%
   );
   z-index: 1;
 }
@@ -82,8 +82,8 @@ html, body {
 .hero-section.dark .hero-overlay {
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.4) 0%,
-    rgba(0, 0, 0, 0.7) 100%
+    rgba(0, 0, 0, 0.596) 0%,
+    rgba(0, 0, 0, 0.911) 100%
   );
 }
 
@@ -113,21 +113,25 @@ html, body {
 }
 
 .hero-title {
-  font-family: 'Times Now SemiLight', 'Times New Roman', serif;
-  font-weight: 300;
-  font-size: clamp(2.5rem, 6vw, 3.4rem);
-  line-height: 0.9;
-  letter-spacing: -0.05em;
-  color: rgb(255, 224, 224);
+  font-family: 'Times Now SemiLight', 'Times Now SemiLight Placeholder', sans-serif;
+  font-weight: 400;
+  font-size: calc(1rem * 4);
+  line-height: 100%;
+  letter-spacing: -0.06em;
+  color: rgb(234, 231, 224);
   margin: 0 0 clamp(1.5rem, 3vh, 2rem) 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
+  text-align: center;
+}
+
+.title-accent {
+  font-family: 'Times Now SemiLight Italic', 'Times Now SemiLight Italic Placeholder', sans-serif;
+  font-style: italic;
+  color: rgb(234, 231, 224);
 }
 
 .hero-title-line {
   display: block;
-  background: linear-gradient(0deg, rgba(255, 242, 242, 0) -286%, rgb(255, 242, 242) 100%);
+  background: linear-gradient(0deg, rgba(234, 231, 224, 0) -286%, rgb(234, 231, 224) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -138,9 +142,9 @@ html, body {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-size: clamp(1rem, 2vw, 1.4rem);
-  line-height: 0.9;
-  letter-spacing: -0.03em;
-  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: rgba(234, 231, 224, 0.9);
   margin: 0 0 clamp(1.5rem, 3vh, 2.5rem) 0;
   text-align: center;
 }
@@ -187,7 +191,7 @@ html, body {
   font-weight: 400;
   letter-spacing: 0em;
   line-height: 1em;
-  color: rgba(255, 239, 237, 0.6);
+  color: rgba(234, 231, 224, 0.6);
   margin: 0;
 }
 
@@ -204,7 +208,7 @@ html, body {
   }
   
   .hero-title {
-    font-size: clamp(2.25rem, 5.5vw, 3rem);
+    font-size: calc(1rem * 3.25);
   }
   
   .hero-subtitle {
@@ -214,6 +218,37 @@ html, body {
   
   .hero-scroll-text {
     bottom: 12%;
+  }
+}
+
+/* Medium Desktop: 1024px - 1199px */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .hero-section {
+    padding: 14px;
+  }
+  
+  .hero-rounded-container {
+    border-radius: 20px;
+  }
+  
+  .hero-title {
+    font-size: calc(1rem * 3.5);
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(0.9375rem, 1.8vw, 1.25rem);
+    margin-bottom: clamp(1.25rem, 2.5vh, 2rem);
+  }
+  
+  .hero-scroll-text {
+    bottom: 12%;
+  }
+}
+
+/* Standard Desktop: 1200px - 1439px */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .hero-title {
+    font-size: calc(1rem * 3.75);
   }
 }
 
@@ -233,7 +268,7 @@ html, body {
   }
   
   .hero-title {
-    font-size: clamp(2rem, 7vw, 2.75rem);
+    font-size: calc(1rem * 2.75);
     margin-bottom: clamp(1.25rem, 2.5vh, 1.75rem);
   }
   
@@ -268,7 +303,7 @@ html, body {
   }
   
   .hero-title {
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    font-size: calc(1rem * 2.3);
     gap: 0.15rem;
   }
   
@@ -299,7 +334,8 @@ html, body {
   }
   
   .hero-title {
-    font-size: clamp(1.5rem, 9vw, 2.25rem);
+    font-size: calc(1rem * 2);
+    font-weight: 500;
     margin-bottom: 1rem;
   }
   
@@ -326,7 +362,8 @@ html, body {
   }
   
   .hero-title {
-    font-size: clamp(1.25rem, 10vw, 2rem);
+    font-size: calc(1rem * 1.7);
+    font-weight: 500;
     margin-bottom: 0.875rem;
   }
   
@@ -352,7 +389,7 @@ html, body {
   }
   
   .hero-title {
-    font-size: clamp(2.25rem, 5.5vw, 3rem);
+    font-size: calc(1rem * 3);
     margin-bottom: 1rem;
   }
   
@@ -378,7 +415,7 @@ html, body {
 /* Extra Short Screens */
 @media (max-height: 550px) {
   .hero-title {
-    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-size: calc(1rem * 2.75);
     margin-bottom: 0.75rem;
   }
   
@@ -402,7 +439,7 @@ html, body {
   }
   
   .hero-title {
-    font-size: clamp(3rem, 5vw, 3.8rem);
+    font-size: calc(1rem * 4);
   }
   
   .hero-subtitle {
@@ -421,7 +458,7 @@ html, body {
   }
   
   .hero-title {
-    font-size: 4rem;
+    font-size: calc(1rem * 4.25);
   }
   
   .hero-subtitle {

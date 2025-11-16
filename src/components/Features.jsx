@@ -23,7 +23,7 @@ const Features = ({ isDarkMode }) => {
       id: 1,
       title: "AI-Powered Scheduling",
       description: "Intelligent appointment booking that understands patient preferences, provider availability, and treatment requirements.",
-      bgColor: "#1A3A52",
+      bgColor: "#2b1924ff",
       image: f1,
       stats: [
         "95% Booking Efficiency",
@@ -35,7 +35,7 @@ const Features = ({ isDarkMode }) => {
       id: 2,
       title: "Smart Reminders & Confirmations",
       description: "Automated reminders via SMS, email, and voice calls that reduce no-shows and keep patients informed.",
-      bgColor: "#4A2C3E",
+      bgColor: "#2b1924ff",
       image: f2,
       stats: [
         "60% Fewer No-Shows",
@@ -47,7 +47,7 @@ const Features = ({ isDarkMode }) => {
       id: 3,
       title: "Insurance Verification",
       description: "Instant insurance eligibility checks and coverage verification to streamline the billing process.",
-      bgColor: "#2C3E50",
+      bgColor: "#2b1924ff",
       image: f3,
       stats: [
         "2 sec Verification",
@@ -59,7 +59,7 @@ const Features = ({ isDarkMode }) => {
       id: 4,
       title: "Treatment Plan Communication",
       description: "Clear, automated communication of treatment plans, costs, and next steps to improve case acceptance.",
-      bgColor: "#524A52",
+      bgColor: "#2b1924ff",
       image: f4,
       stats: [
         "85% Acceptance Rate",
@@ -71,7 +71,7 @@ const Features = ({ isDarkMode }) => {
       id: 5,
       title: "Post-Treatment Follow-up",
       description: "Automated follow-up messages to check on patient recovery and schedule necessary appointments.",
-      bgColor: "#3D4C5C",
+      bgColor: "#2b1924ff",
       image: f5,
       stats: [
         "92% Satisfaction",
@@ -83,7 +83,7 @@ const Features = ({ isDarkMode }) => {
       id: 6,
       title: "Practice Analytics Dashboard",
       description: "Real-time insights into practice performance, patient flow, and revenue metrics for data-driven decisions.",
-      bgColor: "#4A3644",
+      bgColor: "#2b1924ff",
       image: f6,
       stats: [
         "50+ Key Metrics",
@@ -294,7 +294,7 @@ const Features = ({ isDarkMode }) => {
       <div className="features-horizontal-header" ref={headerRef}>
         <span className="features-label">See The Difference</span>
         <h2 className="features-heading">
-          Core Features That Drive Results
+          Core <span className="title-accent">Features</span> That Drive Results
         </h2>
       </div>
 

@@ -53,6 +53,35 @@ const Calendar = ({ isDarkMode }) => {
         layout: "month_view",
         theme: isDarkMode ? "dark" : "light"
       });
+      
+      // Add custom CSS to hide/style Cal.com branding
+      const style = document.createElement('style');
+      style.textContent = `
+        /* Hide Cal.com branding or make it dark */
+        [class*="cal-"] a[href*="cal.com"] {
+          background: #1a1a1a !important;
+          color: #1a1a1a !important;
+          opacity: 0.1 !important;
+        }
+        
+        /* Alternative: completely hide it */
+        [class*="powered-by"],
+        [class*="branding"],
+        a[href*="cal.com/signup"],
+        a[aria-label*="Cal.com"] {
+          display: none !important;
+        }
+        
+        /* Make the calendar footer area dark */
+        .cal-embed[data-cal-namespace="omnident-discovery"] > div > div:last-child {
+          background: #1a1a1a !important;
+        }
+      `;
+      document.head.appendChild(style);
+      
+      return () => {
+        document.head.removeChild(style);
+      };
     })();
   }, [isDarkMode]);
 
@@ -97,7 +126,6 @@ const Calendar = ({ isDarkMode }) => {
   return (
     <section className={`calendar-section ${isDarkMode ? 'dark' : 'light'}`}>
       <div className="calendar-bg-wrapper">
-        <img src={footerBg} alt="" className="calendar-bg-image"/>
         <div className="calendar-overlay"></div>
       </div>
       
@@ -175,12 +203,14 @@ const Calendar = ({ isDarkMode }) => {
             <div className="footer-right">
               <div className="footer-cta-section">
                 <h3>Contact us to explore partnerships,<br />collaborations, or simply to say hello.</h3>
-                <button className="footer-chat-btn">Let's Chat</button>
+                <a href="https://cal.com/omnident.ai/3dss-discovery" target="_blank" rel="noopener noreferrer">
+                  <button className="footer-chat-btn">Let's Chat</button>
+                </a>
               </div>
               
               <div className="footer-contact-section">
                 <p className="contact-label">Contact</p>
-                <a href="mailto:hello@omnident.com" className="contact-email">han@omnident.ai</a>
+                <a href="mailto:han@omnident.ai" className="contact-email">han@omnident.ai</a>
               </div>
             </div>
           </div>

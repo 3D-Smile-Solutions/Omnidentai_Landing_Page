@@ -34,10 +34,8 @@ const InfoGraphic = ({ isDarkMode }) => {
     <section className={`infographic ${isDarkMode ? 'dark' : 'light'}`}>
       <div className="infographic-container">
         <div className="infographic-header">
-          <div className="integration-label">• Integration</div>
           <h2 className="infographic-title">
-            Seamless Integration with Your<br />
-            <span className="highlight">Existing PMS</span>
+            Seamless <span className="title-accent">Integration</span> with Your Existing PMS
           </h2>
           <p className="infographic-subtitle">
             Connect with 80+ practice management systems in under 30 minutes.<br />

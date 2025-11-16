@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Results.css';
+import Person from '../assets/Person.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,26 +18,30 @@ const Results = ({ isDarkMode }) => {
     {
       text: "In just 3 months, our bookings grew 60%. Patients get answers instantly, and my staff finally has breathing room instead of being stuck on the phone.",
       author: "Dr. Sarah Martinez",
-      title: "Founder & Dentist",
-      company: "Smile Dental Care",
+      title: "Martinez Family Dentistry",
+      company: "",
+      image: Person,
     },
     {
       text: "This has been our best investment. Patient satisfaction is higher, staff stress is lower, and we're booking 3x more consultations than before.",
       author: "Dr. James Wilson",
-      title: "Chief Dental Officer",
-      company: "Wilson Dental Group",
+      title: "Wilson Orthodontics",
+      company: "",
+      image: Person,
     },
     {
       text: "The SMS and chat integration feels natural. Patients now book while browsing our site, and our no-shows dropped by 40% since reminders go out automatically.",
       author: "Dr. Michael Chen",
-      title: "Practice Owner",
-      company: "Chen Family Dentistry",
+      title: "Smile Bright Dental",
+      company: "",
+      image: Person,
     },
     {
       text: "OmniDent.ai saves us 15 hours a week on scheduling. The AI even understands dental terms, so patients feel heard and my front desk can focus on care instead of logistics.",
       author: "Dr. Emily Rodriguez",
-      title: "Managing Partner",
-      company: "Rodriguez Dental Associates",
+      title: "Downtown Dental Care",
+      company: "",
+      image: Person,
     }
   ];
 

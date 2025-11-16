@@ -1,6 +1,6 @@
 /* Discovery Section Scoped Styles */
 .discovery {
-  --bg: #0f0f0f;
+  --bg: #14181b;
   --fg: #fff;
   --card1: #b2b2b2;
   --card2: #ce2017;
@@ -21,12 +21,6 @@
   --card1: #b2b2b2;
   --card2: #ce2017;
   --card3: #2f2f2f;
-}
-
-.discovery img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .discovery h1 {
@@ -84,11 +78,19 @@
   position: relative;
   text-align: center;
   will-change: transform, opacity;
-  font-family: 'Times Now SemiLight', 'Times New Roman', serif;
-  font-size: clamp(2rem, 3vw, 2.5rem);
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: -0.02em;
+  font-family: 'Times Now SemiLight', 'Times Now SemiLight Placeholder', sans-serif;
+  font-size: calc(1rem * 4);
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: -0.06em;
+  color: rgb(234, 231, 224);
+  margin: 0;
+}
+
+.discovery .title-accent {
+  font-family: 'Times Now SemiLight Italic', 'Times Now SemiLight Italic Placeholder', sans-serif;
+  font-style: italic;
+  color: rgb(234, 231, 224);
 }
 
 .discovery .card-container {
@@ -111,16 +113,17 @@
 }
 
 .discovery #card-1 {
-  border-radius: 20px 0 0 20px;
+  border-radius: 10px 0 0 10px;
   background-color: var(--card1);
 }
 
 .discovery #card-2 {
   background-color: var(--card2);
+  border-radius: 0;
 }
 
 .discovery #card-3 {
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 10px 10px 0;
   background-color: var(--card3);
 }
 
@@ -132,6 +135,29 @@
   backface-visibility: hidden;
   border-radius: inherit;
   overflow: hidden;
+}
+
+/* Card Image - Split across three cards */
+.discovery .card-image {
+  position: absolute;
+  width: 300%; /* 3 cards × 100% */
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Position each card's portion of the image */
+.discovery #card-1 .card-image {
+  left: 0; /* Show left third */
+}
+
+.discovery #card-2 .card-image {
+  left: -100%; /* Show middle third */
+}
+
+.discovery #card-3 .card-image {
+  left: -200%; /* Show right third */
 }
 
 .discovery .card-back {
@@ -245,8 +271,85 @@
   color: #d4d4d4; /* Light gray for darker cards */
 }
 
+/* Light mode title accent */
+.discovery.light .title-accent {
+  color: #1a1a1a;
+}
+
 /* Responsive Design */
-@media (max-width: 1000px) {
+
+/* Large Desktop: 1920px+ */
+@media (min-width: 1920px) {
+  .discovery .sticky-header h1 {
+    font-size: calc(1rem * 4.25);
+  }
+}
+
+/* Desktop: 1440px - 1919px */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .discovery .sticky-header h1 {
+    font-size: calc(1rem * 4);
+  }
+  
+  /* Keep cards larger */
+  .discovery .card-container {
+    width: 80%;
+  }
+}
+
+/* Standard Desktop: 1200px - 1439px */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .discovery .sticky-header h1 {
+    font-size: calc(1rem * 3.75);
+  }
+  
+  /* Keep cards larger */
+  .discovery .card-container {
+    width: 85%;
+  }
+}
+
+/* Medium Desktop: 1024px - 1199px */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .discovery .sticky-header h1 {
+    font-size: calc(1rem * 3.5);
+  }
+  
+  /* Keep cards larger - increase from 75% */
+  .discovery .card-container {
+    width: 90%;
+  }
+  
+  .discovery #card-1,
+  .discovery #card-2,
+  .discovery #card-3 {
+    border-radius: 10px !important;
+  }
+}
+
+/* Just above 1000px - 1023px */
+@media (min-width: 1000px) and (max-width: 1023px) {
+  .discovery .sticky-header h1 {
+    font-size: calc(1rem * 3.25);
+  }
+  
+  /* Maximum width for cards just above mobile breakpoint */
+  .discovery .card-container {
+    width: 92%;
+  }
+  
+  .discovery #card-1,
+  .discovery #card-2,
+  .discovery #card-3 {
+    border-radius: 10px !important;
+  }
+}
+
+/* ============================================= */
+/* ==========   MOBILE ( < 1000px )   ========== */
+/* ============================================= */
+
+@media (max-width: 999px) {
   .discovery h1 {
     font-size: 3rem;
   }
@@ -257,10 +360,11 @@
   }
 
   .discovery .sticky {
-    height: auto;
-    min-height: 100vh;
-    padding: 4rem 2rem;
+    height: 100vh;
+    padding: 2rem;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .discovery .sticky-header {
@@ -268,49 +372,75 @@
     top: 0;
     left: 0;
     transform: none;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
+    margin-top: 0;
+    width: 100%;
+    text-align: center;
   }
 
   .discovery .sticky-header h1 {
     opacity: 1;
     transform: translateY(0);
+    font-size: calc(1rem * 3.25);
   }
 
+  /* Card container must have fixed height for stacking */
   .discovery .card-container {
     width: 100%;
-    flex-direction: column;
-    gap: 2rem;
-    transform: translateY(0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 400px;
+    gap: 0;
+    margin: 0 auto;
   }
 
+  /* Cards must be absolute positioned for stacking animation */
   .discovery .card {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    border-radius: 20px !important;
+    position: absolute !important;
+    width: 90%;
+    max-width: 350px;
+    left: 50%;
     aspect-ratio: 3/4;
+    border-radius: 10px !important;
+    will-change: transform;
   }
 
   .discovery #card-1,
   .discovery #card-2,
   .discovery #card-3 {
-    border-radius: 20px !important;
+    border-radius: 10px !important;
+  }
+
+  /* Mobile: Show full image on each card */
+  .discovery .card-image {
+    width: 100% !important;
+    left: 0 !important;
   }
 
   .discovery .card-back {
     transform: none !important;
+    padding: 2rem;
   }
 
-  .discovery .card {
-    transform: none !important;
+  .discovery .card-span {
+    font-size: 1.2rem;
   }
-
+  
   .discovery .card-title {
-    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
   }
 
   .discovery .card-description {
-    font-size: clamp(0.7rem, 1vw, 0.9rem);
+    font-size: clamp(1rem, 3vw, 1.2rem);
+  }
+}
+
+/* Mobile Landscape: 600px - 767px */
+@media (min-width: 600px) and (max-width: 767px) {
+  .discovery .sticky-header h1 {
+    font-size: calc(1rem * 2.75);
   }
 }
 
@@ -332,6 +462,17 @@
   .discovery .card-span {
     font-size: 1rem;
   }
+
+  .discovery .sticky-header h1 {
+    font-size: calc(1rem * 2.75);
+  }
+}
+
+/* Mobile Portrait: 480px - 599px */
+@media (min-width: 480px) and (max-width: 599px) {
+  .discovery .sticky-header h1 {
+    font-size: calc(1rem * 2.5);
+  }
 }
 
 @media (max-width: 480px) {
@@ -348,62 +489,28 @@
   }
 
   .discovery .card-title {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
   }
 
   .discovery .card-description {
-    font-size: 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .discovery .sticky-header h1 {
+    font-size: calc(1rem * 2.5);
   }
 }
 
-/* Add to existing CSS */
-
-
-/* Mobile Stacking - Replace the existing mobile section */
-@media (max-width: 999px) {
-  .discovery .sticky {
-    height: 100vh;
-    padding: 2rem;
+/* Small Mobile: 360px - 479px */
+@media (min-width: 360px) and (max-width: 479px) {
+  .discovery .sticky-header h1 {
+    font-size: calc(1rem * 2.25);
   }
+}
 
-  .discovery .sticky-header {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 0;
-    width: 90%;
-  }
-
-  .discovery .card-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 0;
-    position: relative;
-  }
-
-  .discovery .card {
-    position: absolute;
-    width: 90%;
-    max-width: 350px;
-    height: 60%;
-    margin: 0;
-    border-radius: 20px !important;
-    will-change: transform, scale;
-    transform-origin: center;
-  }
-
-  .discovery #card-1,
-  .discovery #card-2,
-  .discovery #card-3 {
-    border-radius: 20px !important;
-  }
-
-  .discovery .card-back {
-    transform: none !important;
+/* Extra Small Mobile: ≤359px */
+@media (max-width: 359px) {
+  .discovery .sticky-header h1 {
+    font-size: calc(1rem * 2);
   }
 }
