@@ -22,88 +22,6 @@ const Pricing = ({ isDarkMode }) => {
       const mm = gsap.matchMedia();
 
       /* --------------------------------------------------------------
-         MOBILE (<1400px) – Cards slide up over each other
-      -------------------------------------------------------------- */
-      mm.add("(max-width: 1399px)", () => {
-        const stickySection = sectionRef.current.querySelector(".pricing-sticky");
-        if (!stickySection) return;
-
-        const cardContainer = cardContainerRef.current;
-        if (!cardContainer) return;
-
-        // Check if all cards exist
-        if (!card1Ref.current || !card2Ref.current || !card3Ref.current) {
-          return;
-        }
-        
-        // Make cards absolute positioned for stacking
-        gsap.set(cardContainer, { 
-          position: 'relative', 
-          height: '500px' 
-        });
-        
-        gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], {
-          position: 'absolute',
-          top: 0,
-          left: '50%',
-          x: '-50%',
-          width: '90%',
-          maxWidth: '420px'
-        });
-        
-        // Set initial positions
-        // Order: Core Platform (card2) -> Built In (card1) -> Optional (card3)
-        gsap.set(card2Ref.current, { 
-          y: 0,
-          zIndex: 1,
-          rotateZ: 0
-        });
-        gsap.set(card1Ref.current, { 
-          y: '110%',
-          zIndex: 2,
-          rotateZ: -3
-        });
-        gsap.set(card3Ref.current, { 
-          y: '220%',
-          zIndex: 3,
-          rotateZ: 4
-        });
-
-        // Create timeline for the animations
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: stickySection,
-            start: "top top",
-            end: `+=${window.innerHeight * 2}`,
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-            pinSpacing: true
-          }
-        });
-
-        // Built In slides up over Core Platform
-        tl.to(card1Ref.current, {
-          y: 0,
-          rotateZ: 0,
-          duration: 1,
-          ease: "none"
-        })
-        // Optional slides up over Built In
-        .to(card3Ref.current, {
-          y: 0,
-          rotateZ: 0,
-          duration: 1,
-          ease: "none"
-        }, ">");
-
-        return () => {
-          gsap.set(cardContainer, { clearProps: 'all' });
-          gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], { clearProps: 'all' });
-        };
-      });
-
-      /* --------------------------------------------------------------
          DESKTOP (1400px+) - Sequential Card Animation
       -------------------------------------------------------------- */
       mm.add("(min-width: 1400px)", () => {
@@ -388,7 +306,7 @@ const Pricing = ({ isDarkMode }) => {
           {/* Built In Card */}
           <div 
             ref={card1Ref} 
-            className="pricing-card built-in"
+            className="pricing-card built-in animate-on-scroll"
             id="pricing-card-1"
           >
             <div className="card-header">
@@ -427,7 +345,7 @@ const Pricing = ({ isDarkMode }) => {
           {/* Core Platform Card - CENTER (Featured) */}
           <div 
             ref={card2Ref} 
-            className="pricing-card core-platform"
+            className="pricing-card core-platform animate-on-scroll"
             id="pricing-card-2"
           >
             <div className="card-header">
@@ -479,7 +397,7 @@ const Pricing = ({ isDarkMode }) => {
           {/* Optional Card */}
           <div 
             ref={card3Ref} 
-            className="pricing-card optional"
+            className="pricing-card optional animate-on-scroll"
             id="pricing-card-3"
           >
             <div className="card-header">

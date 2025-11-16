@@ -59,8 +59,9 @@
 
 .discovery .sticky {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  gap: 100px;
 }
 
 .discovery .sticky-header {
@@ -372,7 +373,7 @@
     top: 0;
     left: 0;
     transform: none;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     margin-top: 0;
     width: 100%;
     text-align: center;
@@ -384,14 +385,14 @@
     font-size: calc(1rem * 3.25);
   }
 
-  /* Card container must have fixed height for stacking */
+  /* Card container with responsive height for tall screens (like 932px height) */
   .discovery .card-container {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    height: 400px;
+    height: min(550px, 60vh);
     gap: 0;
     margin: 0 auto;
   }

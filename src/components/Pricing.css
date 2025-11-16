@@ -528,6 +528,34 @@
   font-family: 'Roboto', sans-serif;
 }
 
+/* CSS Scroll Animation for Mobile */
+@media (max-width: 1399px) {
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-on-scroll:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .animate-on-scroll:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+
+  .animate-on-scroll:nth-child(3) {
+    animation-delay: 0.5s;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
 /* ===================== RESPONSIVE DESIGN ===================== */
 
 /* Extra Large Desktop: 1920px+ */
@@ -605,21 +633,26 @@
 }
 
 /* ============================================= */
-/* ======  MOBILE STACK (<1400px)  ============ */
+/* ======  MOBILE VERTICAL (<1400px)  ========= */
 /* ============================================= */
 
 @media (max-width: 1399px) {
+  .pricing {
+    min-height: auto;
+  }
+
   .pricing-sticky {
-    height: 100vh;
-    padding: 2rem;
+    height: auto;
+    min-height: 100vh;
+    padding: 4rem 2rem;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
   }
 
   .pricing-header {
     position: relative;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     text-align: center;
   }
 
@@ -632,43 +665,28 @@
     font-size: 15px;
   }
 
-  /* Card container for stacking animation */
+  /* Cards stacked vertically */
   .pricing-cards {
+    flex-direction: column;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    height: 500px;
-    gap: 0;
-    margin: 0 auto;
+    max-width: 500px;
+    gap: 2rem;
+    height: auto;
   }
 
-  /* Cards absolute positioned for stacking */
   .pricing-card {
-    position: absolute !important;
-    width: 90%;
-    max-width: 420px;
-    min-height: 500px;
-    max-height: 500px;
+    position: relative !important;
+    width: 100%;
+    max-width: 500px;
+    min-height: auto;
     padding: 32px 28px;
     border-radius: 16px !important;
     flex: none;
-    overflow-y: auto;
+    transform: none !important;
   }
 
-  #pricing-card-1,
-  #pricing-card-2,
-  #pricing-card-3 {
-    border-radius: 16px !important;
-    min-height: 500px;
-    max-height: 500px;
-  }
-
-  .pricing-card.core-platform {
-    min-height: 500px;
-    max-height: 500px;
-    flex: none;
+  .pricing-card:hover {
+    transform: translateY(-4px) !important;
   }
 
   .card-header {
@@ -720,7 +738,7 @@
 /* Large Tablet: 1024px - 1399px */
 @media (min-width: 1024px) and (max-width: 1399px) {
   .pricing-sticky {
-    padding: 2rem;
+    padding: 4rem 2rem;
   }
 
   .pricing-title {
@@ -728,26 +746,14 @@
   }
 
   .pricing-cards {
-    height: 500px;
-    width: 88%;
-  }
-
-  .pricing-card {
-    max-width: 400px;
-    min-height: 500px;
-    max-height: 500px;
-  }
-
-  .pricing-card.core-platform {
-    min-height: 500px;
-    max-height: 500px;
+    max-width: 500px;
   }
 }
 
 /* Medium Tablet: 768px - 1023px */
 @media (min-width: 768px) and (max-width: 1023px) {
   .pricing-sticky {
-    padding: 1.5rem;
+    padding: 3.5rem 1.5rem;
   }
 
   .pricing-title {
@@ -759,20 +765,11 @@
   }
 
   .pricing-cards {
-    height: 500px;
-    width: 90%;
+    max-width: 480px;
   }
 
   .pricing-card {
-    max-width: 380px;
-    min-height: 500px;
-    max-height: 500px;
     padding: 30px 26px;
-  }
-
-  .pricing-card.core-platform {
-    min-height: 500px;
-    max-height: 500px;
   }
 
   .card-description {
@@ -791,7 +788,7 @@
 /* Large Mobile: 600px - 767px */
 @media (min-width: 600px) and (max-width: 767px) {
   .pricing-sticky {
-    padding: 1.5rem;
+    padding: 3rem 1.5rem;
   }
 
   .pricing-label {
@@ -807,19 +804,12 @@
   }
 
   .pricing-cards {
-    height: 500px;
+    max-width: 420px;
+    gap: 1.5rem;
   }
 
   .pricing-card {
-    max-width: 360px;
-    min-height: 500px;
-    max-height: 500px;
     padding: 28px 24px;
-  }
-
-  .pricing-card.core-platform {
-    min-height: 500px;
-    max-height: 500px;
   }
 
   .card-title {
@@ -862,7 +852,7 @@
 /* Medium Mobile: 480px - 599px */
 @media (min-width: 480px) and (max-width: 599px) {
   .pricing-sticky {
-    padding: 1.5rem;
+    padding: 2.5rem 1.5rem;
   }
 
   .pricing-label {
@@ -878,19 +868,12 @@
   }
 
   .pricing-cards {
-    height: 500px;
+    max-width: 380px;
+    gap: 1.5rem;
   }
 
   .pricing-card {
-    max-width: 340px;
-    min-height: 500px;
-    max-height: 500px;
     padding: 26px 22px;
-  }
-
-  .pricing-card.core-platform {
-    min-height: 500px;
-    max-height: 500px;
   }
 
   .card-title {
@@ -939,7 +922,7 @@
 /* Small Mobile: 360px - 479px */
 @media (min-width: 360px) and (max-width: 479px) {
   .pricing-sticky {
-    padding: 1.2rem;
+    padding: 2rem 1.2rem;
   }
 
   .pricing-label {
@@ -957,19 +940,12 @@
   }
 
   .pricing-cards {
-    height: 500px;
+    max-width: 340px;
+    gap: 1.25rem;
   }
 
   .pricing-card {
-    max-width: 320px;
-    min-height: 500px;
-    max-height: 500px;
     padding: 24px 20px;
-  }
-
-  .pricing-card.core-platform {
-    min-height: 500px;
-    max-height: 500px;
   }
 
   .card-header {
@@ -1040,7 +1016,7 @@
 /* Extra Small Mobile: 300px - 359px */
 @media (min-width: 300px) and (max-width: 359px) {
   .pricing-sticky {
-    padding: 1rem;
+    padding: 2rem 1rem;
   }
 
   .pricing-label {
@@ -1059,19 +1035,12 @@
   }
 
   .pricing-cards {
-    height: 500px;
+    max-width: 300px;
+    gap: 1rem;
   }
 
   .pricing-card {
-    max-width: 280px;
-    min-height: 500px;
-    max-height: 500px;
     padding: 22px 16px;
-  }
-
-  .pricing-card.core-platform {
-    min-height: 500px;
-    max-height: 500px;
   }
 
   .card-header {

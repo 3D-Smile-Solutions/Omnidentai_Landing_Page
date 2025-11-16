@@ -31,10 +31,13 @@ const Discovery = ({ isDarkMode }) => {
         const stickySection = sectionRef.current.querySelector(".sticky");
         const cardContainer = cardContainerRef.current;
         
+        // Calculate dynamic height based on viewport - increased for better fill
+        const cardHeight = Math.min(550, window.innerHeight * 0.6);
+        
         // Make cards absolute positioned for stacking
         gsap.set(cardContainer, { 
           position: 'relative', 
-          height: '400px' 
+          height: `${cardHeight}px`
         });
         
         gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], {

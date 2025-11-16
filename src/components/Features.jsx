@@ -98,9 +98,9 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // Calculate scroll distance
+        // Calculate scroll distance - FIXED: Reduced to eliminate extra space
         const totalCards = featureData.length;
-        const scrollDistance = totalCards * 120;
+        const scrollDistance = (totalCards * 100) + 20; // Reduced from 120 to 100 per card + small buffer
 
         // Pin the section
         ScrollTrigger.create({
@@ -170,6 +170,11 @@ const Features = ({ isDarkMode }) => {
             },
             startTime
           );
+
+          // Phase 3: Hold the last card without extra space
+          if (index === itemRefs.current.length - 1) {
+            tl.to({}, { duration: stepDuration * 0.3 }, "+=0");
+          }
         });
       });
 
@@ -191,9 +196,9 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // Calculate scroll distance
+        // Calculate scroll distance - FIXED: Reduced to eliminate extra space
         const totalCards = featureData.length;
-        const scrollDistance = totalCards * 100;
+        const scrollDistance = (totalCards * 85) + 15; // Reduced from 100 to 85 per card
 
         // Pin the section
         ScrollTrigger.create({
@@ -263,6 +268,11 @@ const Features = ({ isDarkMode }) => {
             },
             startTime
           );
+
+          // Phase 3: Hold the last card without extra space
+          if (index === itemRefs.current.length - 1) {
+            tl.to({}, { duration: stepDuration * 0.3 }, "+=0");
+          }
         });
       });
 
