@@ -3,7 +3,7 @@
   --bg: #14181b;
   --fg: #fff;
   --card1: #b2b2b2;
-  --card2: #ce2017;
+  --card2: #17ce26;
   --card3: #2f2f2f;
 }
 
@@ -19,7 +19,7 @@
   --bg: #ffffff;
   --fg: #1a1a1a;
   --card1: #b2b2b2;
-  --card2: #ce2017;
+  --card2: #88ce17;
   --card3: #2f2f2f;
 }
 
@@ -177,7 +177,7 @@
 }
 
 .discovery.light #card-2 .card-back {
-  background: linear-gradient(to bottom, #f0261b 0%, #b31a15 100%);
+  background: linear-gradient(to bottom, #17a3ce 0%, #102c8a 100%);
 }
 
 .discovery.light #card-3 .card-back {
@@ -190,11 +190,11 @@
 }
 
 .discovery.dark #card-2 .card-back {
-  background: linear-gradient(to bottom, #ce2017 0%, #8a1510 100%);
+  background: linear-gradient(to bottom, #17a3ce 0%, #102c8a 100%);
 }
 
 .discovery.dark #card-3 .card-back {
-  background: linear-gradient(to bottom, #2f2f2f 0%, #151515 100%);
+  background: linear-gradient(to bottom, #424242 0%, #151515 100%);
 }
 
 .discovery .card-back-content {

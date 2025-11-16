@@ -73,8 +73,8 @@ html, body {
   bottom: 0;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 0, 0, 0.6) 100%
+    rgba(0, 0, 0, 0.596) 0%,
+    rgba(0, 0, 0, 0.911) 100%
   );
   z-index: 1;
 }

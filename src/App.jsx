@@ -17,6 +17,7 @@ import './App.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
+  // Set dark mode as default (true)
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
@@ -74,9 +75,13 @@ const App = () => {
     };
   }, []);
 
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
     <div className={`app ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-      <Hero isDarkMode={isDarkMode} toggleDarkMode={() => setIsDarkMode(!isDarkMode)} />
+      <Hero isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       
       <div className="main-content-wrapper">
         <div id="stats" className="snap-section">
@@ -99,7 +104,7 @@ const App = () => {
         </div>
         <div id="calendar" className="snap-section">
           <Calendar isDarkMode={isDarkMode} />
-          </div>
+        </div>
       </div>
     </div>
   );

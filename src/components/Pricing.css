@@ -4,10 +4,11 @@
   position: relative;
   width: 100%;
   min-height: 100vh;
+  transition: background 0.3s ease;
 }
 
 .pricing.light {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
 .pricing.dark {
@@ -47,6 +48,11 @@
   margin-bottom: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  transition: color 0.3s ease;
+}
+
+.pricing.light .pricing-label {
+  color: #0891b2;
 }
 
 .pricing-title {
@@ -57,12 +63,21 @@
   color: rgb(234, 231, 224);
   line-height: 100%;
   letter-spacing: -0.06em;
+  transition: color 0.3s ease;
+}
+
+.pricing.light .pricing-title {
+  color: #0f172a;
 }
 
 .pricing .title-accent {
   font-family: 'Times Now SemiLight Italic', 'Times Now SemiLight Italic Placeholder', sans-serif;
   font-style: italic;
   color: rgb(234, 231, 224);
+}
+
+.pricing.light .title-accent {
+  color: #0f172a;
 }
 
 .pricing-subtitle {
@@ -73,6 +88,11 @@
   color: rgba(234, 231, 224, 0.9);
   margin: 0;
   letter-spacing: -0.01em;
+  transition: color 0.3s ease;
+}
+
+.pricing.light .pricing-subtitle {
+  color: rgba(15, 23, 42, 0.75);
 }
 
 /* Pricing Cards Grid */
@@ -131,7 +151,7 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* Core Platform Card - CENTER (Featured) - Original Blue */
+/* Core Platform Card - CENTER (Featured) - Original Blue with Light Mode Variant */
 .pricing-card.core-platform {
   background: linear-gradient(180deg, #27A5E3 0%, #1e82b4 100%);
   color: white;
@@ -139,6 +159,11 @@
   flex: 0 1 500px;
   min-height: 480px;
   z-index: 2;
+}
+
+.pricing.light .pricing-card.core-platform {
+  background: linear-gradient(180deg, #0891b2 0%, #0e7490 100%);
+  box-shadow: 0 15px 50px rgba(8, 145, 178, 0.3);
 }
 
 .pricing-card:hover {
@@ -150,18 +175,42 @@
   box-shadow: 0 25px 70px rgba(39, 165, 227, 0.4);
 }
 
-/* Built In Card - Original Mint Green */
+.pricing.light .pricing-card.core-platform:hover {
+  box-shadow: 0 25px 80px rgba(8, 145, 178, 0.35);
+}
+
+/* Built In Card - Light Mode Variant */
 .pricing-card.built-in {
   background: #bfffe7;
   color: #1a1a1a;
   box-shadow: 0 10px 30px rgba(191, 255, 231, 0.3);
 }
 
-/* Optional Card - Original Beige/Cream */
+.pricing.light .pricing-card.built-in {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  box-shadow: 0 10px 40px rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.pricing.light .pricing-card.built-in:hover {
+  box-shadow: 0 20px 60px rgba(16, 185, 129, 0.25);
+}
+
+/* Optional Card - Light Mode Variant */
 .pricing-card.optional {
   background: linear-gradient(135deg, #E8D5B7 0%, #F4E4CD 100%);
   color: #1a1a1a;
   box-shadow: 0 10px 30px rgba(232, 213, 183, 0.3);
+}
+
+.pricing.light .pricing-card.optional {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  box-shadow: 0 10px 40px rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.pricing.light .pricing-card.optional:hover {
+  box-shadow: 0 20px 60px rgba(245, 158, 11, 0.25);
 }
 
 /* Card Header */
@@ -180,6 +229,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 14px;
+  transition: color 0.3s ease;
 }
 
 .pricing-card.core-platform .card-title {
@@ -191,12 +241,21 @@
   color: rgba(0, 0, 0, 0.6);
 }
 
+.pricing.light .pricing-card.built-in .card-title {
+  color: rgba(5, 150, 105, 0.9);
+}
+
+.pricing.light .pricing-card.optional .card-title {
+  color: rgba(180, 83, 9, 0.85);
+}
+
 .card-description {
   font-family: 'Roboto', sans-serif;
   font-size: 22px;
   line-height: 1.6;
   font-weight: 400;
   letter-spacing: -0.01em;
+  transition: color 0.3s ease;
 }
 
 .pricing-card.core-platform .card-description {
@@ -206,6 +265,14 @@
 .pricing-card.built-in .card-description,
 .pricing-card.optional .card-description {
   color: rgba(26, 26, 26, 0.8);
+}
+
+.pricing.light .pricing-card.built-in .card-description {
+  color: rgba(4, 120, 87, 0.9);
+}
+
+.pricing.light .pricing-card.optional .card-description {
+  color: rgba(146, 64, 14, 0.9);
 }
 
 /* Price Section */
@@ -232,6 +299,7 @@
   font-size: 52px;
   font-weight: 700;
   line-height: 1;
+  transition: color 0.3s ease;
 }
 
 .price-period {
@@ -240,6 +308,7 @@
   margin-left: 8px;
   line-height: 1;
   font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .pricing-card.core-platform .price-amount,
@@ -247,10 +316,16 @@
   color: #00FFA2;
 }
 
+.pricing.light .pricing-card.core-platform .price-amount,
+.pricing.light .pricing-card.core-platform .price-period {
+  color: #10b981;
+}
+
 .card-subtitle {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 400;
+  transition: color 0.3s ease;
 }
 
 .pricing-card.core-platform .card-subtitle {
@@ -277,6 +352,7 @@
   line-height: 1.5;
   align-items: flex-start;
   font-weight: 400;
+  transition: color 0.3s ease;
 }
 
 .feature-icon {
@@ -289,18 +365,31 @@
   flex-shrink: 0;
   margin-top: 2px;
   position: relative;
+  transition: background 0.3s ease;
 }
 
 .pricing-card.core-platform .feature-icon {
   background: #00FFA2;
 }
 
+.pricing.light .pricing-card.core-platform .feature-icon {
+  background: #10b981;
+}
+
 .pricing-card.built-in .feature-icon {
   background: #1a1a1a;
 }
 
+.pricing.light .pricing-card.built-in .feature-icon {
+  background: #059669;
+}
+
 .pricing-card.optional .feature-icon {
   background: #8B7355;
+}
+
+.pricing.light .pricing-card.optional .feature-icon {
+  background: #d97706;
 }
 
 .feature-icon::after {
@@ -311,6 +400,10 @@
 
 .pricing-card.core-platform .feature-icon::after {
   color: #1a1a1a;
+}
+
+.pricing.light .pricing-card.core-platform .feature-icon::after {
+  color: #ffffff;
 }
 
 .pricing-card.built-in .feature-icon::after,
@@ -325,6 +418,14 @@
 .pricing-card.built-in .card-features li,
 .pricing-card.optional .card-features li {
   color: rgba(0, 0, 0, 0.8);
+}
+
+.pricing.light .pricing-card.built-in .card-features li {
+  color: rgba(4, 120, 87, 0.85);
+}
+
+.pricing.light .pricing-card.optional .card-features li {
+  color: rgba(120, 53, 15, 0.85);
 }
 
 /* Buttons - Matches Hero CTA Styling */
@@ -342,7 +443,7 @@
   border: none;
   border-radius: calc(0.75rem - 0.35rem);
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -354,8 +455,22 @@
   color: #ffffff;
 }
 
+.pricing.light .pricing-btn {
+  background-color: #ffffff;
+  color: #0f172a;
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.1);
+}
+
 .pricing-btn:hover {
   background-color: #333;
+  transform: translateY(-1px);
+}
+
+.pricing.light .pricing-btn:hover {
+  background-color: #f8fafc;
+  border-color: #0891b2;
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.2);
   transform: translateY(-1px);
 }
 
@@ -374,6 +489,7 @@
   padding: 14px;
   border-radius: 6px;
   font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .pricing-card.core-platform .card-footer {
@@ -381,14 +497,28 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
+.pricing.light .pricing-card.core-platform .card-footer {
+  background: rgba(0, 0, 0, 0.15);
+}
+
 .pricing-card.built-in .card-footer {
   color: rgba(0, 0, 0, 0.85);
   background: rgba(0, 0, 0, 0.08);
 }
 
+.pricing.light .pricing-card.built-in .card-footer {
+  color: rgba(4, 120, 87, 0.9);
+  background: rgba(5, 150, 105, 0.12);
+}
+
 .pricing-card.optional .card-footer {
   color: rgba(0, 0, 0, 0.75);
   background: rgba(139, 115, 85, 0.15);
+}
+
+.pricing.light .pricing-card.optional .card-footer {
+  color: rgba(120, 53, 15, 0.85);
+  background: rgba(217, 119, 6, 0.15);
 }
 
 /* Utility Classes */
@@ -509,7 +639,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    height: 450px;
+    height: 500px;
     gap: 0;
     margin: 0 auto;
   }
@@ -519,66 +649,71 @@
     position: absolute !important;
     width: 90%;
     max-width: 420px;
-    min-height: 450px;
+    min-height: 500px;
+    max-height: 500px;
     padding: 32px 28px;
     border-radius: 16px !important;
     flex: none;
+    overflow-y: auto;
   }
 
   #pricing-card-1,
   #pricing-card-2,
   #pricing-card-3 {
     border-radius: 16px !important;
+    min-height: 500px;
+    max-height: 500px;
   }
 
   .pricing-card.core-platform {
-    min-height: 450px;
+    min-height: 500px;
+    max-height: 500px;
     flex: none;
   }
 
   .card-header {
-    min-height: 95px;
-    margin-bottom: 20px;
+    min-height: 90px;
+    margin-bottom: 18px;
   }
 
   .card-description {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .price-section,
   .price-section-empty {
-    min-height: 80px;
-    margin-bottom: 22px;
+    min-height: 75px;
+    margin-bottom: 20px;
   }
 
   .price-amount {
-    font-size: 48px;
+    font-size: 46px;
   }
 
   .price-period {
-    font-size: 20px;
+    font-size: 19px;
   }
 
   .card-features {
-    gap: 16px;
-    margin-bottom: 24px;
+    gap: 14px;
+    margin-bottom: 20px;
   }
 
   .card-features li {
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 13px;
+    line-height: 1.5;
   }
   
   .card-footer {
-    font-size: 12px;
-    padding: 16px;
-    line-height: 1.7;
+    font-size: 11px;
+    padding: 14px;
+    line-height: 1.6;
   }
 
   .pricing-btn {
-    font-size: 15px;
-    padding: 14px 24px;
-    min-height: 48px;
+    font-size: 14px;
+    padding: 13px 24px;
+    min-height: 46px;
   }
 }
 
@@ -593,17 +728,19 @@
   }
 
   .pricing-cards {
-    height: 430px;
+    height: 500px;
     width: 88%;
   }
 
   .pricing-card {
     max-width: 400px;
-    min-height: 430px;
+    min-height: 500px;
+    max-height: 500px;
   }
 
   .pricing-card.core-platform {
-    min-height: 430px;
+    min-height: 500px;
+    max-height: 500px;
   }
 }
 
@@ -622,26 +759,32 @@
   }
 
   .pricing-cards {
-    height: 420px;
+    height: 500px;
     width: 90%;
   }
 
   .pricing-card {
     max-width: 380px;
-    min-height: 420px;
+    min-height: 500px;
+    max-height: 500px;
     padding: 30px 26px;
   }
 
   .pricing-card.core-platform {
-    min-height: 420px;
+    min-height: 500px;
+    max-height: 500px;
   }
 
   .card-description {
-    font-size: 20px;
+    font-size: 17px;
   }
 
   .price-amount {
-    font-size: 48px;
+    font-size: 46px;
+  }
+
+  .price-period {
+    font-size: 19px;
   }
 }
 
@@ -652,7 +795,7 @@
   }
 
   .pricing-label {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .pricing-title {
@@ -660,51 +803,59 @@
   }
 
   .pricing-subtitle {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .pricing-cards {
-    height: 410px;
+    height: 500px;
   }
 
   .pricing-card {
     max-width: 360px;
-    min-height: 410px;
+    min-height: 500px;
+    max-height: 500px;
     padding: 28px 24px;
   }
 
   .pricing-card.core-platform {
-    min-height: 410px;
+    min-height: 500px;
+    max-height: 500px;
   }
 
   .card-title {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .card-description {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .price-section,
   .price-section-empty {
-    min-height: 80px;
+    min-height: 70px;
   }
 
   .price-amount {
-    font-size: 44px;
+    font-size: 42px;
   }
 
   .price-period {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .card-features li {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .card-footer {
-    font-size: 11px;
+    font-size: 10px;
     padding: 12px;
+  }
+
+  .pricing-btn {
+    font-size: 13px;
+    padding: 12px 22px;
+    min-height: 44px;
   }
 }
 
@@ -715,7 +866,7 @@
   }
 
   .pricing-label {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .pricing-title {
@@ -723,117 +874,36 @@
   }
 
   .pricing-subtitle {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .pricing-cards {
-    height: 390px;
+    height: 500px;
   }
 
   .pricing-card {
     max-width: 340px;
-    min-height: 390px;
+    min-height: 500px;
+    max-height: 500px;
     padding: 26px 22px;
   }
 
   .pricing-card.core-platform {
-    min-height: 390px;
-  }
-
-  .card-title {
-    font-size: 11px;
-  }
-
-  .card-description {
-    font-size: 18px;
-  }
-
-  .price-section,
-  .price-section-empty {
-    min-height: 75px;
-    margin-bottom: 18px;
-  }
-
-  .price-amount {
-    font-size: 40px;
-  }
-
-  .price-period {
-    font-size: 18px;
-  }
-
-  .card-features {
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .card-features li {
-    font-size: 12px;
-  }
-
-  .pricing-btn {
-    font-size: 14px;
-    padding: 12px 20px;
-    min-height: 44px;
-  }
-
-  .card-footer {
-    font-size: 11px;
-    padding: 12px;
-  }
-}
-
-/* Small Mobile: 360px - 479px */
-@media (min-width: 360px) and (max-width: 479px) {
-  .pricing-sticky {
-    padding: 1.2rem;
-  }
-
-  .pricing-label {
-    font-size: 10px;
-  }
-
-  .pricing-title {
-    font-size: calc(1rem * 2.25);
-    line-height: 1.1;
-  }
-
-  .pricing-subtitle {
-    font-size: 11px;
-    line-height: 1.5;
-  }
-
-  .pricing-cards {
-    height: 370px;
-  }
-
-  .pricing-card {
-    max-width: 320px;
-    min-height: 370px;
-    padding: 24px 20px;
-  }
-
-  .pricing-card.core-platform {
-    min-height: 370px;
-  }
-
-  .card-header {
-    margin-bottom: 16px;
-    min-height: 90px;
+    min-height: 500px;
+    max-height: 500px;
   }
 
   .card-title {
     font-size: 10px;
-    margin-bottom: 12px;
   }
 
   .card-description {
-    font-size: 17px;
+    font-size: 15px;
   }
 
   .price-section,
   .price-section-empty {
-    min-height: 70px;
+    min-height: 68px;
     margin-bottom: 16px;
   }
 
@@ -845,56 +915,39 @@
     font-size: 16px;
   }
 
-  .card-subtitle {
-    font-size: 12px;
-  }
-
   .card-features {
     gap: 11px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
 
   .card-features li {
-    font-size: 12px;
-    gap: 10px;
-  }
-
-  .feature-icon {
-    width: 18px;
-    height: 18px;
-  }
-
-  .feature-icon::after {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .pricing-btn {
-    font-size: 13px;
-    padding: 11px 18px;
+    font-size: 12px;
+    padding: 11px 20px;
     min-height: 42px;
-    margin-bottom: 14px;
   }
 
   .card-footer {
-    font-size: 10px;
-    line-height: 1.5;
+    font-size: 9px;
     padding: 11px;
   }
 }
 
-/* Extra Small Mobile: 300px - 359px */
-@media (min-width: 300px) and (max-width: 359px) {
+/* Small Mobile: 360px - 479px */
+@media (min-width: 360px) and (max-width: 479px) {
   .pricing-sticky {
-    padding: 1rem;
+    padding: 1.2rem;
   }
 
   .pricing-label {
     font-size: 9px;
-    margin-bottom: 10px;
   }
 
   .pricing-title {
-    font-size: calc(1rem * 2);
+    font-size: calc(1rem * 2.25);
     line-height: 1.1;
   }
 
@@ -904,17 +957,19 @@
   }
 
   .pricing-cards {
-    height: 350px;
+    height: 500px;
   }
 
   .pricing-card {
-    max-width: 280px;
-    min-height: 350px;
-    padding: 22px 16px;
+    max-width: 320px;
+    min-height: 500px;
+    max-height: 500px;
+    padding: 24px 20px;
   }
 
   .pricing-card.core-platform {
-    min-height: 350px;
+    min-height: 500px;
+    max-height: 500px;
   }
 
   .card-header {
@@ -928,7 +983,7 @@
   }
 
   .card-description {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .price-section,
@@ -938,11 +993,11 @@
   }
 
   .price-amount {
-    font-size: 34px;
+    font-size: 36px;
   }
 
   .price-period {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .card-subtitle {
@@ -950,18 +1005,18 @@
   }
 
   .card-features {
-    gap: 9px;
+    gap: 10px;
     margin-bottom: 14px;
   }
 
   .card-features li {
     font-size: 11px;
-    gap: 8px;
+    gap: 9px;
   }
 
   .feature-icon {
-    width: 16px;
-    height: 16px;
+    width: 17px;
+    height: 17px;
   }
 
   .feature-icon::after {
@@ -979,5 +1034,107 @@
     font-size: 9px;
     line-height: 1.5;
     padding: 10px;
+  }
+}
+
+/* Extra Small Mobile: 300px - 359px */
+@media (min-width: 300px) and (max-width: 359px) {
+  .pricing-sticky {
+    padding: 1rem;
+  }
+
+  .pricing-label {
+    font-size: 8px;
+    margin-bottom: 10px;
+  }
+
+  .pricing-title {
+    font-size: calc(1rem * 2);
+    line-height: 1.1;
+  }
+
+  .pricing-subtitle {
+    font-size: 9px;
+    line-height: 1.5;
+  }
+
+  .pricing-cards {
+    height: 500px;
+  }
+
+  .pricing-card {
+    max-width: 280px;
+    min-height: 500px;
+    max-height: 500px;
+    padding: 22px 16px;
+  }
+
+  .pricing-card.core-platform {
+    min-height: 500px;
+    max-height: 500px;
+  }
+
+  .card-header {
+    margin-bottom: 12px;
+    min-height: 80px;
+  }
+
+  .card-title {
+    font-size: 8px;
+    margin-bottom: 10px;
+  }
+
+  .card-description {
+    font-size: 13px;
+  }
+
+  .price-section,
+  .price-section-empty {
+    min-height: 60px;
+    margin-bottom: 12px;
+  }
+
+  .price-amount {
+    font-size: 32px;
+  }
+
+  .price-period {
+    font-size: 14px;
+  }
+
+  .card-subtitle {
+    font-size: 10px;
+  }
+
+  .card-features {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .card-features li {
+    font-size: 10px;
+    gap: 8px;
+  }
+
+  .feature-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  .feature-icon::after {
+    font-size: 8px;
+  }
+
+  .pricing-btn {
+    font-size: 11px;
+    padding: 9px 14px;
+    min-height: 38px;
+    margin-bottom: 10px;
+  }
+
+  .card-footer {
+    font-size: 8px;
+    line-height: 1.4;
+    padding: 9px;
   }
 }

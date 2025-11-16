@@ -129,14 +129,14 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
 
                 {/* Desktop Buttons */}
                 <div className="navbar-cta-section">
-                    {/* <button 
+                    <button 
                         className="navbar-darkmode-toggle"
                         onClick={toggleDarkMode}
                         aria-label="Toggle dark mode"
                         type="button"
                     >
                         {isDarkMode ? <FaSun size={18} /> : <FaMoon size={18} />}
-                    </button> */}
+                    </button>
                     <button 
                         className="navbar-cta-button"
                         onClick={() => scrollToSection('calendar')}
@@ -200,14 +200,14 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
                     </ul>
 
                     <div className="navbar-mobile-buttons">
-                        {/* <button 
+                        <button 
                             className="navbar-mobile-darkmode"
                             onClick={toggleDarkMode}
                             aria-label="Toggle dark mode"
                             type="button"
                         >
                             {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
-                        </button> */}
+                        </button>
                         <button 
                             className="navbar-mobile-cta"
                             onClick={() => {
