@@ -813,16 +813,18 @@
   }
 
   .card-title {
-    font-size: 11px;
+    font-style: italic;
+    font-size: 15px;
   }
 
   .card-description {
-    font-size: 16px;
+    font-style: italic;
+    font-size: 22px;
   }
 
   .price-section,
   .price-section-empty {
-    min-height: 70px;
+    min-height: 80px;
   }
 
   .price-amount {
@@ -834,12 +836,13 @@
   }
 
   .card-features li {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .card-footer {
-    font-size: 10px;
+    font-size: 12px;
     padding: 12px;
+    display: none;
   }
 
   .pricing-btn {
@@ -877,11 +880,13 @@
   }
 
   .card-title {
-    font-size: 10px;
+    font-style: italic;
+    font-size: 14px;
   }
 
   .card-description {
-    font-size: 15px;
+    font-style: italic;
+    font-size: 20px;
   }
 
   .price-section,
@@ -904,7 +909,7 @@
   }
 
   .card-features li {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .pricing-btn {
@@ -914,7 +919,7 @@
   }
 
   .card-footer {
-    font-size: 9px;
+    font-size: 12px;
     padding: 11px;
   }
 }
@@ -954,12 +959,14 @@
   }
 
   .card-title {
-    font-size: 9px;
+    font-size: 16px;
     margin-bottom: 10px;
+    font-style: italic;
   }
 
   .card-description {
-    font-size: 14px;
+    font-style: italic;
+    font-size: 18px;
   }
 
   .price-section,
@@ -977,7 +984,7 @@
   }
 
   .card-subtitle {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .card-features {
@@ -986,7 +993,7 @@
   }
 
   .card-features li {
-    font-size: 11px;
+    font-size: 12px;
     gap: 9px;
   }
 
@@ -1007,7 +1014,7 @@
   }
 
   .card-footer {
-    font-size: 9px;
+    font-size: 12px;
     line-height: 1.5;
     padding: 10px;
   }
@@ -1049,12 +1056,14 @@
   }
 
   .card-title {
-    font-size: 8px;
+    font-size: 14px;
     margin-bottom: 10px;
+    font-style: italic;
   }
 
   .card-description {
-    font-size: 13px;
+    font-size: 19px;
+    font-style: italic;
   }
 
   .price-section,
@@ -1072,7 +1081,7 @@
   }
 
   .card-subtitle {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .card-features {
@@ -1081,7 +1090,7 @@
   }
 
   .card-features li {
-    font-size: 10px;
+    font-size: 12px;
     gap: 8px;
   }
 
@@ -1102,7 +1111,7 @@
   }
 
   .card-footer {
-    font-size: 8px;
+    font-size: 10px;
     line-height: 1.4;
     padding: 9px;
   }
