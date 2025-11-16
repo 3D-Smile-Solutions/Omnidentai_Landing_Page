@@ -22,76 +22,59 @@ const Features = ({ isDarkMode }) => {
     {
       id: 1,
       title: "AI-Powered Scheduling",
-      description: "Intelligent appointment booking that understands patient preferences, provider availability, and treatment requirements.",
-      bgColor: "#2b1924ff",
+      description:
+        "Intelligent appointment booking that understands patient preferences, provider availability, and treatment requirements.",
+      bgColor: "#4B6474", // Dental Steel Blue
       image: f1,
-      stats: [
-        "95% Booking Efficiency",
-        "5 min Average Time",
-        "24/7 Availability"
-      ]
+      stats: ["95% Booking Efficiency", "5 min Average Time", "24/7 Availability"]
     },
     {
       id: 2,
       title: "Smart Reminders & Confirmations",
-      description: "Automated reminders via SMS, email, and voice calls that reduce no-shows and keep patients informed.",
-      bgColor: "#2b1924ff",
+      description:
+        "Automated reminders via SMS, email, and voice calls that reduce no-shows and keep patients informed.",
+      bgColor: "#3F6F72", // Slate Teal
       image: f2,
-      stats: [
-        "60% Fewer No-Shows",
-        "Multi-Channel Delivery",
-        "Real-Time Updates"
-      ]
+      stats: ["60% Fewer No-Shows", "Multi-Channel Delivery", "Real-Time Updates"]
     },
     {
       id: 3,
       title: "Insurance Verification",
-      description: "Instant insurance eligibility checks and coverage verification to streamline the billing process.",
-      bgColor: "#2b1924ff",
+      description:
+        "Instant insurance eligibility checks and coverage verification to streamline the billing process.",
+      bgColor: "#2F3C48", // Dusty Navy
       image: f3,
-      stats: [
-        "2 sec Verification",
-        "99% Accuracy Rate",
-        "500+ Plans Supported"
-      ]
+      stats: ["2 sec Verification", "99% Accuracy Rate", "500+ Plans Supported"]
     },
     {
       id: 4,
       title: "Treatment Plan Communication",
-      description: "Clear, automated communication of treatment plans, costs, and next steps to improve case acceptance.",
-      bgColor: "#2b1924ff",
+      description:
+        "Clear, automated communication of treatment plans, costs, and next steps to improve case acceptance.",
+      bgColor: "#39454F", // Graphite Blue-Grey
       image: f4,
-      stats: [
-        "85% Acceptance Rate",
-        "Clear Cost Breakdown",
-        "Patient Portal Access"
-      ]
+      stats: ["85% Acceptance Rate", "Clear Cost Breakdown", "Patient Portal Access"]
     },
     {
       id: 5,
       title: "Post-Treatment Follow-up",
-      description: "Automated follow-up messages to check on patient recovery and schedule necessary appointments.",
-      bgColor: "#2b1924ff",
+      description:
+        "Automated follow-up messages to check on patient recovery and schedule necessary appointments.",
+      bgColor: "#6B8F92", // Muted Aqua Grey
       image: f5,
-      stats: [
-        "92% Satisfaction",
-        "Automated Scheduling",
-        "Recovery Tracking"
-      ]
+      stats: ["92% Satisfaction", "Automated Scheduling", "Recovery Tracking"]
     },
     {
       id: 6,
       title: "Practice Analytics Dashboard",
-      description: "Real-time insights into practice performance, patient flow, and revenue metrics for data-driven decisions.",
-      bgColor: "#2b1924ff",
+      description:
+        "Real-time insights into practice performance, patient flow, and revenue metrics for data-driven decisions.",
+      bgColor: "#2A2F33", // Deep Charcoal Blue
       image: f6,
-      stats: [
-        "50+ Key Metrics",
-        "Real-Time Insights",
-        "Custom Reports"
-      ]
+      stats: ["50+ Key Metrics", "Real-Time Insights", "Custom Reports"]
     }
   ];
+
 
   useEffect(() => {
     const ctx = gsap.context(() => {
