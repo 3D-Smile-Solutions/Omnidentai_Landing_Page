@@ -2,9 +2,9 @@
 .discovery {
   --bg: #14181b;
   --fg: #fff;
-  --card1: #b2b2b2;
-  --card2: #17ce26;
-  --card3: #2f2f2f;
+  --card1: #14181b;
+  --card2: #14181b;
+  --card3: #14181b;
 }
 
 .discovery {
@@ -18,9 +18,9 @@
 .discovery.light {
   --bg: #ffffff;
   --fg: #1a1a1a;
-  --card1: #b2b2b2;
-  --card2: #88ce17;
-  --card3: #2f2f2f;
+  --card1: #14181b;
+  --card2: #14181b;
+  --card3: #14181b;
 }
 
 .discovery h1 {
@@ -59,7 +59,7 @@
 
 .discovery .sticky {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 100px;
 }

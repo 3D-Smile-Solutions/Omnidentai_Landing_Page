@@ -32,12 +32,20 @@ const Stats = ({ isDarkMode }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Check if on mobile/small screen
+      const isMobile = window.innerWidth <= 768;
+      
+      // Adjusted start points for better mobile experience
+      const startPoint = isMobile ? 'top 85%' : 'top 80%';
+      const titleStart = isMobile ? 'top 80%' : 'top 75%';
+      
       // Intro Badge Animation
       gsap.from(badgeRef.current, {
         scrollTrigger: {
           trigger: badgeRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none'
+          start: startPoint,
+          toggleActions: 'play none none none',
+          invalidateOnRefresh: true,
         },
         opacity: 0,
         y: -20,
@@ -49,8 +57,9 @@ const Stats = ({ isDarkMode }) => {
       gsap.from(titleRef.current, {
         scrollTrigger: {
           trigger: titleRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none none'
+          start: titleStart,
+          toggleActions: 'play none none none',
+          invalidateOnRefresh: true,
         },
         opacity: 0,
         y: 30,
@@ -64,8 +73,9 @@ const Stats = ({ isDarkMode }) => {
         gsap.from(highlight, {
           scrollTrigger: {
             trigger: titleRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none none'
+            start: titleStart,
+            toggleActions: 'play none none none',
+            invalidateOnRefresh: true,
           },
           opacity: 0,
           scale: 0.8,
@@ -79,8 +89,9 @@ const Stats = ({ isDarkMode }) => {
       gsap.from(featuresRef.current, {
         scrollTrigger: {
           trigger: featuresRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none'
+          start: startPoint,
+          toggleActions: 'play none none none',
+          invalidateOnRefresh: true,
         },
         opacity: 0,
         y: 20,
@@ -93,8 +104,9 @@ const Stats = ({ isDarkMode }) => {
       gsap.from(ctaRef.current, {
         scrollTrigger: {
           trigger: ctaRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none'
+          start: 'top 90%',
+          toggleActions: 'play none none none',
+          invalidateOnRefresh: true,
         },
         opacity: 0,
         y: 20,
@@ -105,37 +117,44 @@ const Stats = ({ isDarkMode }) => {
       });
 
       // Left Image Animation
-      gsap.from(imageLeftRef.current, {
-        scrollTrigger: {
-          trigger: imageLeftRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none'
-        },
-        opacity: 0,
-        x: -50,
-        duration: 1,
-        ease: 'power3.out'
-      });
+      if (imageLeftRef.current) {
+        gsap.from(imageLeftRef.current, {
+          scrollTrigger: {
+            trigger: imageLeftRef.current,
+            start: startPoint,
+            toggleActions: 'play none none none',
+            invalidateOnRefresh: true,
+          },
+          opacity: 0,
+          x: -50,
+          duration: 1,
+          ease: 'power3.out'
+        });
+      }
 
       // Right Image Animation
-      gsap.from(imageRightRef.current, {
-        scrollTrigger: {
-          trigger: imageRightRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none'
-        },
-        opacity: 0,
-        x: 50,
-        duration: 1,
-        ease: 'power3.out'
-      });
+      if (imageRightRef.current) {
+        gsap.from(imageRightRef.current, {
+          scrollTrigger: {
+            trigger: imageRightRef.current,
+            start: startPoint,
+            toggleActions: 'play none none none',
+            invalidateOnRefresh: true,
+          },
+          opacity: 0,
+          x: 50,
+          duration: 1,
+          ease: 'power3.out'
+        });
+      }
 
       // Video Section Entrance
       gsap.from(videoSectionRef.current, {
         scrollTrigger: {
           trigger: videoSectionRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none'
+          start: 'top 90%',
+          toggleActions: 'play none none none',
+          invalidateOnRefresh: true,
         },
         opacity: 0,
         y: 60,
@@ -147,8 +166,9 @@ const Stats = ({ isDarkMode }) => {
       gsap.from(videoFrameRef.current, {
         scrollTrigger: {
           trigger: videoFrameRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none'
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+          invalidateOnRefresh: true,
         },
         scale: 0.9,
         opacity: 0,
@@ -161,8 +181,9 @@ const Stats = ({ isDarkMode }) => {
       gsap.from(cornersRef.current, {
         scrollTrigger: {
           trigger: videoFrameRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none none'
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+          invalidateOnRefresh: true,
         },
         scale: 0,
         opacity: 0,

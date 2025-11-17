@@ -71,7 +71,7 @@ const Discovery = ({ isDarkMode }) => {
           scrollTrigger: {
             trigger: stickySection,
             start: "top top",
-            end: `+=${window.innerHeight * 2}`,
+            end: `+=${window.innerHeight * 3}`, // Extended from 2 to 3 to add ~2-3 second pause after animations complete
             pin: true,
             scrub: 1,
             anticipatePin: 1,

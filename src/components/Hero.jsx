@@ -34,18 +34,22 @@ const Hero = ({ isDarkMode, toggleDarkMode }) => {
   // GSAP Animations
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Check if on mobile/small screen
+      const isMobile = window.innerWidth <= 768;
+      
       // Hero Container Scale & Fade - Shrinks and fades as you scroll past it
       gsap.to(heroContainerRef.current, {
         scrollTrigger: {
           trigger: heroRef.current,
           start: 'top top',
-          end: 'bottom top', // Completes when hero exits viewport
-          scrub: 1,
+          end: isMobile ? '80% top' : 'bottom top', // Shorter animation on mobile
+          scrub: isMobile ? 0.5 : 1, // Faster scrub on mobile for smoother feel
           // markers: true, // Uncomment to debug
+          invalidateOnRefresh: true, // Recalculate on resize
         },
-        scale: 0.85,
+        scale: isMobile ? 0.90 : 0.85, // Less dramatic scale on mobile
         opacity: 0,
-        borderRadius: '40px',
+        borderRadius: isMobile ? '30px' : '40px',
         ease: 'none'
       });
 
@@ -83,6 +87,7 @@ const Hero = ({ isDarkMode, toggleDarkMode }) => {
           start: 'top top',
           end: '20% top',
           scrub: 1,
+          invalidateOnRefresh: true,
         },
         opacity: 0,
         y: -20,

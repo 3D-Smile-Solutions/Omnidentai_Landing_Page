@@ -8,7 +8,7 @@
   position: relative;
   transition: all 0.3s ease;
   overflow: hidden;
-  padding: 60px 0;
+  padding: clamp(40px, 6vh, 60px) 0;
 }
 
 .infographic.light {
@@ -22,14 +22,14 @@
 .infographic-container {
   max-width: 1600px;
   margin: 0 auto;
-  padding: 0 80px 0 200px;
+  padding: 0 clamp(20px, 5vw, 80px);
   position: relative;
   width: 100%;
 }
 
 .infographic-header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: clamp(15px, 2.5vh, 20px);
   position: relative;
   z-index: 10;
 }
@@ -37,21 +37,23 @@
 .integration-label {
   display: inline-block;
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: clamp(11px, 1.2vw, 14px);
   font-weight: 500;
   color: #5EBEC4;
-  margin-bottom: 8px;
-  letter-spacing: 0.05em;
+  margin-bottom: clamp(6px, 1vh, 8px);
+  letter-spacing: 1.5px;
   text-transform: uppercase;
 }
 
 .infographic-title {
   font-family: 'Times Now SemiLight', 'Times Now SemiLight Placeholder', sans-serif;
-  font-size: 48px;
+  font-size: calc(1rem * 4);
   font-weight: 400;
-  line-height: 1.1;
-  margin-bottom: 12px;
+  font-style: normal;
+  line-height: 100%;
   letter-spacing: -0.06em;
+  margin: 0;
+  margin-bottom: clamp(10px, 1.5vh, 12px);
 }
 
 .infographic .title-accent {
@@ -83,12 +85,12 @@
 
 .infographic-subtitle {
   font-family: 'Roboto', sans-serif;
-  font-size: 18px;
-  line-height: 1.5;
-  font-weight: 300;
+  font-size: clamp(16px, 1.9vw, 18px);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.02em;
   max-width: 500px;
   margin: 0 auto;
-  letter-spacing: -0.01em;
 }
 
 .infographic.light .infographic-subtitle {
@@ -96,16 +98,16 @@
 }
 
 .infographic.dark .infographic-subtitle {
-  color: rgba(234, 231, 224, 0.8);
+  color: rgba(234, 231, 224, 0.85);
 }
 
 .logo-loop-wrapper {
-  margin: 25px 0 0;
+  margin: clamp(18px, 3vh, 25px) 0 0;
   position: relative;
 }
 
 .logo-loop-container {
-  height: 150px;
+  height: clamp(110px, 16vh, 190px);
   position: relative;
   overflow: hidden;
   border-radius: 20px;
@@ -118,7 +120,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 50px;
+  width: clamp(25px, 4vw, 50px);
   z-index: 2;
   pointer-events: none;
 }
@@ -144,14 +146,14 @@
 .bottom-cta-section {
   position: relative;
   width: 100%;
-  min-height: 280px;
-  border-radius: 20px;
+  min-height: clamp(220px, 30vh, 280px);
+  border-radius: clamp(12px, 2vw, 20px);
   overflow: hidden;
   background: linear-gradient(135deg, #000000 0%, #224547 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 40px;
+  padding: clamp(30px, 4vh, 40px) clamp(20px, 3vw, 40px);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
@@ -187,29 +189,31 @@
 
 .cta-title {
   font-family: 'Times Now SemiLight', 'Times Now SemiLight Placeholder', sans-serif;
-  font-size: 48px;
+  font-size: calc(1rem * 4);
   font-weight: 400;
-  color: rgb(234, 231, 224);
-  margin-bottom: 30px;
-  line-height: 1.2;
+  font-style: normal;
+  line-height: 120%;
   letter-spacing: -0.06em;
+  color: rgb(234, 231, 224);
+  margin: 0;
+  margin-bottom: clamp(20px, 3vh, 30px);
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .cta-button {
   border: none;
   border-radius: calc(0.75rem - 0.35rem);
-  padding: 12px 24px;
+  padding: clamp(10px, 1.2vh, 12px) clamp(20px, 2.5vw, 24px);
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  font-size: 14px;
+  font-size: clamp(12px, 1.3vw, 14px);
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  gap: 8px;
+  min-height: clamp(40px, 5vh, 44px);
+  gap: clamp(6px, 1vw, 8px);
 }
 
 .cta-button:hover {
@@ -221,7 +225,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: clamp(16px, 1.5vw, 18px);
   transition: transform 0.3s ease;
 }
 
@@ -236,289 +240,183 @@
 
 /* Responsive Design */
 
-/* Large tablets and small desktops: 1025px - 1200px */
-@media (min-width: 1025px) and (max-width: 1200px) {
-  .infographic {
-    padding: 50px 0;
-  }
-  
-  .infographic-container {
-    padding: 0 60px 0 140px;
-  }
-  
-  .infographic-header {
-    margin-bottom: 18px;
-  }
-  
+/* Large Desktop: 1920px+ */
+@media (min-width: 1920px) {
   .infographic-title {
-    font-size: 42px;
-  }
-  
-  .logo-loop-wrapper {
-    margin: 22px 0 0;
-  }
-  
-  .logo-loop-container {
-    height: 110px;
-  }
-}
-
-/* Tablets: 769px - 1024px */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .infographic {
-    padding: 45px 0;
-  }
-  
-  .infographic-container {
-    padding: 0 50px 0 100px;
-  }
-  
-  .infographic-header {
-    margin-bottom: 15px;
-  }
-  
-  .infographic-title {
-    font-size: 38px;
-  }
-  
-  .infographic-subtitle {
-    font-size: 16px;
-  }
-  
-  .logo-loop-wrapper {
-    margin: 20px 0 0;
-  }
-  
-  .logo-loop-container {
-    height: 100px;
+    font-size: calc(1rem * 4);
   }
   
   .cta-title {
-    font-size: 42px;
-  }
-  
-  .bottom-cta-section {
-    min-height: 260px;
-    padding: 40px 40px;
+    font-size: calc(1rem * 4);
   }
 }
 
-/* Mobile landscape and small tablets: 481px - 768px */
-@media (min-width: 481px) and (max-width: 768px) {
-  .infographic {
-    padding: 40px 0;
-  }
-  
-  .infographic-container {
-    padding: 0 30px 0 50px;
-  }
-  
-  .infographic-header {
-    margin-bottom: 15px;
-  }
-  
-  .integration-label {
-    font-size: 12px;
-    margin-bottom: 6px;
-  }
-  
+/* Desktop: 1440px - 1919px */
+@media (min-width: 1440px) and (max-width: 1919px) {
   .infographic-title {
-    font-size: 32px;
-    margin-bottom: 10px;
+    font-size: calc(1rem * 4);
+  }
+  
+  .cta-title {
+    font-size: calc(1rem * 4);
+  }
+}
+
+/* Standard Desktop: 1200px - 1439px */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .infographic-title {
+    font-size: calc(1rem * 3.75);
+  }
+  
+  .cta-title {
+    font-size: calc(1rem * 3.75);
+  }
+}
+
+/* Medium Desktop: 1024px - 1199px */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .infographic-title {
+    font-size: calc(1rem * 3.5);
+  }
+  
+  .cta-title {
+    font-size: calc(1rem * 3.5);
+  }
+}
+
+/* Tablets (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .infographic-title {
+    font-size: calc(1rem * 3.25);
+  }
+  
+  .cta-title {
+    font-size: calc(1rem * 3.25);
+  }
+}
+
+/* Mobile Landscape: 600px - 767px */
+@media (min-width: 600px) and (max-width: 767px) {
+  .infographic-title {
+    font-size: calc(1rem * 2.75);
+  }
+  
+  .cta-title {
+    font-size: calc(1rem * 2.75);
   }
   
   .infographic-title br {
     display: none;
   }
   
-  .infographic-subtitle {
-    font-size: 15px;
+  .infographic-subtitle br {
+    display: none;
+  }
+  
+  .cta-title br {
+    display: none;
+  }
+}
+
+/* Mobile (767px and below) */
+@media (max-width: 767px) {
+  .infographic-title {
+    font-size: calc(1rem * 2.75);
+  }
+  
+  .cta-title {
+    font-size: calc(1rem * 2.75);
+  }
+  
+  .infographic-title br {
+    display: none;
   }
   
   .infographic-subtitle br {
     display: none;
   }
   
-  .logo-loop-wrapper {
-    margin: 18px 0 0;
+  .cta-title br {
+    display: none;
   }
   
   .logo-loop-container {
-    height: 80px;
     border-radius: 16px;
   }
   
-  .logo-loop-container::before,
-  .logo-loop-container::after {
-    width: 30px;
-  }
-  
   .bottom-cta-section {
-    min-height: 240px;
-    padding: 35px 30px;
     border-radius: 16px;
   }
+}
+
+/* Mobile Portrait: 480px - 599px */
+@media (min-width: 480px) and (max-width: 599px) {
+  .infographic-title {
+    font-size: calc(1rem * 2.5);
+  }
   
   .cta-title {
-    font-size: 32px;
-    margin-bottom: 25px;
-  }
-  
-  .cta-title br {
-    display: none;
-  }
-  
-  .cta-button {
-    padding: 11px 22px;
-    font-size: 13px;
+    font-size: calc(1rem * 2.5);
   }
 }
 
-/* Mobile portrait: 361px - 480px */
-@media (min-width: 361px) and (max-width: 480px) {
-  .infographic {
-    padding: 35px 0;
-  }
-  
-  .infographic-container {
-    padding: 0 20px 0 40px;
-  }
-  
-  .infographic-header {
-    margin-bottom: 14px;
-  }
-  
-  .integration-label {
-    font-size: 12px;
-    margin-bottom: 6px;
-  }
-  
+/* Very Small Mobile (≤480px) */
+@media (max-width: 480px) {
   .infographic-title {
-    font-size: 28px;
-    margin-bottom: 10px;
-  }
-  
-  .infographic-title br {
-    display: none;
-  }
-  
-  .infographic-subtitle {
-    font-size: 14px;
-  }
-  
-  .infographic-subtitle br {
-    display: none;
-  }
-  
-  .logo-loop-wrapper {
-    margin: 15px 0 0;
-  }
-  
-  .logo-loop-container {
-    height: 70px;
-    border-radius: 14px;
-  }
-  
-  .logo-loop-container::before,
-  .logo-loop-container::after {
-    width: 25px;
-  }
-  
-  .bottom-cta-section {
-    min-height: 230px;
-    padding: 32px 25px;
-    border-radius: 14px;
+    font-size: calc(1rem * 2.5);
   }
   
   .cta-title {
-    font-size: 28px;
-    margin-bottom: 22px;
+    font-size: calc(1rem * 2.5);
   }
   
-  .cta-title br {
-    display: none;
+  .logo-loop-container {
+    border-radius: 14px;
   }
   
-  .cta-button {
-    padding: 11px 21px;
-    font-size: 13px;
+  .bottom-cta-section {
+    border-radius: 14px;
   }
 }
 
-/* Extra small mobile: ≤360px */
-@media (max-width: 360px) {
-  .infographic {
-    padding: 30px 0;
-  }
-  
-  .infographic-container {
-    padding: 0 16px 0 32px;
-  }
-  
-  .infographic-header {
-    margin-bottom: 12px;
-  }
-  
-  .integration-label {
-    font-size: 11px;
-    margin-bottom: 5px;
-  }
-  
+/* Small Mobile: 360px - 479px */
+@media (min-width: 360px) and (max-width: 479px) {
   .infographic-title {
-    font-size: 24px;
-    margin-bottom: 8px;
-  }
-  
-  .infographic-title br {
-    display: none;
-  }
-  
-  .infographic-subtitle {
-    font-size: 13px;
-  }
-  
-  .infographic-subtitle br {
-    display: none;
-  }
-  
-  .logo-loop-wrapper {
-    margin: 12px 0 0;
-  }
-  
-  .logo-loop-container {
-    height: 60px;
-    border-radius: 12px;
-  }
-  
-  .logo-loop-container::before,
-  .logo-loop-container::after {
-    width: 20px;
-  }
-  
-  .bottom-cta-section {
-    min-height: 220px;
-    padding: 30px 20px;
-    border-radius: 12px;
+    font-size: calc(1rem * 2.25);
   }
   
   .cta-title {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: calc(1rem * 2.25);
+  }
+}
+
+/* Extra Small Mobile (≤359px) */
+@media (max-width: 359px) {
+  .infographic-title {
+    font-size: calc(1rem * 2);
   }
   
-  .cta-title br {
-    display: none;
+  .cta-title {
+    font-size: calc(1rem * 2);
+  }
+}
+
+/* Extra Small Mobile (≤330px) */
+@media (max-width: 330px) {
+  .infographic-title {
+    font-size: calc(1rem * 2);
   }
   
-  .cta-button {
-    padding: 10px 20px;
-    font-size: 12px;
-    gap: 6px;
-    min-height: 40px;
+  .cta-title {
+    font-size: calc(1rem * 2);
   }
   
-  .button-icon {
-    font-size: 16px;
+  .logo-loop-container {
+    border-radius: 12px;
+  }
+  
+  .bottom-cta-section {
+    border-radius: 12px;
   }
 }
 

@@ -154,11 +154,21 @@ button:focus-visible {
   .container {
     padding: 0 15px;
   }
+  
+  /* Reduce hero overlap on mobile for smoother scroll */
+  .main-content-wrapper {
+    margin-top: 95vh;
+  }
 }
 
 @media (max-width: 480px) {
   .container {
     padding: 0 10px;
+  }
+  
+  /* Further reduce on very small screens */
+  .main-content-wrapper {
+    margin-top: 90vh;
   }
 }
 
@@ -184,5 +194,17 @@ button:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Improve scroll performance on mobile */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  body {
+    -webkit-overflow-scrolling: touch;
   }
 }
