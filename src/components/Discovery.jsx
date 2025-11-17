@@ -31,7 +31,7 @@ const Discovery = ({ isDarkMode }) => {
         const stickySection = sectionRef.current.querySelector(".sticky");
         const cardContainer = cardContainerRef.current;
         
-        // Calculate dynamic height based on viewport - increased for better fill
+        // Calculate dynamic height based on viewport
         const cardHeight = Math.min(550, window.innerHeight * 0.6);
         
         // Make cards absolute positioned for stacking
@@ -66,16 +66,19 @@ const Discovery = ({ isDarkMode }) => {
           rotateZ: 5
         });
 
-        // Create timeline for the animations
+        // CRITICAL FIX: Reduced scroll duration and adjusted pinSpacing
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: stickySection,
             start: "top top",
-            end: `+=${window.innerHeight * 3}`, // Extended from 2 to 3 to add ~2-3 second pause after animations complete
+            end: `+=${window.innerHeight * 2}`, // Reduced from 3 to 2
             pin: true,
             scrub: 1,
-            anticipatePin: 1,
-            pinSpacing: true
+            anticipatePin: 0, // Changed from 1 to 0 for mobile
+            pinSpacing: true,
+            invalidateOnRefresh: true,
+            // Add markers temporarily to debug
+            // markers: true,
           }
         });
 
@@ -83,13 +86,15 @@ const Discovery = ({ isDarkMode }) => {
         tl.to(card2Ref.current, {
           y: 0,
           duration: 1,
-          ease: "none"
+          ease: "power2.inOut" // Changed from "none" for smoother feel
         })
+        // Add small pause between cards
+        .to({}, { duration: 0.2 })
         // Card 3 slides up over Card 2
         .to(card3Ref.current, {
           y: 0,
           duration: 1,
-          ease: "none"
+          ease: "power2.inOut"
         }, ">");
 
         return () => {
@@ -122,6 +127,7 @@ const Discovery = ({ isDarkMode }) => {
           scrub: 1,
           pin: true,
           pinSpacing: true,
+          invalidateOnRefresh: true,
           onUpdate: (self) => {
             const progress = self.progress;
 

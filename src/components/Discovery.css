@@ -362,6 +362,7 @@
 
   .discovery .sticky {
     height: 100vh;
+    min-height: 600px; /* ADDED: Minimum height for very short screens */
     padding: 2rem;
     flex-direction: column;
     justify-content: center;
@@ -373,7 +374,7 @@
     top: 0;
     left: 0;
     transform: none;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem; /* Reduced from 3rem */
     margin-top: 0;
     width: 100%;
     text-align: center;
@@ -385,7 +386,7 @@
     font-size: calc(1rem * 3.25);
   }
 
-  /* Card container with responsive height for tall screens (like 932px height) */
+  /* CRITICAL FIX: Card container with better height management */
   .discovery .card-container {
     width: 100%;
     display: flex;
@@ -393,8 +394,10 @@
     justify-content: center;
     position: relative;
     height: min(550px, 60vh);
+    max-height: 550px; /* ADDED: Prevent cards from getting too tall */
     gap: 0;
     margin: 0 auto;
+    flex-shrink: 0; /* ADDED: Prevent shrinking */
   }
 
   /* Cards must be absolute positioned for stacking animation */
@@ -406,6 +409,8 @@
     aspect-ratio: 3/4;
     border-radius: 10px !important;
     will-change: transform;
+    transform: translateZ(0); /* ADDED: Force GPU acceleration */
+    backface-visibility: hidden; /* ADDED: Improve performance */
   }
 
   .discovery #card-1,
@@ -443,6 +448,10 @@
   .discovery .sticky-header h1 {
     font-size: calc(1rem * 2.75);
   }
+  
+  .discovery .sticky {
+    min-height: 550px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -467,6 +476,10 @@
   .discovery .sticky-header h1 {
     font-size: calc(1rem * 2.75);
   }
+  
+  .discovery .sticky-header {
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* Mobile Portrait: 480px - 599px */
@@ -483,6 +496,7 @@
 
   .discovery .card {
     max-width: 100%;
+    width: 95%; /* Slightly wider on very small screens */
   }
 
   .discovery .card-back {
@@ -500,6 +514,15 @@
   .discovery .sticky-header h1 {
     font-size: calc(1rem * 2.5);
   }
+  
+  .discovery .sticky {
+    min-height: 550px;
+    padding: 1rem;
+  }
+  
+  .discovery .sticky-header {
+    margin-bottom: 1rem;
+  }
 }
 
 /* Small Mobile: 360px - 479px */
@@ -513,5 +536,29 @@
 @media (max-width: 359px) {
   .discovery .sticky-header h1 {
     font-size: calc(1rem * 2);
+  }
+  
+  .discovery .card {
+    width: 98%;
+  }
+}
+
+/* Short viewport height fix */
+@media (max-height: 700px) and (max-width: 999px) {
+  .discovery .sticky {
+    min-height: 500px;
+  }
+  
+  .discovery .card-container {
+    height: min(450px, 55vh);
+    max-height: 450px;
+  }
+  
+  .discovery .sticky-header {
+    margin-bottom: 1rem;
+  }
+  
+  .discovery .sticky-header h1 {
+    font-size: calc(1rem * 2.5);
   }
 }
