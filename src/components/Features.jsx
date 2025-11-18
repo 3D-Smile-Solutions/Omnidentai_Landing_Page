@@ -24,7 +24,7 @@ const Features = ({ isDarkMode }) => {
       title: "AI-Powered Scheduling",
       description:
         "Intelligent appointment booking that understands patient preferences, provider availability, and treatment requirements.",
-      bgColor: "#4B6474",
+      bgColor: "#4B6474", // Dental Steel Blue
       image: f1,
       stats: ["95% Booking Efficiency", "5 min Average Time", "24/7 Availability"]
     },
@@ -33,7 +33,7 @@ const Features = ({ isDarkMode }) => {
       title: "Smart Reminders & Confirmations",
       description:
         "Automated reminders via SMS, email, and voice calls that reduce no-shows and keep patients informed.",
-      bgColor: "#3F6F72",
+      bgColor: "#3F6F72", // Slate Teal
       image: f2,
       stats: ["60% Fewer No-Shows", "Multi-Channel Delivery", "Real-Time Updates"]
     },
@@ -42,7 +42,7 @@ const Features = ({ isDarkMode }) => {
       title: "Insurance Verification",
       description:
         "Instant insurance eligibility checks and coverage verification to streamline the billing process.",
-      bgColor: "#2F3C48",
+      bgColor: "#2F3C48", // Dusty Navy
       image: f3,
       stats: ["2 sec Verification", "99% Accuracy Rate", "500+ Plans Supported"]
     },
@@ -51,7 +51,7 @@ const Features = ({ isDarkMode }) => {
       title: "Treatment Plan Communication",
       description:
         "Clear, automated communication of treatment plans, costs, and next steps to improve case acceptance.",
-      bgColor: "#39454F",
+      bgColor: "#39454F", // Graphite Blue-Grey
       image: f4,
       stats: ["85% Acceptance Rate", "Clear Cost Breakdown", "Patient Portal Access"]
     },
@@ -60,7 +60,7 @@ const Features = ({ isDarkMode }) => {
       title: "Post-Treatment Follow-up",
       description:
         "Automated follow-up messages to check on patient recovery and schedule necessary appointments.",
-      bgColor: "#6B8F92",
+      bgColor: "#6B8F92", // Muted Aqua Grey
       image: f5,
       stats: ["92% Satisfaction", "Automated Scheduling", "Recovery Tracking"]
     },
@@ -69,11 +69,12 @@ const Features = ({ isDarkMode }) => {
       title: "Practice Analytics Dashboard",
       description:
         "Real-time insights into practice performance, patient flow, and revenue metrics for data-driven decisions.",
-      bgColor: "#2A2F33",
+      bgColor: "#2A2F33", // Deep Charcoal Blue
       image: f6,
       stats: ["50+ Key Metrics", "Real-Time Insights", "Custom Reports"]
     }
   ];
+
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -97,8 +98,9 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
+        // Calculate scroll distance - FIXED: Reduced to eliminate extra space
         const totalCards = featureData.length;
-        const scrollDistance = totalCards * 100;
+        const scrollDistance = (totalCards * 100) + 20; // Reduced from 120 to 100 per card + small buffer
 
         // Pin the section
         ScrollTrigger.create({
@@ -107,7 +109,7 @@ const Features = ({ isDarkMode }) => {
           end: `+=${scrollDistance}%`,
           pin: true,
           scrub: 1,
-          invalidateOnRefresh: true,
+          invalidateOnRefresh: true, // Recalculate on refresh
         });
 
         // Master timeline
@@ -170,13 +172,15 @@ const Features = ({ isDarkMode }) => {
             },
             startTime
           );
-        });
 
-        // Add a small hold at the end for the last card
-        tl.to({}, { duration: stepDuration * 0.2 });
+          // Phase 3: Hold the last card without extra space
+          if (index === itemRefs.current.length - 1) {
+            tl.to({}, { duration: stepDuration * 0.3 }, "+=0");
+          }
+        });
       });
 
-      // Mobile: Bottom-to-top with preview effect - FIXED VERSION
+      // Mobile: Bottom-to-top with preview effect
       mm.add("(max-width: 767px)", () => {
         // Header animation - show on entry
         gsap.fromTo(headerRef.current,
@@ -194,9 +198,14 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
+        // Calculate scroll distance - Adjusted for mobile tall screens
         const totalCards = featureData.length;
-        // Reduced scroll distance to prevent duplicate last card
-        const scrollDistance = (totalCards - 0.2) * 100; 
+        const viewportHeight = window.innerHeight;
+        
+        // Adjust scroll distance based on viewport height
+        // For tall screens (>900px), reduce multiplier
+        const heightMultiplier = viewportHeight > 900 ? 75 : 85;
+        const scrollDistance = (totalCards * heightMultiplier) + 15;
 
         // Pin the section
         ScrollTrigger.create({
@@ -205,7 +214,7 @@ const Features = ({ isDarkMode }) => {
           end: `+=${scrollDistance}%`,
           pin: true,
           scrub: 1,
-          invalidateOnRefresh: true,
+          invalidateOnRefresh: true, // Recalculate on refresh
         });
 
         // Master timeline
@@ -231,66 +240,54 @@ const Features = ({ isDarkMode }) => {
           stepDuration * 0.1
         );
 
-        // Set initial state for ALL cards at once before any animations
-        itemRefs.current.forEach((card) => {
-          if (!card) return;
-          gsap.set(card, {
-            clipPath: 'inset(100% 0 0 0)',
-            height: '100%', // Changed from 20% to 100%
-            bottom: 0,
-            top: 0 // Changed from 'auto' to 0
-          });
-        });
-
         // Animate each card with preview from bottom
         itemRefs.current.forEach((card, index) => {
           if (!card) return;
 
           const startTime = index * stepDuration;
-          const previewStart = Math.max(0, startTime - stepDuration * 0.3);
+          const previewStart = startTime - stepDuration * 0.4;
+
+          // Set initial state - card is hidden at the bottom
+          gsap.set(card, {
+            clipPath: 'inset(100% 0 0 0)',
+            height: '20%',
+            bottom: 0,
+            top: 'auto'
+          });
 
           // Phase 1: Preview - Show small peek from bottom (if not first card)
           if (index > 0) {
             tl.to(card,
               { 
-                clipPath: 'inset(90% 0 0 0)', // Less aggressive preview
-                duration: stepDuration * 0.3,
+                clipPath: 'inset(80% 0 0 0)',
+                duration: stepDuration * 0.4,
                 ease: "power1.out"
               },
               previewStart
             );
           }
 
-          // Phase 2: Full reveal - Expand to full visibility
+          // Phase 2: Full reveal - Expand to full height
           tl.to(card,
             { 
               clipPath: 'inset(0% 0 0 0)',
-              duration: stepDuration * 0.5,
+              height: '100%',
+              duration: stepDuration * 0.6,
               ease: "power2.inOut"
             },
             startTime
           );
 
-          // Phase 3: Exit animation for all cards except the last
-          if (index < totalCards - 1) {
-            const exitTime = (index + 1) * stepDuration;
-            tl.to(card,
-              { 
-                clipPath: 'inset(0% 0 100% 0)', // Exit upward
-                duration: stepDuration * 0.3,
-                ease: "power1.in"
-              },
-              exitTime
-            );
+          // Phase 3: Hold the last card without extra space
+          if (index === itemRefs.current.length - 1) {
+            tl.to({}, { duration: stepDuration * 0.3 }, "+=0");
           }
         });
-
-        // No extra hold needed since we reduced scrollDistance
       });
 
     }, sectionRef);
 
-    // Refresh ScrollTrigger after component mounts
+    // Refresh ScrollTrigger after component mounts and images load
     const refreshTimer = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
