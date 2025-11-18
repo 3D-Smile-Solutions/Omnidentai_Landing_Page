@@ -193,7 +193,8 @@ const Features = ({ isDarkMode }) => {
               trigger: sectionRef.current,
               start: "top 80%",
               end: "top 50%",
-              scrub: 1
+              scrub: 1,
+              markers: false // Remove in production
             }
           }
         );
@@ -205,7 +206,7 @@ const Features = ({ isDarkMode }) => {
         // Adjust scroll distance based on viewport height
         // For tall screens (>900px), reduce multiplier
         const heightMultiplier = viewportHeight > 900 ? 75 : 85;
-        const scrollDistance = (totalCards * heightMultiplier) + 15;
+        const scrollDistance = (totalCards * 70) + 10; // Reduced from 85
 
         // Pin the section
         ScrollTrigger.create({
@@ -223,8 +224,15 @@ const Features = ({ isDarkMode }) => {
             trigger: sectionRef.current,
             start: "top top",
             end: `+=${scrollDistance}%`,
-            scrub: 1,
+            scrub: 1.2, // Slower on mobile
+            pin: true,
+            anticipatePin: 0, // Important for mobile
+            pinSpacing: true,
             invalidateOnRefresh: true,
+            onEnter: () => {
+              // Refresh after pinning
+              setTimeout(() => ScrollTrigger.refresh(), 100);
+            }
           }
         });
 

@@ -107,12 +107,34 @@
   perspective: 1000px;
 }
 
-/* Add subtle rotation to cards on desktop */
+/* Mobile: Natural DOM order (Core Platform first) */
+@media (max-width: 1399px) {
+  .pricing-cards {
+    flex-direction: column;
+  }
+}
+
+/* Desktop: Reorder cards with flexbox order */
 @media (min-width: 1400px) {
   .pricing-cards {
+    flex-direction: row;
     width: 85%;
   }
 
+  /* Reorder cards on desktop */
+  .pricing-card.core-platform {
+    order: 2; /* Center */
+  }
+  
+  .pricing-card.built-in {
+    order: 1; /* Left */
+  }
+  
+  .pricing-card.optional {
+    order: 3; /* Right */
+  }
+
+  /* Add subtle rotation to cards on desktop */
   .pricing-card.built-in {
     transform: rotate(-2deg);
   }

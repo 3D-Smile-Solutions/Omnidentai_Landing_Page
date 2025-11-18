@@ -19,28 +19,11 @@ const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
-    // Refresh ScrollTrigger after everything loads
-    const refreshScrollTrigger = () => {
-      ScrollTrigger.refresh();
-    };
-
-    // Refresh multiple times to ensure proper calculation
-    setTimeout(refreshScrollTrigger, 100);
-    setTimeout(refreshScrollTrigger, 500);
-    setTimeout(refreshScrollTrigger, 1000);
-    
-    // Also refresh on window load (for images and fonts)
-    window.addEventListener('load', refreshScrollTrigger);
-
-    // Refresh on resize with debounce
-    let resizeTimer;
-    const handleResize = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 250);
-    };
-    window.addEventListener('resize', handleResize);
+    // Mobile-first ScrollTrigger configuration
+    ScrollTrigger.config({
+      limitCallbacks: true,
+      ignoreMobileResize: true
+    });
 
     // Custom scrollbar styling
     const style = document.createElement('style');
@@ -70,10 +53,59 @@ const App = () => {
     `;
     document.head.appendChild(style);
 
+    // Unified refresh function
+    const refreshScrollTrigger = () => {
+      ScrollTrigger.refresh();
+    };
+
+    // Wait for images to load before initializing animations
+    const images = document.querySelectorAll('img');
+    const imagePromises = Array.from(images).map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise(resolve => {
+        img.addEventListener('load', resolve);
+        img.addEventListener('error', resolve);
+      });
+    });
+
+    Promise.all(imagePromises).then(() => {
+      // Multiple refreshes for stability
+      setTimeout(refreshScrollTrigger, 100);
+      setTimeout(refreshScrollTrigger, 500);
+      setTimeout(refreshScrollTrigger, 1000);
+    });
+
+    // Window load event for fonts and remaining resources
+    window.addEventListener('load', refreshScrollTrigger);
+
+    // Resize handler with debounce
+    let resizeTimer;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        ScrollTrigger.refresh();
+        // Force reflow on mobile
+        if (window.innerWidth <= 768) {
+          document.body.style.overflow = 'hidden';
+          setTimeout(() => {
+            document.body.style.overflow = '';
+          }, 100);
+        }
+      }, 250);
+    };
+    window.addEventListener('resize', handleResize);
+
+    // Mobile orientation change handling
+    const handleOrientationChange = () => {
+      setTimeout(refreshScrollTrigger, 500);
+    };
+    window.addEventListener('orientationchange', handleOrientationChange);
+
     // Cleanup
     return () => {
       window.removeEventListener('load', refreshScrollTrigger);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleOrientationChange);
       document.head.removeChild(style);
     };
   }, []);
