@@ -29,7 +29,7 @@
 
 .infographic-header {
   text-align: center;
-  margin-bottom: clamp(15px, 2.5vh, 20px);
+  margin-bottom: clamp(10px, 1.5vh, 15px);
   position: relative;
   z-index: 10;
 }
@@ -53,7 +53,7 @@
   line-height: 100%;
   letter-spacing: -0.06em;
   margin: 0;
-  margin-bottom: clamp(10px, 1.5vh, 12px);
+  margin-bottom: clamp(8px, 1vh, 10px);
 }
 
 .infographic .title-accent {
@@ -101,17 +101,34 @@
   color: rgba(234, 231, 224, 0.85);
 }
 
+/* UPDATED: Reduced top margin and increased container height */
 .logo-loop-wrapper {
-  margin: clamp(18px, 3vh, 25px) 0 0;
+  margin: clamp(10px, 1.5vh, 15px) 0 0;
   position: relative;
 }
 
+/* UPDATED: Increased height for bigger logos */
 .logo-loop-container {
-  height: clamp(110px, 16vh, 190px);
+  height: clamp(160px, 24vh, 280px);
   position: relative;
   overflow: hidden;
   border-radius: 20px;
   background: transparent;
+}
+
+/* UPDATED: If you're using individual logo styles, add this */
+.logo-item {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 3vh, 30px);
+}
+
+.logo-item img {
+  max-height: 80%;
+  max-width: 90%;
+  object-fit: contain;
 }
 
 .logo-loop-container::before,
@@ -249,6 +266,11 @@
   .cta-title {
     font-size: calc(1rem * 4);
   }
+  
+  /* Even bigger logos on large screens */
+  .logo-loop-container {
+    height: 300px;
+  }
 }
 
 /* Desktop: 1440px - 1919px */
@@ -259,6 +281,10 @@
   
   .cta-title {
     font-size: calc(1rem * 4);
+  }
+  
+  .logo-loop-container {
+    height: 260px;
   }
 }
 
@@ -271,6 +297,10 @@
   .cta-title {
     font-size: calc(1rem * 3.75);
   }
+  
+  .logo-loop-container {
+    height: 240px;
+  }
 }
 
 /* Medium Desktop: 1024px - 1199px */
@@ -281,6 +311,10 @@
   
   .cta-title {
     font-size: calc(1rem * 3.5);
+  }
+  
+  .logo-loop-container {
+    height: 220px;
   }
 }
 
@@ -293,6 +327,10 @@
   .cta-title {
     font-size: calc(1rem * 3.25);
   }
+  
+  .logo-loop-container {
+    height: 200px;
+  }
 }
 
 /* Mobile Landscape: 600px - 767px */
@@ -303,6 +341,10 @@
   
   .cta-title {
     font-size: calc(1rem * 2.75);
+  }
+  
+  .logo-loop-container {
+    height: 180px;
   }
   
   .infographic-title br {
@@ -326,6 +368,10 @@
   
   .cta-title {
     font-size: calc(1rem * 2.75);
+  }
+  
+  .logo-loop-container {
+    height: 160px;
   }
   
   .infographic-title br {
@@ -358,6 +404,10 @@
   .cta-title {
     font-size: calc(1rem * 2.5);
   }
+  
+  .logo-loop-container {
+    height: 150px;
+  }
 }
 
 /* Very Small Mobile (≤480px) */
@@ -371,6 +421,7 @@
   }
   
   .logo-loop-container {
+    height: 140px;
     border-radius: 14px;
   }
   
@@ -388,6 +439,10 @@
   .cta-title {
     font-size: calc(1rem * 2.25);
   }
+  
+  .logo-loop-container {
+    height: 130px;
+  }
 }
 
 /* Extra Small Mobile (≤359px) */
@@ -398,6 +453,10 @@
   
   .cta-title {
     font-size: calc(1rem * 2);
+  }
+  
+  .logo-loop-container {
+    height: 120px;
   }
 }
 
@@ -412,6 +471,7 @@
   }
   
   .logo-loop-container {
+    height: 110px;
     border-radius: 12px;
   }
   

@@ -4,10 +4,23 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9999;
+  z-index: 99999;
   padding: 20px;
   display: flex;
   justify-content: center;
+  pointer-events: none;
+  
+  /* Add smooth transition for transform and opacity */
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hidden state - slide up and fade out */
+.navbar-wrapper.navbar-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
   pointer-events: none;
 }
 
@@ -284,31 +297,35 @@ body.menu-open {
   transform: scale(0.95);
 }
 
-/* ======================== MOBILE MENU ======================== */
+/* ======================== MOBILE MENU - UPDATED FOR FULL WIDTH CENTER DROPDOWN ======================== */
 .navbar-mobile-menu {
   position: fixed;
   top: 0;
+  left: 0;
   right: 0;
-  bottom: 0;
   width: 100%;
-  max-width: 400px;
+  max-width: 100%;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile browsers */
   
-  background: rgba(38, 3, 3, 0.95);
+  background: rgba(38, 3, 3, 0.98);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   
-  box-shadow: -4px 0 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   
-  transform: translateX(100%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Animate from top without any horizontal transform */
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   
-  z-index: 10001;
+  z-index: 100001;
   pointer-events: auto;
   
   display: flex;
   flex-direction: column;
   
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .navbar-mobile-menu * {
@@ -316,12 +333,13 @@ body.menu-open {
 }
 
 .navbar-light-mode .navbar-mobile-menu {
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: -4px 0 30px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
 
+/* When menu is open - slide down from top */
 .navbar-mobile-menu-open {
-  transform: translateX(0);
+  transform: translateY(0);
 }
 
 /* Mobile Menu Header */
@@ -329,9 +347,25 @@ body.menu-open {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 24px;
+  padding: 25px 20px;
+  padding-top: 35px; /* Extra padding at top for status bar */
   flex-shrink: 0;
   pointer-events: auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 481px) {
+  .navbar-mobile-header {
+    padding: 25px 30px;
+    padding-top: 35px;
+  }
+}
+
+.navbar-light-mode .navbar-mobile-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .navbar-mobile-header .navbar-logo-button img {
@@ -365,27 +399,30 @@ body.menu-open {
   transform: scale(0.95);
 }
 
-/* Mobile Divider */
+/* Remove the separate divider since we added border to header */
 .navbar-mobile-divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  margin: 0 24px;
-  flex-shrink: 0;
+  display: none;
 }
 
-.navbar-light-mode .navbar-mobile-divider {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-/* Mobile Navigation */
+/* Mobile Navigation - UPDATED FOR FULL WIDTH WITH CENTERED CONTENT */
 .navbar-mobile-nav {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 32px 24px;
-  gap: 32px;
+  padding: 30px 20px;
+  gap: 40px;
   pointer-events: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 481px) {
+  .navbar-mobile-nav {
+    padding: 30px 30px;
+  }
 }
 
 .navbar-mobile-items {
@@ -397,12 +434,14 @@ body.menu-open {
   margin: 0;
   padding: 0;
   pointer-events: auto;
+  flex: 1;
+  justify-content: center;
 }
 
 .navbar-mobile-link {
   background: transparent;
   border: none;
-  padding: 12px 0;
+  padding: 12px 20px;
   cursor: pointer;
   
   font-family: 'Roboto', sans-serif;
@@ -412,30 +451,58 @@ body.menu-open {
   
   color: rgba(234, 231, 224, 0.9);
   
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
   pointer-events: auto;
+  position: relative;
+}
+
+/* Add hover effect for mobile links */
+.navbar-mobile-link::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: rgba(234, 231, 224, 0.5);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.navbar-mobile-link:hover::after {
+  width: 30px;
 }
 
 .navbar-light-mode .navbar-mobile-link {
   color: rgba(64, 64, 64, 0.9);
 }
 
+.navbar-light-mode .navbar-mobile-link::after {
+  background: rgba(2, 132, 199, 0.5);
+}
+
 .navbar-mobile-link:hover {
   color: rgba(234, 231, 224, 1);
-  transform: translateX(4px);
+  transform: scale(1.05);
 }
 
 .navbar-light-mode .navbar-mobile-link:hover {
   color: rgba(2, 132, 199, 1);
 }
 
-/* Mobile Buttons Container */
+/* Mobile Buttons Container - UPDATED */
 .navbar-mobile-buttons {
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
   pointer-events: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-light-mode .navbar-mobile-buttons {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Mobile Dark Mode Toggle */
@@ -481,7 +548,7 @@ body.menu-open {
   transform: scale(0.95);
 }
 
-/* Mobile CTA */
+/* Mobile CTA - UPDATED */
 .navbar-mobile-cta {
   width: 100%;
   padding: 16px 32px;
@@ -490,7 +557,7 @@ body.menu-open {
   color: rgba(0, 0, 0, 0.8);
   
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   
   box-shadow: 
     rgb(255, 255, 255) 0px 2px 1px 1px inset,
@@ -526,21 +593,78 @@ body.menu-open {
   background-color: rgba(51, 51, 51, 1);
 }
 
-/* Mobile Backdrop */
+/* Mobile Backdrop - UPDATED */
 .navbar-mobile-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 10000;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100000;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   pointer-events: auto;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
 
 /* ======================== RESPONSIVE BREAKPOINTS ======================== */
+
+/* Extra small screens - UPDATED FOR BETTER MOBILE SUPPORT */
+@media (max-height: 700px) {
+  .navbar-mobile-nav {
+    padding: 20px 24px;
+    gap: 30px;
+  }
+  
+  .navbar-mobile-items {
+    gap: 18px;
+  }
+  
+  .navbar-mobile-link {
+    font-size: 16px;
+    padding: 10px 16px;
+  }
+  
+  .navbar-mobile-darkmode {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .navbar-mobile-cta {
+    padding: 14px 28px;
+    font-size: 15px;
+  }
+}
+
+/* Very small height screens */
+@media (max-height: 600px) {
+  .navbar-mobile-header {
+    padding-top: 20px;
+    padding-bottom: 15px;
+  }
+  
+  .navbar-mobile-nav {
+    padding: 15px 24px;
+    gap: 20px;
+  }
+  
+  .navbar-mobile-items {
+    gap: 12px;
+  }
+  
+  .navbar-mobile-link {
+    font-size: 15px;
+    padding: 8px 12px;
+  }
+}
 
 /* Small Mobile (481px - 767px) */
 @media (min-width: 481px) {
@@ -573,8 +697,43 @@ body.menu-open {
     height: 36px;
   }
   
+  /* Keep mobile menu full width even on tablets */
   .navbar-mobile-menu {
-    max-width: 450px;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Center content within full width menu */
+  .navbar-mobile-header {
+    max-width: 700px;
+    padding: 30px 40px;
+    padding-top: 40px;
+  }
+  
+  /* Restore normal spacing on tablets */
+  .navbar-mobile-nav {
+    padding: 40px 40px;
+    gap: 40px;
+    max-width: 700px;
+  }
+  
+  .navbar-mobile-items {
+    gap: 28px;
+  }
+  
+  .navbar-mobile-link {
+    font-size: 20px;
+    padding: 12px 24px;
+  }
+  
+  .navbar-mobile-darkmode {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .navbar-mobile-cta {
+    padding: 18px 36px;
+    font-size: 17px;
   }
 }
 

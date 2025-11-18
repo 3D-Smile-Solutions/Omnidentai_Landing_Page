@@ -10,6 +10,7 @@ import EliteServices from './components/EliteServices';
 import InfoGraphic from './components/InfoGraphic';
 import Discovery from './components/Discovery';
 import Calendar from './components/Calendar';
+import Navbar from './StylingComponents/Navbar.jsx';
 import './App.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -103,6 +104,7 @@ const App = () => {
 
   return (
     <div className={`app ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+        <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <Hero isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       
       <div className="main-content-wrapper">

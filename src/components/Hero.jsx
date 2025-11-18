@@ -4,7 +4,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Hero.css';
 import heroBG from '../assets/HeroBgAnimation.mp4';
-import Navbar from '../StylingComponents/Navbar.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -120,7 +119,6 @@ const Hero = ({ isDarkMode, toggleDarkMode }) => {
         </div>
         
         {/* Navigation - Pass props */}
-        <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
 
         {/* Hero Content */}
         <div className="hero-content-wrapper">
@@ -131,7 +129,7 @@ const Hero = ({ isDarkMode, toggleDarkMode }) => {
             </h1>
             
             {/* Subtitle */}
-            <p className="hero-subtitle">The autonomous backbone for modern practices. <br /> OmniDent orchestrates patient engagement end to end, turning signals into action, trimming no-shows and keeping clinicians chairside.</p>
+            <p className="hero-subtitle">The autonomous backbone for modern practices. OmniDent orchestrates patient engagement end to end, turning signals into action, trimming no-shows and keeping clinicians chairside.</p>
             
             {/* Feature Tags */}
             <div className="info-features" ref={infoBoxRef}>

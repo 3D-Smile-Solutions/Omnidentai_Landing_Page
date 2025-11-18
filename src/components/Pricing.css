@@ -107,21 +107,27 @@
   perspective: 1000px;
 }
 
-/* Add subtle rotation to cards on desktop */
+/* Desktop layout with flexbox order to show Built In - Core Platform - Optional */
 @media (min-width: 1400px) {
   .pricing-cards {
     width: 85%;
+    display: flex;
+    flex-direction: row;
   }
 
-  .pricing-card.built-in {
-    transform: rotate(-2deg);
-  }
-  
+  /* Reorder cards for desktop: Built In (left), Core Platform (center), Optional (right) */
   .pricing-card.core-platform {
+    order: 2; /* Center position */
     transform: rotate(0deg);
   }
   
+  .pricing-card.built-in {
+    order: 1; /* Left position */
+    transform: rotate(-2deg);
+  }
+  
   .pricing-card.optional {
+    order: 3; /* Right position */
     transform: rotate(2deg);
   }
   
@@ -633,7 +639,7 @@
 }
 
 /* ============================================= */
-/* ======  MOBILE VERTICAL (<1400px)  ========= */
+/* ======  MOBILE VERTICAL (<1400px) - IMPROVED SPACING ========= */
 /* ============================================= */
 
 @media (max-width: 1399px) {
@@ -644,7 +650,7 @@
   .pricing-sticky {
     height: auto;
     min-height: 100vh;
-    padding: 4rem 2rem;
+    padding: 5rem 2rem; /* Increased top/bottom padding */
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -652,37 +658,41 @@
 
   .pricing-header {
     position: relative;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem; /* Increased from 3rem */
     text-align: center;
   }
 
   .pricing-title {
     font-size: calc(1rem * 3.5);
+    margin-bottom: 1rem; /* Added spacing */
   }
 
   .pricing-subtitle {
     text-align: center;
     font-size: 15px;
+    line-height: 1.7; /* Increased line height */
   }
 
-  /* Cards stacked vertically */
+  /* Cards stacked vertically with better spacing */
   .pricing-cards {
     flex-direction: column;
     width: 100%;
     max-width: 500px;
-    gap: 2rem;
+    gap: 3rem; /* Increased from 2rem */
     height: auto;
   }
 
+  /* Mobile order: Core Platform first (no order needed since HTML is ordered correctly) */
   .pricing-card {
     position: relative !important;
     width: 100%;
     max-width: 500px;
     min-height: auto;
-    padding: 32px 28px;
+    padding: 36px 32px; /* Increased padding */
     border-radius: 16px !important;
     flex: none;
     transform: none !important;
+    order: unset !important; /* Remove desktop ordering */
   }
 
   .pricing-card:hover {
@@ -690,55 +700,60 @@
   }
 
   .card-header {
-    min-height: 90px;
-    margin-bottom: 18px;
+    min-height: 110px; /* Increased from 90px */
+    margin-bottom: 24px; /* Increased from 18px */
   }
 
   .card-description {
-    font-size: 17px;
+    font-size: 18px; /* Slightly larger */
+    line-height: 1.7; /* Better line height */
   }
 
   .price-section,
   .price-section-empty {
-    min-height: 75px;
-    margin-bottom: 20px;
+    min-height: 85px; /* Increased from 75px */
+    margin-bottom: 28px; /* Increased from 20px */
   }
 
   .price-amount {
-    font-size: 46px;
+    font-size: 48px; /* Slightly larger */
   }
 
   .price-period {
-    font-size: 19px;
+    font-size: 20px; /* Slightly larger */
   }
 
   .card-features {
-    gap: 14px;
-    margin-bottom: 20px;
+    gap: 16px; /* Increased from 14px */
+    margin-bottom: 28px; /* Increased from 20px */
   }
 
   .card-features li {
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 14px; /* Slightly larger */
+    line-height: 1.6; /* Better line height */
   }
   
   .card-footer {
-    font-size: 11px;
-    padding: 14px;
-    line-height: 1.6;
+    font-size: 12px; /* Slightly larger */
+    padding: 16px; /* Increased padding */
+    line-height: 1.7; /* Better line height */
+    margin-top: 12px; /* Added top margin */
   }
 
   .pricing-btn {
-    font-size: 14px;
-    padding: 13px 24px;
-    min-height: 46px;
+    font-size: 15px; /* Slightly larger */
+    padding: 14px 26px; /* Increased padding */
+    min-height: 48px; /* Increased height */
+  }
+  #pricing-card-2 .card-footer{
+    display: none;
   }
 }
 
 /* Large Tablet: 1024px - 1399px */
 @media (min-width: 1024px) and (max-width: 1399px) {
   .pricing-sticky {
-    padding: 4rem 2rem;
+    padding: 5rem 3rem; /* More horizontal padding */
   }
 
   .pricing-title {
@@ -747,13 +762,22 @@
 
   .pricing-cards {
     max-width: 500px;
+    gap: 3.5rem; /* Even more spacing on larger tablets */
+  }
+  
+  .pricing-card {
+    padding: 38px 34px;
   }
 }
 
 /* Medium Tablet: 768px - 1023px */
 @media (min-width: 768px) and (max-width: 1023px) {
   .pricing-sticky {
-    padding: 3.5rem 1.5rem;
+    padding: 4.5rem 2rem;
+  }
+
+  .pricing-header {
+    margin-bottom: 3.5rem;
   }
 
   .pricing-title {
@@ -766,10 +790,11 @@
 
   .pricing-cards {
     max-width: 480px;
+    gap: 2.5rem;
   }
 
   .pricing-card {
-    padding: 30px 26px;
+    padding: 34px 30px;
   }
 
   .card-description {
@@ -788,11 +813,15 @@
 /* Large Mobile: 600px - 767px */
 @media (min-width: 600px) and (max-width: 767px) {
   .pricing-sticky {
-    padding: 3rem 1.5rem;
+    padding: 4rem 1.5rem;
+  }
+
+  .pricing-header {
+    margin-bottom: 3rem;
   }
 
   .pricing-label {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .pricing-title {
@@ -800,16 +829,22 @@
   }
 
   .pricing-subtitle {
-    font-size: 12px;
+    font-size: 13px;
+    line-height: 1.6;
   }
 
   .pricing-cards {
     max-width: 420px;
-    gap: 1.5rem;
+    gap: 2.5rem;
   }
 
   .pricing-card {
-    padding: 28px 24px;
+    padding: 32px 28px;
+  }
+
+  .card-header {
+    min-height: 100px;
+    margin-bottom: 20px;
   }
 
   .card-title {
@@ -820,19 +855,26 @@
   .card-description {
     font-style: italic;
     font-size: 22px;
+    line-height: 1.6;
   }
 
   .price-section,
   .price-section-empty {
     min-height: 80px;
+    margin-bottom: 24px;
   }
 
   .price-amount {
-    font-size: 42px;
+    font-size: 44px;
   }
 
   .price-period {
     font-size: 18px;
+  }
+
+  .card-features {
+    gap: 14px;
+    margin-bottom: 24px;
   }
 
   .card-features li {
@@ -841,25 +883,29 @@
 
   .card-footer {
     font-size: 12px;
-    padding: 12px;
-    display: none;
+    padding: 14px;
+    /* Removed display: none - keep footer visible */
   }
 
   .pricing-btn {
-    font-size: 13px;
-    padding: 12px 22px;
-    min-height: 44px;
+    font-size: 14px;
+    padding: 13px 24px;
+    min-height: 46px;
   }
 }
 
 /* Medium Mobile: 480px - 599px */
 @media (min-width: 480px) and (max-width: 599px) {
   .pricing-sticky {
-    padding: 2.5rem 1.5rem;
+    padding: 3.5rem 1.5rem;
+  }
+
+  .pricing-header {
+    margin-bottom: 2.5rem;
   }
 
   .pricing-label {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .pricing-title {
@@ -867,16 +913,22 @@
   }
 
   .pricing-subtitle {
-    font-size: 11px;
+    font-size: 12px;
+    line-height: 1.6;
   }
 
   .pricing-cards {
     max-width: 380px;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .pricing-card {
-    padding: 26px 22px;
+    padding: 30px 26px;
+  }
+
+  .card-header {
+    min-height: 95px;
+    margin-bottom: 18px;
   }
 
   .card-title {
@@ -887,12 +939,100 @@
   .card-description {
     font-style: italic;
     font-size: 20px;
+    line-height: 1.5;
   }
 
   .price-section,
   .price-section-empty {
-    min-height: 68px;
+    min-height: 75px;
+    margin-bottom: 20px;
+  }
+
+  .price-amount {
+    font-size: 40px;
+  }
+
+  .price-period {
+    font-size: 17px;
+  }
+
+  .card-features {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .card-features li {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .pricing-btn {
+    font-size: 13px;
+    padding: 12px 22px;
+    min-height: 44px;
+  }
+
+  .card-footer {
+    font-size: 11px;
+    padding: 12px;
+    line-height: 1.6;
+  }
+}
+
+/* Small Mobile: 360px - 479px */
+@media (min-width: 360px) and (max-width: 479px) {
+  .pricing-sticky {
+    padding: 3rem 1.2rem;
+  }
+
+  .pricing-header {
+    margin-bottom: 2rem;
+  }
+
+  .pricing-label {
+    font-size: 10px;
+  }
+
+  .pricing-title {
+    font-size: calc(1rem * 2.25);
+    line-height: 1.2;
+  }
+
+  .pricing-subtitle {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  .pricing-cards {
+    max-width: 340px;
+    gap: 1.75rem;
+  }
+
+  .pricing-card {
+    padding: 28px 24px;
+  }
+
+  .card-header {
     margin-bottom: 16px;
+    min-height: 90px;
+  }
+
+  .card-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  .card-description {
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .price-section,
+  .price-section-empty {
+    min-height: 70px;
+    margin-bottom: 18px;
   }
 
   .price-amount {
@@ -903,40 +1043,62 @@
     font-size: 16px;
   }
 
+  .card-subtitle {
+    font-size: 12px;
+  }
+
   .card-features {
-    gap: 11px;
+    gap: 12px;
     margin-bottom: 18px;
   }
 
   .card-features li {
     font-size: 12px;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .feature-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .feature-icon::after {
+    font-size: 10px;
   }
 
   .pricing-btn {
     font-size: 12px;
-    padding: 11px 20px;
+    padding: 11px 18px;
     min-height: 42px;
+    margin-bottom: 14px;
   }
 
   .card-footer {
-    font-size: 12px;
-    padding: 11px;
+    font-size: 11px;
+    line-height: 1.5;
+    padding: 12px;
   }
 }
 
-/* Small Mobile: 360px - 479px */
-@media (min-width: 360px) and (max-width: 479px) {
+/* Extra Small Mobile: 300px - 359px */
+@media (min-width: 300px) and (max-width: 359px) {
   .pricing-sticky {
-    padding: 2rem 1.2rem;
+    padding: 2.5rem 1rem;
+  }
+
+  .pricing-header {
+    margin-bottom: 1.75rem;
   }
 
   .pricing-label {
     font-size: 9px;
+    margin-bottom: 10px;
   }
 
   .pricing-title {
-    font-size: calc(1rem * 2.25);
-    line-height: 1.1;
+    font-size: calc(1rem * 2);
+    line-height: 1.2;
   }
 
   .pricing-subtitle {
@@ -945,114 +1107,17 @@
   }
 
   .pricing-cards {
-    max-width: 340px;
-    gap: 1.25rem;
+    max-width: 300px;
+    gap: 1.5rem;
   }
 
   .pricing-card {
-    padding: 24px 20px;
+    padding: 26px 20px;
   }
 
   .card-header {
     margin-bottom: 14px;
     min-height: 85px;
-  }
-
-  .card-title {
-    font-size: 16px;
-    margin-bottom: 10px;
-    font-style: italic;
-  }
-
-  .card-description {
-    font-style: italic;
-    font-size: 18px;
-  }
-
-  .price-section,
-  .price-section-empty {
-    min-height: 65px;
-    margin-bottom: 14px;
-  }
-
-  .price-amount {
-    font-size: 36px;
-  }
-
-  .price-period {
-    font-size: 15px;
-  }
-
-  .card-subtitle {
-    font-size: 12px;
-  }
-
-  .card-features {
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-
-  .card-features li {
-    font-size: 12px;
-    gap: 9px;
-  }
-
-  .feature-icon {
-    width: 17px;
-    height: 17px;
-  }
-
-  .feature-icon::after {
-    font-size: 9px;
-  }
-
-  .pricing-btn {
-    font-size: 12px;
-    padding: 10px 16px;
-    min-height: 40px;
-    margin-bottom: 12px;
-  }
-
-  .card-footer {
-    font-size: 12px;
-    line-height: 1.5;
-    padding: 10px;
-  }
-}
-
-/* Extra Small Mobile: 300px - 359px */
-@media (min-width: 300px) and (max-width: 359px) {
-  .pricing-sticky {
-    padding: 2rem 1rem;
-  }
-
-  .pricing-label {
-    font-size: 8px;
-    margin-bottom: 10px;
-  }
-
-  .pricing-title {
-    font-size: calc(1rem * 2);
-    line-height: 1.1;
-  }
-
-  .pricing-subtitle {
-    font-size: 9px;
-    line-height: 1.5;
-  }
-
-  .pricing-cards {
-    max-width: 300px;
-    gap: 1rem;
-  }
-
-  .pricing-card {
-    padding: 22px 16px;
-  }
-
-  .card-header {
-    margin-bottom: 12px;
-    min-height: 80px;
   }
 
   .card-title {
@@ -1064,55 +1129,57 @@
   .card-description {
     font-size: 19px;
     font-style: italic;
+    line-height: 1.4;
   }
 
   .price-section,
   .price-section-empty {
-    min-height: 60px;
-    margin-bottom: 12px;
+    min-height: 65px;
+    margin-bottom: 16px;
   }
 
   .price-amount {
-    font-size: 32px;
+    font-size: 34px;
   }
 
   .price-period {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .card-subtitle {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .card-features {
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: 10px;
+    margin-bottom: 16px;
   }
 
   .card-features li {
-    font-size: 12px;
+    font-size: 11px;
     gap: 8px;
+    line-height: 1.4;
   }
 
   .feature-icon {
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
   }
 
   .feature-icon::after {
-    font-size: 8px;
+    font-size: 9px;
   }
 
   .pricing-btn {
     font-size: 11px;
-    padding: 9px 14px;
-    min-height: 38px;
-    margin-bottom: 10px;
+    padding: 10px 16px;
+    min-height: 40px;
+    margin-bottom: 12px;
   }
 
   .card-footer {
     font-size: 10px;
     line-height: 1.4;
-    padding: 9px;
+    padding: 10px;
   }
 }

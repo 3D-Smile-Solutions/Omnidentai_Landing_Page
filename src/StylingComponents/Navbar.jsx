@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaBars, FaMoon, FaSun } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import './Navbar.css';
@@ -8,6 +8,9 @@ import logoD from '../assets/LogoD.png';
 const Navbar = ({ isDarkMode, toggleDarkMode }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const lastScrollY = useRef(0);
+    const scrollTimeout = useRef(null);
 
     const navItems = [
         {
@@ -48,12 +51,32 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
         setIsOpen(!isOpen);
     };
 
-    const handleScroll = () => {
-        if (window.scrollY > 50) {
+    const controlNavbar = () => {
+        const currentScrollY = window.scrollY;
+        
+        // Don't hide navbar if mobile menu is open
+        if (isOpen) {
+            setIsVisible(true);
+            return;
+        }
+
+        // Set scrolled state for styling
+        if (currentScrollY > 50) {
             setIsScrolled(true);
         } else {
             setIsScrolled(false);
         }
+
+        // Determine scroll direction and show/hide navbar
+        if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+            // Scrolling down & past 100px
+            setIsVisible(false);
+        } else {
+            // Scrolling up or near top
+            setIsVisible(true);
+        }
+
+        lastScrollY.current = currentScrollY;
     };
 
     const handleNavClick = (item) => {
@@ -77,6 +100,7 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
+            setIsVisible(true); // Always show navbar when menu is open
         } else {
             document.body.style.overflow = 'unset';
         }
@@ -87,15 +111,32 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
         };
     }, [isOpen]);
 
+    // Handle scroll events with debouncing
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
+        const handleScroll = () => {
+            // Clear the existing timeout
+            if (scrollTimeout.current) {
+                clearTimeout(scrollTimeout.current);
+            }
+
+            // Set a new timeout for smooth scroll detection
+            scrollTimeout.current = setTimeout(() => {
+                controlNavbar();
+            }, 10);
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        
         return () => {
             window.removeEventListener("scroll", handleScroll);
+            if (scrollTimeout.current) {
+                clearTimeout(scrollTimeout.current);
+            }
         };
-    }, []);
+    }, [isOpen]); // Add isOpen as dependency to ensure navbar stays visible when menu is open
 
     return (
-        <div className={`navbar-wrapper ${isDarkMode ? "navbar-dark-mode" : "navbar-light-mode"}`}>
+        <div className={`navbar-wrapper ${isDarkMode ? "navbar-dark-mode" : "navbar-light-mode"} ${!isVisible ? "navbar-hidden" : ""}`}>
             <div
                 className={`navbar-container ${isScrolled ? "navbar-scrolled" : ""}`}
             >
