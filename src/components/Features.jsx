@@ -75,7 +75,6 @@ const Features = ({ isDarkMode }) => {
     }
   ];
 
-
   useEffect(() => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
@@ -98,10 +97,8 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // FIXED: Calculate exact scroll distance needed
         const totalCards = featureData.length;
-        // Each card needs 100% scroll, minus overlaps from preview
-        const scrollDistance = totalCards * 100; // Simple and clean
+        const scrollDistance = totalCards * 100;
 
         // Pin the section
         ScrollTrigger.create({
@@ -175,11 +172,11 @@ const Features = ({ isDarkMode }) => {
           );
         });
 
-        // CRITICAL: Add a small hold at the end for the last card
+        // Add a small hold at the end for the last card
         tl.to({}, { duration: stepDuration * 0.2 });
       });
 
-      // Mobile: Bottom-to-top with preview effect
+      // Mobile: Bottom-to-top with preview effect - FIXED VERSION
       mm.add("(max-width: 767px)", () => {
         // Header animation - show on entry
         gsap.fromTo(headerRef.current,
@@ -197,9 +194,9 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // FIXED: Simpler mobile calculation
         const totalCards = featureData.length;
-        const scrollDistance = totalCards * 100; // Each card gets 100% scroll
+        // Reduced scroll distance to prevent duplicate last card
+        const scrollDistance = (totalCards - 0.2) * 100; 
 
         // Pin the section
         ScrollTrigger.create({
@@ -234,47 +231,61 @@ const Features = ({ isDarkMode }) => {
           stepDuration * 0.1
         );
 
+        // Set initial state for ALL cards at once before any animations
+        itemRefs.current.forEach((card) => {
+          if (!card) return;
+          gsap.set(card, {
+            clipPath: 'inset(100% 0 0 0)',
+            height: '100%', // Changed from 20% to 100%
+            bottom: 0,
+            top: 0 // Changed from 'auto' to 0
+          });
+        });
+
         // Animate each card with preview from bottom
         itemRefs.current.forEach((card, index) => {
           if (!card) return;
 
           const startTime = index * stepDuration;
-          const previewStart = startTime - stepDuration * 0.4;
-
-          // Set initial state - card is hidden at the bottom
-          gsap.set(card, {
-            clipPath: 'inset(100% 0 0 0)',
-            height: '20%',
-            bottom: 0,
-            top: 'auto'
-          });
+          const previewStart = Math.max(0, startTime - stepDuration * 0.3);
 
           // Phase 1: Preview - Show small peek from bottom (if not first card)
           if (index > 0) {
             tl.to(card,
               { 
-                clipPath: 'inset(80% 0 0 0)',
-                duration: stepDuration * 0.4,
+                clipPath: 'inset(90% 0 0 0)', // Less aggressive preview
+                duration: stepDuration * 0.3,
                 ease: "power1.out"
               },
               previewStart
             );
           }
 
-          // Phase 2: Full reveal - Expand to full height
+          // Phase 2: Full reveal - Expand to full visibility
           tl.to(card,
             { 
               clipPath: 'inset(0% 0 0 0)',
-              height: '100%',
-              duration: stepDuration * 0.6,
+              duration: stepDuration * 0.5,
               ease: "power2.inOut"
             },
             startTime
           );
+
+          // Phase 3: Exit animation for all cards except the last
+          if (index < totalCards - 1) {
+            const exitTime = (index + 1) * stepDuration;
+            tl.to(card,
+              { 
+                clipPath: 'inset(0% 0 100% 0)', // Exit upward
+                duration: stepDuration * 0.3,
+                ease: "power1.in"
+              },
+              exitTime
+            );
+          }
         });
 
-        // CRITICAL: Add a small hold at the end for the last card
-        tl.to({}, { duration: stepDuration * 0.2 });
+        // No extra hold needed since we reduced scrollDistance
       });
 
     }, sectionRef);
