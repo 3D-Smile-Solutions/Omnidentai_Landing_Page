@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Discovery.css';
-import cardCover from '../assets/Testi.jpg';
+import cardCover from '../assets/Testi.png';
 
 gsap.registerPlugin(ScrollTrigger);
 

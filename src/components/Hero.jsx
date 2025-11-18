@@ -131,7 +131,7 @@ const Hero = ({ isDarkMode, toggleDarkMode }) => {
             </h1>
             
             {/* Subtitle */}
-            <p className="hero-subtitle">Unlock the power of precision dentistry with OmniDent, a unified platform that brings together AI charting,<br /> imaging insights and advanced analytics for smarter clinical decisions.</p>
+            <p className="hero-subtitle">The autonomous backbone for modern practices. <br /> OmniDent orchestrates patient engagement end to end, turning signals into action, trimming no-shows and keeping clinicians chairside.</p>
             
             {/* Feature Tags */}
             <div className="info-features" ref={infoBoxRef}>
