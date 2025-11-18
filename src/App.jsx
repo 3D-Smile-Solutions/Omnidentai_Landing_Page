@@ -15,84 +15,38 @@ import './App.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
-  // Set dark mode as default (true)
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    // Detect mobile
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
-
-    // Wait for everything to load before initializing ScrollTrigger
-    const initializeApp = async () => {
-      // Wait for DOM
-      await new Promise(resolve => {
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', resolve, { once: true });
-        } else {
-          resolve();
-        }
-      });
-
-      // Wait for images to load
-      const images = Array.from(document.images);
-      await Promise.all(
-        images
-          .filter(img => !img.complete)
-          .map(img => new Promise(resolve => {
-            img.onload = img.onerror = resolve;
-          }))
-      );
-
-      // Wait for fonts to load
-      if (document.fonts && document.fonts.ready) {
-        await document.fonts.ready;
-      }
-
-      // Extra delay for mobile to ensure layout is stable
-      if (isMobile) {
-        await new Promise(resolve => setTimeout(resolve, 300));
-      } else {
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
-
-      // Mark as ready
-      setIsReady(true);
-
-      // Force multiple refreshes for mobile
-      if (isMobile) {
-        ScrollTrigger.refresh(true);
-        setTimeout(() => ScrollTrigger.refresh(true), 200);
-        setTimeout(() => ScrollTrigger.refresh(true), 500);
-      } else {
-        ScrollTrigger.refresh(true);
-        setTimeout(() => ScrollTrigger.refresh(true), 300);
-      }
+    // Simple but effective approach for mobile
+    const initScrollTrigger = () => {
+      ScrollTrigger.refresh();
     };
 
-    initializeApp();
-
-    // Handle mobile viewport height changes (address bar)
-    if (isMobile) {
-      function setVH() {
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-      }
-      
-      setVH();
-      window.addEventListener('resize', setVH);
-      window.addEventListener('orientationchange', () => {
-        setTimeout(setVH, 100);
-        setTimeout(() => ScrollTrigger.refresh(true), 200);
+    // Wait for images and fonts
+    if (document.readyState === 'complete') {
+      // Already loaded
+      setTimeout(initScrollTrigger, 100);
+    } else {
+      // Wait for load event
+      window.addEventListener('load', () => {
+        setTimeout(initScrollTrigger, 100);
       });
     }
 
-    // Refresh on resize with debounce
+    // Additional refreshes for mobile
+    const isMobile = window.innerWidth < 1000;
+    if (isMobile) {
+      setTimeout(initScrollTrigger, 500);
+      setTimeout(initScrollTrigger, 1000);
+    }
+
+    // Handle resize
     let resizeTimer;
     const handleResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        ScrollTrigger.refresh(true);
+        ScrollTrigger.refresh();
       }, 250);
     };
     window.addEventListener('resize', handleResize);
@@ -125,7 +79,6 @@ const App = () => {
     `;
     document.head.appendChild(style);
 
-    // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
       document.head.removeChild(style);

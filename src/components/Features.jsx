@@ -17,7 +17,6 @@ const Features = ({ isDarkMode }) => {
   const containerRef = useRef(null);
   const headerRef = useRef(null);
   const itemRefs = useRef([]);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   const featureData = [
     {
@@ -25,7 +24,7 @@ const Features = ({ isDarkMode }) => {
       title: "AI-Powered Scheduling",
       description:
         "Intelligent appointment booking that understands patient preferences, provider availability, and treatment requirements.",
-      bgColor: "#4B6474", // Dental Steel Blue
+      bgColor: "#4B6474",
       image: f1,
       stats: ["95% Booking Efficiency", "5 min Average Time", "24/7 Availability"]
     },
@@ -34,7 +33,7 @@ const Features = ({ isDarkMode }) => {
       title: "Smart Reminders & Confirmations",
       description:
         "Automated reminders via SMS, email, and voice calls that reduce no-shows and keep patients informed.",
-      bgColor: "#3F6F72", // Slate Teal
+      bgColor: "#3F6F72",
       image: f2,
       stats: ["60% Fewer No-Shows", "Multi-Channel Delivery", "Real-Time Updates"]
     },
@@ -43,7 +42,7 @@ const Features = ({ isDarkMode }) => {
       title: "Insurance Verification",
       description:
         "Instant insurance eligibility checks and coverage verification to streamline the billing process.",
-      bgColor: "#2F3C48", // Dusty Navy
+      bgColor: "#2F3C48",
       image: f3,
       stats: ["2 sec Verification", "99% Accuracy Rate", "500+ Plans Supported"]
     },
@@ -52,7 +51,7 @@ const Features = ({ isDarkMode }) => {
       title: "Treatment Plan Communication",
       description:
         "Clear, automated communication of treatment plans, costs, and next steps to improve case acceptance.",
-      bgColor: "#39454F", // Graphite Blue-Grey
+      bgColor: "#39454F",
       image: f4,
       stats: ["85% Acceptance Rate", "Clear Cost Breakdown", "Patient Portal Access"]
     },
@@ -61,7 +60,7 @@ const Features = ({ isDarkMode }) => {
       title: "Post-Treatment Follow-up",
       description:
         "Automated follow-up messages to check on patient recovery and schedule necessary appointments.",
-      bgColor: "#6B8F92", // Muted Aqua Grey
+      bgColor: "#6B8F92",
       image: f5,
       stats: ["92% Satisfaction", "Automated Scheduling", "Recovery Tracking"]
     },
@@ -70,33 +69,14 @@ const Features = ({ isDarkMode }) => {
       title: "Practice Analytics Dashboard",
       description:
         "Real-time insights into practice performance, patient flow, and revenue metrics for data-driven decisions.",
-      bgColor: "#2A2F33", // Deep Charcoal Blue
+      bgColor: "#2A2F33",
       image: f6,
       stats: ["50+ Key Metrics", "Real-Time Insights", "Custom Reports"]
     }
   ];
 
-  useEffect(() => {
-    // Preload all images
-    const loadImages = async () => {
-      const imagePromises = featureData.map(feature => {
-        return new Promise((resolve) => {
-          const img = new Image();
-          img.src = feature.image;
-          img.onload = img.onerror = resolve;
-        });
-      });
-
-      await Promise.all(imagePromises);
-      setImagesLoaded(true);
-    };
-
-    loadImages();
-  }, []);
 
   useEffect(() => {
-    if (!imagesLoaded) return;
-
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
@@ -118,19 +98,15 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // FIXED: Better scroll distance calculation
+        // Calculate scroll distance - FIXED: Better calculation
         const totalCards = featureData.length;
-        const viewportHeight = window.innerHeight;
-        
-        // Calculate based on viewport - prevents extra space
-        const baseScrollPerCard = viewportHeight * 0.9; // Reduced from implicit 100vh
-        const scrollDistance = (totalCards * baseScrollPerCard) + (viewportHeight * 0.2); // Small buffer
+        const scrollDistance = (totalCards * 110) + 20; // Adjusted multiplier
 
         // Pin the section
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${scrollDistance}`,
+          end: `+=${scrollDistance}%`,
           pin: true,
           scrub: 1,
           invalidateOnRefresh: true,
@@ -141,7 +117,7 @@ const Features = ({ isDarkMode }) => {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: `+=${scrollDistance}`,
+            end: `+=${scrollDistance}%`,
             scrub: 1,
             invalidateOnRefresh: true,
           }
@@ -197,9 +173,9 @@ const Features = ({ isDarkMode }) => {
             startTime
           );
 
-          // Phase 3: Hold the last card without extra space
+          // Phase 3: Hold the last card
           if (index === itemRefs.current.length - 1) {
-            tl.to({}, { duration: stepDuration * 0.2 }, "+=0");
+            tl.to({}, { duration: stepDuration * 0.3 }, "+=0");
           }
         });
       });
@@ -222,35 +198,22 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // CRITICAL FIX: Better mobile scroll distance calculation
+        // Calculate scroll distance - FIXED for mobile
         const totalCards = featureData.length;
         const viewportHeight = window.innerHeight;
         
-        // Adjust scroll distance based on viewport height and content
-        // Taller screens need less scroll per card
-        let scrollPerCard;
-        if (viewportHeight > 900) {
-          scrollPerCard = viewportHeight * 0.7; // Very tall screens
-        } else if (viewportHeight > 750) {
-          scrollPerCard = viewportHeight * 0.8; // Tall screens
-        } else if (viewportHeight > 650) {
-          scrollPerCard = viewportHeight * 0.9; // Medium screens
-        } else {
-          scrollPerCard = viewportHeight * 1.0; // Short screens
-        }
-        
-        const scrollDistance = (totalCards * scrollPerCard) + (viewportHeight * 0.15);
+        // Adjusted multiplier based on testing
+        const heightMultiplier = viewportHeight > 900 ? 80 : 90;
+        const scrollDistance = (totalCards * heightMultiplier) + 20;
 
         // Pin the section
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${scrollDistance}`,
+          end: `+=${scrollDistance}%`,
           pin: true,
           scrub: 1,
           invalidateOnRefresh: true,
-          fastScrollEnd: true, // Better mobile performance
-          preventOverlaps: true,
         });
 
         // Master timeline
@@ -258,10 +221,9 @@ const Features = ({ isDarkMode }) => {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: `+=${scrollDistance}`,
+            end: `+=${scrollDistance}%`,
             scrub: 1,
             invalidateOnRefresh: true,
-            fastScrollEnd: true,
           }
         });
 
@@ -317,28 +279,23 @@ const Features = ({ isDarkMode }) => {
 
           // Phase 3: Hold the last card
           if (index === itemRefs.current.length - 1) {
-            tl.to({}, { duration: stepDuration * 0.2 }, "+=0");
+            tl.to({}, { duration: stepDuration * 0.3 }, "+=0");
           }
         });
       });
 
     }, sectionRef);
 
-    // CRITICAL: Refresh after setup and after a delay
-    const refreshTimer1 = setTimeout(() => {
-      ScrollTrigger.refresh(true);
+    // Refresh ScrollTrigger after component mounts
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
     }, 100);
 
-    const refreshTimer2 = setTimeout(() => {
-      ScrollTrigger.refresh(true);
-    }, 300);
-
     return () => {
-      clearTimeout(refreshTimer1);
-      clearTimeout(refreshTimer2);
+      clearTimeout(refreshTimer);
       ctx.revert();
     };
-  }, [featureData.length, imagesLoaded]);
+  }, [featureData.length]);
 
   return (
     <section className={`features-horizontal ${isDarkMode ? 'dark-mode' : 'light-mode'}`} ref={sectionRef}>
@@ -374,7 +331,7 @@ const Features = ({ isDarkMode }) => {
                 </ul>
               </div>
               <div className="feature-card-image">
-                <img src={feature.image} alt={feature.title} loading="eager" />
+                <img src={feature.image} alt={feature.title} />
               </div>
             </div>
           </div>

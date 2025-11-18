@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Discovery.css';
@@ -15,34 +15,9 @@ const Discovery = ({ isDarkMode }) => {
   const card3Ref = useRef(null);
   const isGapAnimationCompletedRef = useRef(false);
   const isFlipAnimationCompletedRef = useRef(false);
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Wait for component to mount and images to load
-    const initWhenReady = async () => {
-      // Wait for image to load
-      const img = new Image();
-      img.src = cardCover;
-      if (!img.complete) {
-        await new Promise(resolve => {
-          img.onload = img.onerror = resolve;
-        });
-      }
-
-      // Small delay to ensure DOM is ready
-      await new Promise(resolve => setTimeout(resolve, 100));
-      
-      setIsMounted(true);
-    };
-
-    initWhenReady();
-  }, []);
-
-  useEffect(() => {
-    if (!isMounted) return;
-
     const initAnimations = () => {
-      // Kill existing triggers
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.vars.trigger?.closest('.discovery')) trigger.kill();
       });
@@ -53,23 +28,18 @@ const Discovery = ({ isDarkMode }) => {
       MOBILE – Cards slide up over each other
       -------------------------------------------------------------- */
       mm.add("(max-width: 999px)", () => {
-        const stickySection = sectionRef.current?.querySelector(".sticky");
+        const stickySection = sectionRef.current.querySelector(".sticky");
         const cardContainer = cardContainerRef.current;
         
         if (!stickySection || !cardContainer) return;
         
-        // CRITICAL: Force layout recalculation
-        void stickySection.offsetHeight;
-        
         // Calculate dynamic height based on viewport
-        const viewportHeight = window.innerHeight;
-        const cardHeight = Math.min(550, viewportHeight * 0.6);
+        const cardHeight = Math.min(550, window.innerHeight * 0.6);
         
         // Make cards absolute positioned for stacking
         gsap.set(cardContainer, { 
           position: 'relative', 
-          height: `${cardHeight}px`,
-          clearProps: 'width' // Remove any desktop width constraints
+          height: `${cardHeight}px`
         });
         
         gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], {
@@ -78,8 +48,7 @@ const Discovery = ({ isDarkMode }) => {
           left: '50%',
           x: '-50%',
           width: '90%',
-          maxWidth: '350px',
-          transformOrigin: 'center center'
+          maxWidth: '350px'
         });
         
         // Set initial positions - Card 2 and 3 below Card 1
@@ -99,28 +68,17 @@ const Discovery = ({ isDarkMode }) => {
           rotateZ: 5
         });
 
-        // Calculate scroll distance based on viewport
-        // Shorter viewports need less scroll distance
-        const scrollMultiplier = viewportHeight > 900 ? 1.8 : viewportHeight > 700 ? 2 : 2.2;
-        const scrollDistance = viewportHeight * scrollMultiplier;
-
-        // CRITICAL FIX: Proper ScrollTrigger configuration for mobile
+        // FIXED: Better scroll distance for mobile
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: stickySection,
             start: "top top",
-            end: `+=${scrollDistance}`,
+            end: `+=${window.innerHeight * 2.5}`, // Adjusted from 2
             pin: true,
             scrub: 1,
-            anticipatePin: 0,
+            anticipatePin: 1,
             pinSpacing: true,
             invalidateOnRefresh: true,
-            fastScrollEnd: true, // Better mobile performance
-            preventOverlaps: true,
-            // Force refresh on scroll start
-            onEnter: () => {
-              ScrollTrigger.refresh();
-            },
           }
         });
 
@@ -146,7 +104,7 @@ const Discovery = ({ isDarkMode }) => {
         };
       });
 
-      // Desktop: Original animations (unchanged)
+      // Desktop: Original animations
       mm.add("(min-width: 1000px)", () => {
         // Reset mobile styles
         gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], {
@@ -287,14 +245,20 @@ const Discovery = ({ isDarkMode }) => {
 
         return () => {};
       });
-
-      // Force refresh after setup
-      setTimeout(() => {
-        ScrollTrigger.refresh(true);
-      }, 100);
     };
 
-    initAnimations();
+    // CRITICAL FIX: Wait a bit before initializing on mobile
+    const isMobile = window.innerWidth < 1000;
+    const delay = isMobile ? 100 : 0;
+    
+    const timer = setTimeout(() => {
+      initAnimations();
+      
+      // Force refresh after init
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+    }, delay);
 
     let resizeTimer;
     const handleResize = () => {
@@ -306,24 +270,16 @@ const Discovery = ({ isDarkMode }) => {
 
     window.addEventListener('resize', handleResize);
 
-    // Mobile-specific: Refresh on orientation change
-    const handleOrientationChange = () => {
-      setTimeout(() => {
-        initAnimations();
-      }, 300);
-    };
-    window.addEventListener('orientationchange', handleOrientationChange);
-
     return () => {
+      clearTimeout(timer);
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.vars.trigger?.closest('.discovery')) {
           trigger.kill();
         }
       });
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('orientationchange', handleOrientationChange);
     };
-  }, [isMounted]);
+  }, []);
 
   return (
     <section className={`discovery ${isDarkMode ? 'dark' : 'light'}`} ref={sectionRef}>
