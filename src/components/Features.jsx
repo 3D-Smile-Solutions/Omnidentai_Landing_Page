@@ -17,6 +17,7 @@ const Features = ({ isDarkMode }) => {
   const containerRef = useRef(null);
   const headerRef = useRef(null);
   const itemRefs = useRef([]);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   const featureData = [
     {
@@ -75,8 +76,27 @@ const Features = ({ isDarkMode }) => {
     }
   ];
 
+  useEffect(() => {
+    // Preload all images
+    const loadImages = async () => {
+      const imagePromises = featureData.map(feature => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = feature.image;
+          img.onload = img.onerror = resolve;
+        });
+      });
+
+      await Promise.all(imagePromises);
+      setImagesLoaded(true);
+    };
+
+    loadImages();
+  }, []);
 
   useEffect(() => {
+    if (!imagesLoaded) return;
+
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
@@ -98,18 +118,22 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // Calculate scroll distance - FIXED: Reduced to eliminate extra space
+        // FIXED: Better scroll distance calculation
         const totalCards = featureData.length;
-        const scrollDistance = (totalCards * 100) + 20; // Reduced from 120 to 100 per card + small buffer
+        const viewportHeight = window.innerHeight;
+        
+        // Calculate based on viewport - prevents extra space
+        const baseScrollPerCard = viewportHeight * 0.9; // Reduced from implicit 100vh
+        const scrollDistance = (totalCards * baseScrollPerCard) + (viewportHeight * 0.2); // Small buffer
 
         // Pin the section
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${scrollDistance}%`,
+          end: `+=${scrollDistance}`,
           pin: true,
           scrub: 1,
-          invalidateOnRefresh: true, // Recalculate on refresh
+          invalidateOnRefresh: true,
         });
 
         // Master timeline
@@ -117,7 +141,7 @@ const Features = ({ isDarkMode }) => {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: `+=${scrollDistance}%`,
+            end: `+=${scrollDistance}`,
             scrub: 1,
             invalidateOnRefresh: true,
           }
@@ -175,7 +199,7 @@ const Features = ({ isDarkMode }) => {
 
           // Phase 3: Hold the last card without extra space
           if (index === itemRefs.current.length - 1) {
-            tl.to({}, { duration: stepDuration * 0.3 }, "+=0");
+            tl.to({}, { duration: stepDuration * 0.2 }, "+=0");
           }
         });
       });
@@ -198,23 +222,35 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // Calculate scroll distance - Adjusted for mobile tall screens
+        // CRITICAL FIX: Better mobile scroll distance calculation
         const totalCards = featureData.length;
         const viewportHeight = window.innerHeight;
         
-        // Adjust scroll distance based on viewport height
-        // For tall screens (>900px), reduce multiplier
-        const heightMultiplier = viewportHeight > 900 ? 75 : 85;
-        const scrollDistance = (totalCards * heightMultiplier) + 15;
+        // Adjust scroll distance based on viewport height and content
+        // Taller screens need less scroll per card
+        let scrollPerCard;
+        if (viewportHeight > 900) {
+          scrollPerCard = viewportHeight * 0.7; // Very tall screens
+        } else if (viewportHeight > 750) {
+          scrollPerCard = viewportHeight * 0.8; // Tall screens
+        } else if (viewportHeight > 650) {
+          scrollPerCard = viewportHeight * 0.9; // Medium screens
+        } else {
+          scrollPerCard = viewportHeight * 1.0; // Short screens
+        }
+        
+        const scrollDistance = (totalCards * scrollPerCard) + (viewportHeight * 0.15);
 
         // Pin the section
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${scrollDistance}%`,
+          end: `+=${scrollDistance}`,
           pin: true,
           scrub: 1,
-          invalidateOnRefresh: true, // Recalculate on refresh
+          invalidateOnRefresh: true,
+          fastScrollEnd: true, // Better mobile performance
+          preventOverlaps: true,
         });
 
         // Master timeline
@@ -222,9 +258,10 @@ const Features = ({ isDarkMode }) => {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: `+=${scrollDistance}%`,
+            end: `+=${scrollDistance}`,
             scrub: 1,
             invalidateOnRefresh: true,
+            fastScrollEnd: true,
           }
         });
 
@@ -278,25 +315,30 @@ const Features = ({ isDarkMode }) => {
             startTime
           );
 
-          // Phase 3: Hold the last card without extra space
+          // Phase 3: Hold the last card
           if (index === itemRefs.current.length - 1) {
-            tl.to({}, { duration: stepDuration * 0.3 }, "+=0");
+            tl.to({}, { duration: stepDuration * 0.2 }, "+=0");
           }
         });
       });
 
     }, sectionRef);
 
-    // Refresh ScrollTrigger after component mounts and images load
-    const refreshTimer = setTimeout(() => {
-      ScrollTrigger.refresh();
+    // CRITICAL: Refresh after setup and after a delay
+    const refreshTimer1 = setTimeout(() => {
+      ScrollTrigger.refresh(true);
     }, 100);
 
+    const refreshTimer2 = setTimeout(() => {
+      ScrollTrigger.refresh(true);
+    }, 300);
+
     return () => {
-      clearTimeout(refreshTimer);
+      clearTimeout(refreshTimer1);
+      clearTimeout(refreshTimer2);
       ctx.revert();
     };
-  }, [featureData.length]);
+  }, [featureData.length, imagesLoaded]);
 
   return (
     <section className={`features-horizontal ${isDarkMode ? 'dark-mode' : 'light-mode'}`} ref={sectionRef}>
@@ -332,7 +374,7 @@ const Features = ({ isDarkMode }) => {
                 </ul>
               </div>
               <div className="feature-card-image">
-                <img src={feature.image} alt={feature.title} />
+                <img src={feature.image} alt={feature.title} loading="eager" />
               </div>
             </div>
           </div>
