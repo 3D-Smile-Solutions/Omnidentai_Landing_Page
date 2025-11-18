@@ -308,7 +308,7 @@ body.menu-open {
   height: 100vh;
   height: 100dvh; /* Dynamic viewport height for mobile browsers */
   
-  background: rgba(38, 3, 3, 0.98);
+  background: #14181b;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   
