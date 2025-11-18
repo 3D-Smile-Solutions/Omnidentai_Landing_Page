@@ -75,8 +75,25 @@ const Features = ({ isDarkMode }) => {
     }
   ];
 
-
   useEffect(() => {
+    // MOBILE FIX: Enable normalize scroll for mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+      ScrollTrigger.normalizeScroll({
+        allowNestedScroll: true,
+        lockAxis: false,
+        momentum: true,
+        type: "touch,wheel,pointer"
+      });
+    }
+
+    // Configure ScrollTrigger for mobile
+    ScrollTrigger.config({
+      ignoreMobileResize: true, // Ignore address bar resize
+      autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize"
+    });
+
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
@@ -98,9 +115,9 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // Calculate scroll distance - FIXED: Reduced to eliminate extra space
+        // Calculate scroll distance
         const totalCards = featureData.length;
-        const scrollDistance = (totalCards * 100) + 20; // Reduced from 120 to 100 per card + small buffer
+        const scrollDistance = (totalCards * 100) + 20;
 
         // Pin the section
         ScrollTrigger.create({
@@ -109,7 +126,7 @@ const Features = ({ isDarkMode }) => {
           end: `+=${scrollDistance}%`,
           pin: true,
           scrub: 1,
-          invalidateOnRefresh: true, // Recalculate on refresh
+          invalidateOnRefresh: true,
         });
 
         // Master timeline
@@ -180,7 +197,7 @@ const Features = ({ isDarkMode }) => {
         });
       });
 
-      // Mobile: Bottom-to-top with preview effect
+      // Mobile: Bottom-to-top with preview effect - FIXED
       mm.add("(max-width: 767px)", () => {
         // Header animation - show on entry
         gsap.fromTo(headerRef.current,
@@ -198,37 +215,41 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // Calculate scroll distance - Adjusted for mobile tall screens
+        // CRITICAL FIX: Calculate proper scroll distance for mobile
         const totalCards = featureData.length;
         const viewportHeight = window.innerHeight;
         
-        // Adjust scroll distance based on viewport height
-        // For tall screens (>900px), reduce multiplier
-        const heightMultiplier = viewportHeight > 900 ? 75 : 85;
-        const scrollDistance = (totalCards * heightMultiplier) + 15;
+        // FIXED: Calculate based on actual card animation needs
+        // Each card needs time to preview (0.4) + reveal (0.6) + hold (0.3) = 1.3 units
+        // But cards overlap, so we need totalCards worth of scroll
+        const scrollDistance = window.innerHeight * (totalCards + 1); // Add extra viewport for last card
 
-        // Pin the section
+        // Pin the section with fixed distance
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${scrollDistance}%`,
+          end: () => `+=${scrollDistance}`, // Use function to recalculate
           pin: true,
+          pinSpacing: true,
           scrub: 1,
-          invalidateOnRefresh: true, // Recalculate on refresh
+          anticipatePin: 1, // CHANGED: Back to 1 for smoother pinning
+          invalidateOnRefresh: true,
+          // markers: true, // Uncomment to debug
         });
 
-        // Master timeline
+        // Master timeline with proper timing
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: `+=${scrollDistance}%`,
+            end: () => `+=${scrollDistance}`,
             scrub: 1,
             invalidateOnRefresh: true,
           }
         });
 
-        const stepDuration = 1 / totalCards;
+        // FIXED: Adjust step duration for proper timing
+        const stepDuration = 1 / (totalCards + 1); // Add buffer for last card
 
         // Fade out header when first card starts appearing
         tl.to(headerRef.current,
@@ -245,7 +266,7 @@ const Features = ({ isDarkMode }) => {
           if (!card) return;
 
           const startTime = index * stepDuration;
-          const previewStart = startTime - stepDuration * 0.4;
+          const previewStart = Math.max(0, startTime - stepDuration * 0.3); // Ensure preview doesn't go negative
 
           // Set initial state - card is hidden at the bottom
           gsap.set(card, {
@@ -260,7 +281,7 @@ const Features = ({ isDarkMode }) => {
             tl.to(card,
               { 
                 clipPath: 'inset(80% 0 0 0)',
-                duration: stepDuration * 0.4,
+                duration: stepDuration * 0.3,
                 ease: "power1.out"
               },
               previewStart
@@ -278,9 +299,13 @@ const Features = ({ isDarkMode }) => {
             startTime
           );
 
-          // Phase 3: Hold the last card without extra space
+          // Phase 3: Hold each card, especially the last one
           if (index === itemRefs.current.length - 1) {
-            tl.to({}, { duration: stepDuration * 0.3 }, "+=0");
+            // FIXED: Give last card proper hold time
+            tl.to({}, { duration: stepDuration * 0.8 }, "+=0");
+          } else {
+            // Hold other cards briefly
+            tl.to({}, { duration: stepDuration * 0.1 }, "+=0");
           }
         });
       });
@@ -292,9 +317,37 @@ const Features = ({ isDarkMode }) => {
       ScrollTrigger.refresh();
     }, 100);
 
+    // MOBILE FIX: Handle orientation changes
+    const handleOrientation = () => {
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+    };
+
+    window.addEventListener('orientationchange', handleOrientation);
+
+    // MOBILE FIX: Handle resize with debouncing
+    let resizeTimer;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 250);
+    };
+
+    window.addEventListener('resize', handleResize);
+
     return () => {
       clearTimeout(refreshTimer);
+      clearTimeout(resizeTimer);
+      window.removeEventListener('orientationchange', handleOrientation);
+      window.removeEventListener('resize', handleResize);
       ctx.revert();
+      
+      // Clean up normalizeScroll on unmount
+      if (isMobile) {
+        ScrollTrigger.normalizeScroll(false);
+      }
     };
   }, [featureData.length]);
 

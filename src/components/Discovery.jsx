@@ -18,14 +18,32 @@ const Discovery = ({ isDarkMode }) => {
 
   useEffect(() => {
     const initAnimations = () => {
-        ScrollTrigger.getAll().forEach((trigger) => {
-          if (trigger.vars.trigger?.closest('.discovery')) trigger.kill();
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.vars.trigger?.closest('.discovery')) trigger.kill();
+      });
+
+      // MOBILE FIX: Enable normalize scroll for mobile
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        ScrollTrigger.normalizeScroll({
+          allowNestedScroll: true,
+          lockAxis: false,
+          momentum: true,
+          type: "touch,wheel,pointer"
         });
+      }
+
+      // Configure ScrollTrigger for mobile
+      ScrollTrigger.config({
+        ignoreMobileResize: true, // Ignore address bar resize
+        autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize"
+      });
 
       const mm = gsap.matchMedia();
 
       /* --------------------------------------------------------------
-      MOBILE – Cards slide up over each other
+      MOBILE – Cards slide up over each other - FIXED
       -------------------------------------------------------------- */
       mm.add("(max-width: 999px)", () => {
         const stickySection = sectionRef.current.querySelector(".sticky");
@@ -66,45 +84,57 @@ const Discovery = ({ isDarkMode }) => {
           rotateZ: 5
         });
 
-        // CRITICAL FIX: Reduced scroll duration and adjusted pinSpacing
+        // CRITICAL FIX: Proper scroll duration calculation
+        // Each card needs time to slide up + hold time
+        const scrollHeight = window.innerHeight * 2.5; // Increased from 2 to 2.5
+
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: stickySection,
             start: "top top",
-            end: `+=${window.innerHeight * 2}`, // Reduced from 3 to 2
+            end: () => `+=${scrollHeight}`, // Use function for dynamic calculation
             pin: true,
             scrub: 1,
-            anticipatePin: 0, // Changed from 1 to 0 for mobile
+            anticipatePin: 1, // Changed back to 1 for smoother pinning
             pinSpacing: true,
             invalidateOnRefresh: true,
-            // Add markers temporarily to debug
-            // markers: true,
+            // markers: true, // Uncomment to debug
           }
         });
 
-        // Card 2 slides up over Card 1
+        // FIXED: Adjust animation timing for smoother progression
+        // Total timeline duration is 1, so we divide it properly
+        
+        // Card 2 slides up over Card 1 (40% of timeline)
         tl.to(card2Ref.current, {
           y: 0,
-          duration: 1,
-          ease: "power2.inOut" // Changed from "none" for smoother feel
+          duration: 0.35,
+          ease: "power2.inOut"
         })
-        // Add small pause between cards
-        .to({}, { duration: 0.2 })
-        // Card 3 slides up over Card 2
+        // Hold Card 2 (10% of timeline)
+        .to({}, { duration: 0.15 })
+        // Card 3 slides up over Card 2 (40% of timeline)
         .to(card3Ref.current, {
           y: 0,
-          duration: 1,
+          duration: 0.35,
           ease: "power2.inOut"
-        }, ">");
+        })
+        // Hold Card 3 at the end (10% of timeline)
+        .to({}, { duration: 0.15 });
 
         return () => {
           // Reset on cleanup
           gsap.set(cardContainer, { clearProps: 'all' });
           gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], { clearProps: 'all' });
+          
+          // Disable normalizeScroll on cleanup
+          if (isMobile) {
+            ScrollTrigger.normalizeScroll(false);
+          }
         };
       });
 
-      // Desktop: Original animations (unchanged)
+      // Desktop: Original animations (unchanged but with mobile fixes)
       mm.add("(min-width: 1000px)", () => {
         // Reset mobile styles
         gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], {
@@ -161,7 +191,7 @@ const Discovery = ({ isDarkMode }) => {
               gsap.set(cardContainerRef.current, { width: "60%" });
             }
 
-            // Gap and border-radius animation - UPDATED TO 10px
+            // Gap and border-radius animation
             if (progress >= 0.35 && !isGapAnimationCompletedRef.current) {
               gsap.to(cardContainerRef.current, {
                 gap: "20px",
@@ -249,15 +279,31 @@ const Discovery = ({ isDarkMode }) => {
 
     initAnimations();
 
+    // MOBILE FIX: Better resize and orientation handling
     let resizeTimer;
     const handleResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
+        ScrollTrigger.refresh();
         initAnimations();
       }, 250);
     };
 
+    const handleOrientation = () => {
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+    };
+
     window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleOrientation);
+
+    // MOBILE FIX: Refresh after all content loads
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+    });
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => {
@@ -266,6 +312,8 @@ const Discovery = ({ isDarkMode }) => {
         }
       });
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleOrientation);
+      clearTimeout(resizeTimer);
     };
   }, []);
 
