@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { gsap } from "gsap";
+import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Hero from './components/Hero';
 import Features from './components/Features';

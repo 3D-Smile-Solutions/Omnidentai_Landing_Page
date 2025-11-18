@@ -4,37 +4,16 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./src/assets/fav.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Consolidated Google Fonts (removed duplicates) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Geist:wght@100..900&family=Baskervville:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <title>OmniDent.ai - Automated Patient Engagement For Elite Dental Practices</title>
-    
-    <!-- Add GSAP here if you need it loaded before React -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    
-    <!-- Move diagnostic script inside body -->
-    <script>
-      window.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM loaded - checking resources');
-        
-        // Check if GSAP loaded properly
-        if (typeof gsap === 'undefined') {
-          console.error('GSAP not loaded!');
-        } else {
-          console.log('GSAP loaded successfully:', gsap.version);
-        }
-        
-        // Check viewport
-        console.log('Viewport:', window.innerWidth, 'x', window.innerHeight);
-        console.log('User Agent:', navigator.userAgent);
-      });
-    </script>
   </body>
 </html>
