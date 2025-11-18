@@ -18,28 +18,40 @@ const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
-    // Simple but effective approach for mobile
-    const initScrollTrigger = () => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 1000;
+
+    // Function to refresh ScrollTrigger
+    const refreshScrollTrigger = () => {
       ScrollTrigger.refresh();
     };
 
-    // Wait for images and fonts
-    if (document.readyState === 'complete') {
-      // Already loaded
-      setTimeout(initScrollTrigger, 100);
-    } else {
-      // Wait for load event
-      window.addEventListener('load', () => {
-        setTimeout(initScrollTrigger, 100);
-      });
-    }
+    // Wait for everything to load
+    const initApp = () => {
+      if (document.readyState === 'complete') {
+        // Page already loaded
+        if (isMobile) {
+          // Mobile needs extra time for layout to settle
+          setTimeout(refreshScrollTrigger, 200);
+          setTimeout(refreshScrollTrigger, 500);
+          setTimeout(refreshScrollTrigger, 1000);
+        } else {
+          setTimeout(refreshScrollTrigger, 100);
+        }
+      } else {
+        // Wait for load event
+        window.addEventListener('load', () => {
+          if (isMobile) {
+            setTimeout(refreshScrollTrigger, 200);
+            setTimeout(refreshScrollTrigger, 500);
+            setTimeout(refreshScrollTrigger, 1000);
+          } else {
+            setTimeout(refreshScrollTrigger, 100);
+          }
+        }, { once: true });
+      }
+    };
 
-    // Additional refreshes for mobile
-    const isMobile = window.innerWidth < 1000;
-    if (isMobile) {
-      setTimeout(initScrollTrigger, 500);
-      setTimeout(initScrollTrigger, 1000);
-    }
+    initApp();
 
     // Handle resize
     let resizeTimer;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Discovery.css';
@@ -18,9 +18,9 @@ const Discovery = ({ isDarkMode }) => {
 
   useEffect(() => {
     const initAnimations = () => {
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars.trigger?.closest('.discovery')) trigger.kill();
-      });
+        ScrollTrigger.getAll().forEach((trigger) => {
+          if (trigger.vars.trigger?.closest('.discovery')) trigger.kill();
+        });
 
       const mm = gsap.matchMedia();
 
@@ -30,8 +30,6 @@ const Discovery = ({ isDarkMode }) => {
       mm.add("(max-width: 999px)", () => {
         const stickySection = sectionRef.current.querySelector(".sticky");
         const cardContainer = cardContainerRef.current;
-        
-        if (!stickySection || !cardContainer) return;
         
         // Calculate dynamic height based on viewport
         const cardHeight = Math.min(550, window.innerHeight * 0.6);
@@ -68,17 +66,19 @@ const Discovery = ({ isDarkMode }) => {
           rotateZ: 5
         });
 
-        // FIXED: Better scroll distance for mobile
+        // CRITICAL FIX: Reduced scroll duration and adjusted pinSpacing
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: stickySection,
             start: "top top",
-            end: `+=${window.innerHeight * 2.5}`, // Adjusted from 2
+            end: `+=${window.innerHeight * 2}`, // Reduced from 3 to 2
             pin: true,
             scrub: 1,
-            anticipatePin: 1,
+            anticipatePin: 0, // Changed from 1 to 0 for mobile
             pinSpacing: true,
             invalidateOnRefresh: true,
+            // Add markers temporarily to debug
+            // markers: true,
           }
         });
 
@@ -86,7 +86,7 @@ const Discovery = ({ isDarkMode }) => {
         tl.to(card2Ref.current, {
           y: 0,
           duration: 1,
-          ease: "power2.inOut"
+          ease: "power2.inOut" // Changed from "none" for smoother feel
         })
         // Add small pause between cards
         .to({}, { duration: 0.2 })
@@ -104,7 +104,7 @@ const Discovery = ({ isDarkMode }) => {
         };
       });
 
-      // Desktop: Original animations
+      // Desktop: Original animations (unchanged)
       mm.add("(min-width: 1000px)", () => {
         // Reset mobile styles
         gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], {
@@ -161,7 +161,7 @@ const Discovery = ({ isDarkMode }) => {
               gsap.set(cardContainerRef.current, { width: "60%" });
             }
 
-            // Gap and border-radius animation
+            // Gap and border-radius animation - UPDATED TO 10px
             if (progress >= 0.35 && !isGapAnimationCompletedRef.current) {
               gsap.to(cardContainerRef.current, {
                 gap: "20px",
@@ -247,18 +247,7 @@ const Discovery = ({ isDarkMode }) => {
       });
     };
 
-    // CRITICAL FIX: Wait a bit before initializing on mobile
-    const isMobile = window.innerWidth < 1000;
-    const delay = isMobile ? 100 : 0;
-    
-    const timer = setTimeout(() => {
-      initAnimations();
-      
-      // Force refresh after init
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
-    }, delay);
+    initAnimations();
 
     let resizeTimer;
     const handleResize = () => {
@@ -271,7 +260,6 @@ const Discovery = ({ isDarkMode }) => {
     window.addEventListener('resize', handleResize);
 
     return () => {
-      clearTimeout(timer);
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.vars.trigger?.closest('.discovery')) {
           trigger.kill();

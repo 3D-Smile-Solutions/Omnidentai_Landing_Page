@@ -98,9 +98,10 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // Calculate scroll distance - FIXED: Better calculation
+        // FIXED: Calculate exact scroll distance needed
         const totalCards = featureData.length;
-        const scrollDistance = (totalCards * 110) + 20; // Adjusted multiplier
+        // Each card needs 100% scroll, minus overlaps from preview
+        const scrollDistance = totalCards * 100; // Simple and clean
 
         // Pin the section
         ScrollTrigger.create({
@@ -172,12 +173,10 @@ const Features = ({ isDarkMode }) => {
             },
             startTime
           );
-
-          // Phase 3: Hold the last card
-          if (index === itemRefs.current.length - 1) {
-            tl.to({}, { duration: stepDuration * 0.3 }, "+=0");
-          }
         });
+
+        // CRITICAL: Add a small hold at the end for the last card
+        tl.to({}, { duration: stepDuration * 0.2 });
       });
 
       // Mobile: Bottom-to-top with preview effect
@@ -198,13 +197,9 @@ const Features = ({ isDarkMode }) => {
           }
         );
 
-        // Calculate scroll distance - FIXED for mobile
+        // FIXED: Simpler mobile calculation
         const totalCards = featureData.length;
-        const viewportHeight = window.innerHeight;
-        
-        // Adjusted multiplier based on testing
-        const heightMultiplier = viewportHeight > 900 ? 80 : 90;
-        const scrollDistance = (totalCards * heightMultiplier) + 20;
+        const scrollDistance = totalCards * 100; // Each card gets 100% scroll
 
         // Pin the section
         ScrollTrigger.create({
@@ -276,12 +271,10 @@ const Features = ({ isDarkMode }) => {
             },
             startTime
           );
-
-          // Phase 3: Hold the last card
-          if (index === itemRefs.current.length - 1) {
-            tl.to({}, { duration: stepDuration * 0.3 }, "+=0");
-          }
         });
+
+        // CRITICAL: Add a small hold at the end for the last card
+        tl.to({}, { duration: stepDuration * 0.2 });
       });
 
     }, sectionRef);
