@@ -362,9 +362,7 @@
 
   .discovery .sticky {
     height: 100vh;
-    height: 100dvh;
-    min-height: -webkit-fill-available;
-    overflow: hidden; /* Prevent scroll conflicts */
+    min-height: 600px; /* ADDED: Minimum height for very short screens */
     padding: 2rem;
     flex-direction: column;
     justify-content: center;
@@ -397,7 +395,6 @@
     position: relative;
     height: min(550px, 60vh);
     max-height: 550px; /* ADDED: Prevent cards from getting too tall */
-    transform: translateZ(0); /* Force GPU layer */
     gap: 0;
     margin: 0 auto;
     flex-shrink: 0; /* ADDED: Prevent shrinking */
@@ -414,8 +411,6 @@
     will-change: transform;
     transform: translateZ(0); /* ADDED: Force GPU acceleration */
     backface-visibility: hidden; /* ADDED: Improve performance */
-    -webkit-backface-visibility: hidden;
-    transform-style: preserve-3d;
   }
 
   .discovery #card-1,

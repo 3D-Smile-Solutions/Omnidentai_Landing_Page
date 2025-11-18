@@ -16,7 +16,6 @@ const Discovery = ({ isDarkMode }) => {
   const isGapAnimationCompletedRef = useRef(false);
   const isFlipAnimationCompletedRef = useRef(false);
 
-
   useEffect(() => {
     const initAnimations = () => {
         ScrollTrigger.getAll().forEach((trigger) => {
@@ -28,38 +27,81 @@ const Discovery = ({ isDarkMode }) => {
       /* --------------------------------------------------------------
       MOBILE – Cards slide up over each other
       -------------------------------------------------------------- */
-      // In your mobile animation section (Discovery.jsx)
       mm.add("(max-width: 999px)", () => {
+        const stickySection = sectionRef.current.querySelector(".sticky");
+        const cardContainer = cardContainerRef.current;
+        
+        // Calculate dynamic height based on viewport
+        const cardHeight = Math.min(550, window.innerHeight * 0.6);
+        
+        // Make cards absolute positioned for stacking
+        gsap.set(cardContainer, { 
+          position: 'relative', 
+          height: `${cardHeight}px`
+        });
+        
+        gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], {
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          x: '-50%',
+          width: '90%',
+          maxWidth: '350px'
+        });
+        
+        // Set initial positions - Card 2 and 3 below Card 1
+        gsap.set(card1Ref.current, { 
+          y: 0,
+          zIndex: 1,
+          rotateZ: -5
+        });
+        gsap.set(card2Ref.current, { 
+          y: '110%',
+          zIndex: 2,
+          rotateZ: 0
+        });
+        gsap.set(card3Ref.current, { 
+          y: '220%',
+          zIndex: 3,
+          rotateZ: 5
+        });
+
+        // CRITICAL FIX: Reduced scroll duration and adjusted pinSpacing
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: stickySection,
             start: "top top",
-            end: `+=${window.innerHeight * 1.5}`, // Reduced further for mobile
+            end: `+=${window.innerHeight * 2}`, // Reduced from 3 to 2
             pin: true,
-            scrub: 1.5, // Slower scrub for mobile
-            anticipatePin: 0,
+            scrub: 1,
+            anticipatePin: 0, // Changed from 1 to 0 for mobile
             pinSpacing: true,
             invalidateOnRefresh: true,
-            markers: false, // Remove in production
-            onEnter: () => {
-              // Force mobile layout recalculation
-              ScrollTrigger.refresh();
-            }
+            // Add markers temporarily to debug
+            // markers: true,
           }
         });
 
-        // Add small delays between animations
+        // Card 2 slides up over Card 1
         tl.to(card2Ref.current, {
           y: 0,
-          duration: 1.2, // Slightly longer
-          ease: "power2.inOut"
+          duration: 1,
+          ease: "power2.inOut" // Changed from "none" for smoother feel
         })
-        .to({}, { duration: 0.3 }) // Pause
+        // Add small pause between cards
+        .to({}, { duration: 0.2 })
+        // Card 3 slides up over Card 2
         .to(card3Ref.current, {
           y: 0,
-          duration: 1.2,
+          duration: 1,
           ease: "power2.inOut"
         }, ">");
+
+        return () => {
+          // Reset on cleanup
+          gsap.set(cardContainer, { clearProps: 'all' });
+          gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], { clearProps: 'all' });
+        };
       });
 
       // Desktop: Original animations (unchanged)

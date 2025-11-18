@@ -328,10 +328,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    height: 100dvh;
-    min-height: -webkit-fill-available;
-    overflow: hidden;
+    min-height: auto;
   }
 
   .features-heading {
@@ -354,8 +351,6 @@
   }
 
   .feature-card {
-    will-change: transform, opacity;
-    transform: translateZ(0);
     position: absolute;
     top: 0;
     left: 0;
