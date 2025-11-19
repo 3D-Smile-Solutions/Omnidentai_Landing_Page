@@ -21,6 +21,9 @@ const App = () => {
   useEffect(() => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 1000;
 
+    // Check if this is the first load (not a refresh)
+    const hasRefreshed = sessionStorage.getItem('hasAutoRefreshed');
+    
     // Function to refresh ScrollTrigger
     const refreshScrollTrigger = () => {
       ScrollTrigger.refresh();
@@ -38,6 +41,14 @@ const App = () => {
         } else {
           setTimeout(refreshScrollTrigger, 100);
         }
+        
+        // Auto refresh after 1 second if this is the first load
+        if (!hasRefreshed) {
+          setTimeout(() => {
+            sessionStorage.setItem('hasAutoRefreshed', 'true');
+            window.location.reload();
+          }, 1000);
+        }
       } else {
         // Wait for load event
         window.addEventListener('load', () => {
@@ -47,6 +58,14 @@ const App = () => {
             setTimeout(refreshScrollTrigger, 1000);
           } else {
             setTimeout(refreshScrollTrigger, 100);
+          }
+          
+          // Auto refresh after 1 second if this is the first load
+          if (!hasRefreshed) {
+            setTimeout(() => {
+              sessionStorage.setItem('hasAutoRefreshed', 'true');
+              window.location.reload();
+            }, 1000);
           }
         }, { once: true });
       }
