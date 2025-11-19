@@ -134,14 +134,24 @@ const Discovery = ({ isDarkMode }) => {
         };
       });
 
-      // Desktop: Original animations (unchanged but with mobile fixes)
+      // Desktop: Original animations with seamless joining fix
       mm.add("(min-width: 1000px)", () => {
-        // Reset mobile styles
+        // Reset mobile styles and set initial state for seamless joining
         gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], {
           y: 0,
           scale: 1,
           rotation: 0,
-          clearProps: "all"
+          marginLeft: 0,
+          marginRight: 0,
+          borderRadius: 0, // Start with no border radius
+          clearProps: "transform,margin"
+        });
+
+        // Add initial micro-overlap for middle card to prevent gaps
+        gsap.set(card2Ref.current, {
+          marginLeft: "-0.5px",
+          marginRight: "-0.5px",
+          zIndex: 1
         });
 
         // Set initial state for header
@@ -191,14 +201,23 @@ const Discovery = ({ isDarkMode }) => {
               gsap.set(cardContainerRef.current, { width: "60%" });
             }
 
-            // Gap and border-radius animation
+            // Gap and border-radius animation - ONLY apply border-radius when splitting
             if (progress >= 0.35 && !isGapAnimationCompletedRef.current) {
+              // First remove the overlap
+              gsap.set(card2Ref.current, {
+                marginLeft: 0,
+                marginRight: 0,
+                zIndex: "auto"
+              });
+              
+              // Animate gap opening
               gsap.to(cardContainerRef.current, {
                 gap: "20px",
                 duration: 0.5,
                 ease: "power3.out",
               });
 
+              // Apply border radius to ALL cards when they split
               gsap.to(["#card-1", "#card-2", "#card-3"], {
                 borderRadius: "10px",
                 duration: 0.5,
@@ -207,31 +226,38 @@ const Discovery = ({ isDarkMode }) => {
 
               isGapAnimationCompletedRef.current = true;
             } else if (progress < 0.35 && isGapAnimationCompletedRef.current) {
+              // Animate gap closing
               gsap.to(cardContainerRef.current, {
                 gap: "0px",
                 duration: 0.5,
                 ease: "power3.out",
+                onStart: () => {
+                  // Add micro overlap immediately to prevent flash
+                  gsap.set(card2Ref.current, {
+                    marginLeft: "-0.5px",
+                    marginRight: "-0.5px",
+                    zIndex: 1
+                  });
+                }
               });
 
-              gsap.to("#card-1", {
-                borderRadius: "10px 0 0 10px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to("#card-2", {
+              // Remove ALL border radius when joining back together
+              gsap.to(["#card-1", "#card-2", "#card-3"], {
                 borderRadius: "0px",
                 duration: 0.5,
                 ease: "power3.out",
               });
 
-              gsap.to("#card-3", {
-                borderRadius: "0 10px 10px 0",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
               isGapAnimationCompletedRef.current = false;
+            }
+            
+            // Ensure overlap when cards should be joined (progress < 0.35)
+            if (progress < 0.35 && cardContainerRef.current.style.gap === "0px") {
+              gsap.set(card2Ref.current, {
+                marginLeft: "-0.5px",
+                marginRight: "-0.5px",
+                zIndex: 1
+              });
             }
 
             // Flip animation - Forward (scrolling down)

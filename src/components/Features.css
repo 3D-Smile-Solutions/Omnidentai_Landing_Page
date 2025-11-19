@@ -315,6 +315,8 @@
   }
 }
 
+/* ===================== ENHANCED MOBILE WITH HEIGHT OPTIMIZATIONS ===================== */
+
 /* Mobile: Below 768px - Stack vertically with bottom-to-top wipe */
 @media (max-width: 767px) {
   .features-horizontal-header {
@@ -425,6 +427,134 @@
   }
 }
 
+/* ===================== CRITICAL FIX: 600-767px WIDTH RANGE ===================== */
+
+/* Mobile Landscape: 600px - 767px with proper height handling */
+@media (min-width: 600px) and (max-width: 767px) {
+  .feature-card {
+    overflow: hidden;
+  }
+  
+  .feature-card-inner {
+    padding: 20px;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  /* Dynamic image sizing based on available space */
+  .feature-card-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 1;
+  }
+  
+  .feature-card-image img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 40vh;
+    object-fit: contain;
+  }
+  
+  .feature-card-content {
+    flex-shrink: 0;
+  }
+  
+  .feature-title {
+    font-size: clamp(24px, 4vw, 28px);
+  }
+  
+  .feature-description {
+    font-size: clamp(13px, 2vw, 15px);
+  }
+}
+
+/* 600-767px width with height below 700px */
+@media (min-width: 600px) and (max-width: 767px) and (max-height: 700px) {
+  .feature-card-inner {
+    gap: 16px;
+    padding: 16px 20px;
+  }
+  
+  .feature-card-image {
+    max-height: 35vh;
+  }
+  
+  .feature-card-image img {
+    max-height: 35vh;
+  }
+  
+  .feature-title {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  
+  .feature-description {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 14px;
+  }
+  
+  .feature-stats {
+    gap: 8px;
+  }
+  
+  .feature-stat {
+    font-size: 11px;
+  }
+}
+
+/* 600-767px width with height above 700px */
+@media (min-width: 600px) and (max-width: 767px) and (min-height: 700px) {
+  .feature-card {
+    overflow: hidden; /* Prevent scrolling */
+  }
+  
+  .feature-card-inner {
+    gap: 24px;
+    padding: 24px;
+    height: 100vh;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+  
+  /* Limit image size to prevent overflow */
+  .feature-card-image {
+    max-height: 45vh; /* Cap at 45% of viewport height */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .feature-card-image img {
+    max-height: 45vh;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+  
+  .feature-card-content {
+    max-height: 45vh; /* Ensure content doesn't overflow */
+    overflow: hidden;
+  }
+  
+  .feature-title {
+    font-size: 26px;
+    margin-bottom: 14px;
+  }
+  
+  .feature-description {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
 /* Mobile Portrait: 480px - 599px */
 @media (min-width: 480px) and (max-width: 599px) {
   .features-heading {
@@ -499,13 +629,40 @@
   }
 }
 
-/* ===================== SHORT VIEWPORT HEIGHT FIXES ===================== */
+/* ===================== ENHANCED SHORT VIEWPORT HEIGHT FIXES ===================== */
+
+/* Standard height screens (700-900px) on mobile */
+@media (max-height: 900px) and (min-height: 700px) and (max-width: 767px) {
+  .feature-card {
+    overflow: hidden;
+  }
+  
+  .feature-card-inner {
+    height: 100vh;
+    box-sizing: border-box;
+  }
+  
+  .feature-card-image {
+    max-height: 45vh;
+  }
+  
+  .feature-card-image img {
+    max-height: 45vh;
+    object-fit: contain;
+  }
+}
 
 /* Short viewport on mobile - 600-700px height */
-@media (max-height: 700px) and (max-width: 767px) {
+@media (max-height: 700px) and (min-height: 600px) and (max-width: 767px) {
+  .feature-card {
+    overflow: hidden;
+  }
+  
   .feature-card-inner {
     gap: 16px;
     padding: 10px 20px;
+    height: 100vh;
+    box-sizing: border-box;
   }
   
   .feature-card-image {
@@ -539,29 +696,28 @@
   }
 }
 
-/* Very short viewport on mobile - below 600px height */
-@media (max-height: 600px) and (max-width: 767px) {
+/* Very short viewport on mobile - 500-600px height */
+@media (max-height: 600px) and (min-height: 500px) and (max-width: 767px) {
   .feature-card {
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden; /* Changed from auto to hidden */
   }
   
   .feature-card-inner {
     gap: 12px;
     padding: 8px 16px;
-    min-height: 100vh;
-    justify-content: flex-start;
-    padding-top: 20px;
+    height: 100vh;
+    box-sizing: border-box;
+    justify-content: center;
   }
   
-  /* Significantly reduce image size */
+  /* Reduce image size significantly */
   .feature-card-image {
-    max-height: 55vh;
+    max-height: 30vh;
     flex-shrink: 2;
   }
   
   .feature-card-image img {
-    max-height: 55vh;
+    max-height: 30vh;
     width: auto;
     object-fit: contain;
   }
@@ -615,20 +771,27 @@
 
 /* Extremely short viewport on mobile - below 500px height */
 @media (max-height: 500px) and (max-width: 767px) {
+  .feature-card {
+    overflow: hidden; /* Prevent scrolling */
+  }
+  
   .feature-card-inner {
     gap: 8px;
     padding: 6px 14px;
-    padding-top: 15px;
+    height: 100vh;
+    box-sizing: border-box;
+    justify-content: center;
   }
   
-  /* Even smaller image */
+  /* Very small image */
   .feature-card-image {
-    max-height: 50vh;
+    max-height: 25vh;
     margin-bottom: 6px;
   }
   
   .feature-card-image img {
-    max-height: 50vh;
+    max-height: 25vh;
+    object-fit: contain;
   }
   
   /* Further reduce text sizes */
@@ -670,16 +833,53 @@
   }
 }
 
+/* Tall viewports on mobile - above 900px height */
+@media (min-height: 900px) and (max-width: 767px) {
+  .feature-card {
+    overflow: hidden;
+  }
+  
+  .feature-card-inner {
+    gap: 32px;
+    padding: 32px 24px;
+    height: 100vh;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+  
+  .feature-card-image {
+    max-height: 50vh; /* Cap at 50% for tall screens */
+  }
+  
+  .feature-card-image img {
+    max-height: 50vh;
+    object-fit: contain;
+  }
+  
+  .feature-title {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  
+  .feature-description {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
+
 /* Landscape mode for tablets/mobile */
 @media (max-width: 1023px) and (orientation: landscape) {
   .feature-card {
     height: auto;
     min-height: 100vh;
+    overflow: hidden;
   }
 
   .feature-card-inner {
     flex-direction: row;
     padding: 0 40px;
+    height: 100vh;
+    box-sizing: border-box;
   }
 
   .feature-card-content {
@@ -705,28 +905,38 @@
 
   .feature-card-image {
     max-width: 50%;
+    max-height: 80vh;
   }
 
   .feature-card-image img {
     max-height: 60vh;
     width: 100%;
     height: auto;
+    object-fit: contain;
   }
 }
 
 /* Short landscape mode - below 600px height */
 @media (max-height: 600px) and (orientation: landscape) and (max-width: 1023px) {
+  .feature-card {
+    overflow: hidden;
+  }
+  
   .feature-card-inner {
     padding: 10px 30px;
     gap: 20px;
+    height: 100vh;
+    box-sizing: border-box;
   }
   
   .feature-card-image {
     max-width: 40%;
+    max-height: 70vh;
   }
   
   .feature-card-image img {
     max-height: 50vh;
+    object-fit: contain;
   }
   
   .feature-title {
