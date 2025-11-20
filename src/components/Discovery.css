@@ -87,6 +87,9 @@
   color: rgb(234, 231, 224);
   margin: 0;
 }
+.discovery.light .sticky-header h1{
+  color: #14181b;
+}
 
 .discovery .title-accent {
   font-family: 'Times Now SemiLight Italic', 'Times Now SemiLight Italic Placeholder', sans-serif;
@@ -123,25 +126,55 @@
     /* Prevent sub-pixel gaps */
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    /* Start with no border radius - JavaScript will add it when needed */
+  }
+  
+  /* Default state - cards joined with outer corner radius */
+  .discovery #card-1 {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .discovery #card-2 {
     border-radius: 0;
   }
   
-  /* When cards are joined (gap: 0), ensure seamless connection */
-  .discovery .card-container[style*="gap: 0"] .card,
-  .discovery .card-container:not([style*="gap"]) .card {
-    margin: 0;
-    border: none;
-    border-radius: 0; /* Ensure no radius when joined */
+  .discovery #card-3 {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
   
-  /* Add micro-overlap to middle card to prevent visible seams */
+  /* When cards are joined (gap: 0), maintain outer corner radius */
+  .discovery .card-container[style*="gap: 0"] #card-1,
+  .discovery .card-container:not([style*="gap"]) #card-1 {
+    margin: 0;
+    border: none;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
   .discovery .card-container[style*="gap: 0"] #card-2,
   .discovery .card-container:not([style*="gap"]) #card-2 {
     margin-left: -0.5px;
     margin-right: -0.5px;
     z-index: 1;
     position: relative;
+    border-radius: 0;
+  }
+  
+  .discovery .card-container[style*="gap: 0"] #card-3,
+  .discovery .card-container:not([style*="gap"]) #card-3 {
+    margin: 0;
+    border: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
   
   /* Ensure consistent backgrounds to hide any potential gaps */
@@ -150,7 +183,11 @@
     background-color: #14181b;
   }
   
-  /* When gap is applied, JavaScript will handle the border radius */
+  /* When gap is applied, all cards get full border radius */
+  .discovery .card-container[style*="gap: 20px"] .card {
+    border-radius: 10px;
+  }
+  
   .discovery .card-container[style*="gap: 20px"] #card-2 {
     margin-left: 0;
     margin-right: 0;
@@ -159,17 +196,14 @@
 }
 
 .discovery #card-1 {
-  border-radius: 0; /* No border radius by default */
   background-color: var(--card1);
 }
 
 .discovery #card-2 {
   background-color: var(--card2);
-  border-radius: 0;
 }
 
 .discovery #card-3 {
-  border-radius: 0; /* No border radius by default */
   background-color: var(--card3);
 }
 
@@ -365,8 +399,6 @@
   .discovery .card-container {
     width: 90%;
   }
-  
-  /* Border radius will be applied by JavaScript when cards split */
 }
 
 /* Just above 1000px - 1023px */
@@ -379,8 +411,6 @@
   .discovery .card-container {
     width: 92%;
   }
-  
-  /* Border radius will be applied by JavaScript when cards split */
 }
 
 /* ============================================= */

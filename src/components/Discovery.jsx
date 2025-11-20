@@ -143,8 +143,26 @@ const Discovery = ({ isDarkMode }) => {
           rotation: 0,
           marginLeft: 0,
           marginRight: 0,
-          borderRadius: 0, // Start with no border radius
           clearProps: "transform,margin"
+        });
+
+        // Set initial border radius for outer corners when joined
+        gsap.set(card1Ref.current, {
+          borderTopLeftRadius: "10px",
+          borderBottomLeftRadius: "10px",
+          borderTopRightRadius: 0,
+          borderBottomRightRadius: 0
+        });
+        
+        gsap.set(card2Ref.current, {
+          borderRadius: 0
+        });
+        
+        gsap.set(card3Ref.current, {
+          borderTopLeftRadius: 0,
+          borderBottomLeftRadius: 0,
+          borderTopRightRadius: "10px",
+          borderBottomRightRadius: "10px"
         });
 
         // Add initial micro-overlap for middle card to prevent gaps
@@ -217,8 +235,8 @@ const Discovery = ({ isDarkMode }) => {
                 ease: "power3.out",
               });
 
-              // Apply border radius to ALL cards when they split
-              gsap.to(["#card-1", "#card-2", "#card-3"], {
+              // Apply full border radius to ALL cards when they split
+              gsap.to([card1Ref.current, card2Ref.current, card3Ref.current], {
                 borderRadius: "10px",
                 duration: 0.5,
                 ease: "power3.out",
@@ -241,9 +259,27 @@ const Discovery = ({ isDarkMode }) => {
                 }
               });
 
-              // Remove ALL border radius when joining back together
-              gsap.to(["#card-1", "#card-2", "#card-3"], {
+              // Restore outer corner radius only when joining back together
+              gsap.to(card1Ref.current, {
+                borderTopLeftRadius: "10px",
+                borderBottomLeftRadius: "10px",
+                borderTopRightRadius: "0px",
+                borderBottomRightRadius: "0px",
+                duration: 0.5,
+                ease: "power3.out",
+              });
+
+              gsap.to(card2Ref.current, {
                 borderRadius: "0px",
+                duration: 0.5,
+                ease: "power3.out",
+              });
+
+              gsap.to(card3Ref.current, {
+                borderTopLeftRadius: "0px",
+                borderBottomLeftRadius: "0px",
+                borderTopRightRadius: "10px",
+                borderBottomRightRadius: "10px",
                 duration: 0.5,
                 ease: "power3.out",
               });
@@ -357,7 +393,7 @@ const Discovery = ({ isDarkMode }) => {
             <div className="card-back">
               <div className="card-back-content">
                 <span className="card-span">( 01 )</span>
-                <p className="card-title">Text Message Access</p>
+                <p className="card-title">SMS</p>
                 <p className="card-description">Patients text your practice number and instantly connect with OmniDent.ai for scheduling, questions, and more.</p>
               </div>
             </div>
@@ -369,7 +405,7 @@ const Discovery = ({ isDarkMode }) => {
             <div className="card-back">
               <div className="card-back-content">
                 <span className="card-span">( 02 )</span>
-                <p className="card-title">Website Chat Widget</p>
+                <p className="card-title">Web Chat</p>
                 <p className="card-description">A sleek chat bubble on your website connects visitors directly to OmniDent.ai for instant assistance.</p>
               </div>
             </div>
@@ -381,7 +417,7 @@ const Discovery = ({ isDarkMode }) => {
             <div className="card-back">
               <div className="card-back-content">
                 <span className="card-span">( 03 )</span>
-                <p className="card-title">Phone Call Access</p>
+                <p className="card-title">Phone Call</p>
                 <p className="card-description">Patients call your practice number and speak naturally with OmniDent.ai's voice assistant.</p>
               </div>
             </div>

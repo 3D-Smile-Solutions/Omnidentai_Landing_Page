@@ -3,6 +3,7 @@ import { FiCalendar, FiChevronDown } from 'react-icons/fi';
 import Cal, { getCalApi } from "@calcom/embed-react";
 import footerBg from '../assets/Footer.jpg';
 import './Calendar.css';
+import logoD from '../assets/LogoD.png';
 import NavLogo from '../assets/Logo.png';
 
 const Calendar = ({ isDarkMode }) => {
@@ -219,7 +220,7 @@ const Calendar = ({ isDarkMode }) => {
           <div className="footer-bottom">
             <div className="footer-bottom-content">
               <div className="footer-logo-wrapper">
-                <img src={NavLogo} alt="OmniDent AI Logo" className="footer-logo" />
+                <img src={isDarkMode ? NavLogo : logoD} alt="OmniDent AI Logo" className="footer-logo" />
               </div>
               
               <div className="footer-meta">

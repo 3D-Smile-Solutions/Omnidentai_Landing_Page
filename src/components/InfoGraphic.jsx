@@ -18,16 +18,16 @@ const InfoGraphic = ({ isDarkMode }) => {
   };
 
   const dentalLogos = [
-    { src: Denticon, alt: 'Denticon', href: '#' },
-    { src: Dentrix, alt: 'Dentrix', href: '#' },
-    { src: CurveDental, alt: 'Curve Dental', href: '#' },
-    { src: OpenDental, alt: 'Open Dental', href: '#' },
-    { src: Fuse, alt: 'Fuse Dental', href: '#' },
-    { src: Eaglesoft, alt: 'Eaglesoft', href: '#' },
-    { src: Denticon, alt: 'Denticon', href: '#' },
-    { src: Dentrix, alt: 'Dentrix', href: '#' },
-    { src: CurveDental, alt: 'Curve Dental', href: '#' },
-    { src: OpenDental, alt: 'Open Dental', href: '#' },
+    { src: Denticon, alt: 'Denticon', href: '' },
+    { src: Dentrix, alt: 'Dentrix', href: '' },
+    { src: CurveDental, alt: 'Curve Dental', href: '' },
+    { src: OpenDental, alt: 'Open Dental', href: '' },
+    { src: Fuse, alt: 'Fuse Dental', href: '' },
+    { src: Eaglesoft, alt: 'Eaglesoft', href: '' },
+    { src: Denticon, alt: 'Denticon', href: '' },
+    { src: Dentrix, alt: 'Dentrix', href: '' },
+    { src: CurveDental, alt: 'Curve Dental', href: '' },
+    { src: OpenDental, alt: 'Open Dental', href: '' },
   ];
 
   return (
