@@ -163,7 +163,7 @@ const Calendar = ({ isDarkMode }) => {
             >
               <Cal 
                 namespace="omnident-discovery"
-                calLink="omnident.ai/omnident-discovery"
+                calLink="3dsmilesolutions/omnident-discovery"
                 style={{ width: "100%", height: "100%", overflow: "scroll" }}
                 config={{ 
                   layout: "month_view", 
