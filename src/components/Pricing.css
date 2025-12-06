@@ -95,56 +95,48 @@
   color: rgba(15, 23, 42, 0.75);
 }
 
-/* Pricing Cards Grid */
+/* Pricing Cards Grid - Two Card Layout */
 .pricing-cards {
   display: flex;
   align-items: stretch;
   justify-content: center;
-  gap: 30px;
+  gap: 40px;
   width: 85%;
-  max-width: 1500px;
+  max-width: 1200px;
   z-index: 2;
   perspective: 1000px;
 }
 
-/* Desktop layout with flexbox order to show Built In - Core Platform - Optional */
-@media (min-width: 1400px) {
+/* Desktop layout with two cards side by side */
+@media (min-width: 900px) {
   .pricing-cards {
-    width: 85%;
+    width: 75%;
     display: flex;
     flex-direction: row;
   }
 
-  /* Reorder cards for desktop: Built In (left), Core Platform (center), Optional (right) */
-  .pricing-card.core-platform {
-    order: 2; /* Center position */
-    transform: rotate(0deg);
-  }
-  
+  /* Built In card on left with slight rotation */
   .pricing-card.built-in {
-    order: 1; /* Left position */
-    transform: rotate(-2deg);
+    order: 1;
+    transform: rotate(-1.5deg);
   }
   
-  .pricing-card.optional {
-    order: 3; /* Right position */
-    transform: rotate(2deg);
+  /* Core Platform card on right with slight rotation */
+  .pricing-card.core-platform {
+    order: 2;
+    transform: rotate(1.5deg);
   }
   
   .pricing-card.built-in:hover {
-    transform: rotate(-2deg) translateY(-8px);
+    transform: rotate(-1.5deg) translateY(-8px);
   }
   
   .pricing-card.core-platform:hover {
-    transform: rotate(0deg) translateY(-8px);
-  }
-  
-  .pricing-card.optional:hover {
-    transform: rotate(2deg) translateY(-8px);
+    transform: rotate(1.5deg) translateY(-8px);
   }
 }
 
-/* Individual Card Styles - Original Colors with Better Proportions */
+/* Individual Card Styles */
 .pricing-card {
   padding: 32px 28px;
   border-radius: 16px;
@@ -157,7 +149,7 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* Core Platform Card - CENTER (Featured) - Original Blue with Light Mode Variant */
+/* Core Platform Card - Featured with Blue Gradient */
 .pricing-card.core-platform {
   background: linear-gradient(180deg, #27A5E3 0%, #1e82b4 100%);
   color: white;
@@ -185,7 +177,7 @@
   box-shadow: 0 25px 80px rgba(8, 145, 178, 0.35);
 }
 
-/* Built In Card - Light Mode Variant */
+/* Built In Card */
 .pricing-card.built-in {
   background: #bfffe7;
   color: #1a1a1a;
@@ -200,23 +192,6 @@
 
 .pricing.light .pricing-card.built-in:hover {
   box-shadow: 0 20px 60px rgba(16, 185, 129, 0.25);
-}
-
-/* Optional Card - Light Mode Variant */
-.pricing-card.optional {
-  background: linear-gradient(135deg, #E8D5B7 0%, #F4E4CD 100%);
-  color: #1a1a1a;
-  box-shadow: 0 10px 30px rgba(232, 213, 183, 0.3);
-}
-
-.pricing.light .pricing-card.optional {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  box-shadow: 0 10px 40px rgba(245, 158, 11, 0.2);
-  border: 1px solid rgba(245, 158, 11, 0.2);
-}
-
-.pricing.light .pricing-card.optional:hover {
-  box-shadow: 0 20px 60px rgba(245, 158, 11, 0.25);
 }
 
 /* Card Header */
@@ -242,17 +217,12 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
-.pricing-card.built-in .card-title,
-.pricing-card.optional .card-title {
+.pricing-card.built-in .card-title {
   color: rgba(0, 0, 0, 0.6);
 }
 
 .pricing.light .pricing-card.built-in .card-title {
   color: rgba(5, 150, 105, 0.9);
-}
-
-.pricing.light .pricing-card.optional .card-title {
-  color: rgba(180, 83, 9, 0.85);
 }
 
 .card-description {
@@ -268,17 +238,12 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
-.pricing-card.built-in .card-description,
-.pricing-card.optional .card-description {
+.pricing-card.built-in .card-description {
   color: rgba(26, 26, 26, 0.8);
 }
 
 .pricing.light .pricing-card.built-in .card-description {
   color: rgba(4, 120, 87, 0.9);
-}
-
-.pricing.light .pricing-card.optional .card-description {
-  color: rgba(146, 64, 14, 0.9);
 }
 
 /* Price Section */
@@ -390,14 +355,6 @@
   background: #059669;
 }
 
-.pricing-card.optional .feature-icon {
-  background: #8B7355;
-}
-
-.pricing.light .pricing-card.optional .feature-icon {
-  background: #d97706;
-}
-
 .feature-icon::after {
   content: '✓';
   font-size: 12px;
@@ -412,8 +369,7 @@
   color: #ffffff;
 }
 
-.pricing-card.built-in .feature-icon::after,
-.pricing-card.optional .feature-icon::after {
+.pricing-card.built-in .feature-icon::after {
   color: white;
 }
 
@@ -421,8 +377,7 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
-.pricing-card.built-in .card-features li,
-.pricing-card.optional .card-features li {
+.pricing-card.built-in .card-features li {
   color: rgba(0, 0, 0, 0.8);
 }
 
@@ -430,11 +385,7 @@
   color: rgba(4, 120, 87, 0.85);
 }
 
-.pricing.light .pricing-card.optional .card-features li {
-  color: rgba(120, 53, 15, 0.85);
-}
-
-/* Buttons - Matches Hero CTA Styling */
+/* Buttons */
 .card-action {
   margin-top: auto;
   padding-top: 16px;
@@ -484,7 +435,7 @@
   transform: translateY(0);
 }
 
-/* Card Footer - Original Design Without Border */
+/* Card Footer */
 .card-footer {
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
@@ -517,16 +468,6 @@
   background: rgba(5, 150, 105, 0.12);
 }
 
-.pricing-card.optional .card-footer {
-  color: rgba(0, 0, 0, 0.75);
-  background: rgba(139, 115, 85, 0.15);
-}
-
-.pricing.light .pricing-card.optional .card-footer {
-  color: rgba(120, 53, 15, 0.85);
-  background: rgba(217, 119, 6, 0.15);
-}
-
 /* Utility Classes */
 .swipe {
   background-color: #ffffff;
@@ -535,7 +476,7 @@
 }
 
 /* CSS Scroll Animation for Mobile */
-@media (max-width: 1399px) {
+@media (max-width: 899px) {
   .animate-on-scroll {
     opacity: 0;
     transform: translateY(50px);
@@ -548,10 +489,6 @@
 
   .animate-on-scroll:nth-child(2) {
     animation-delay: 0.3s;
-  }
-
-  .animate-on-scroll:nth-child(3) {
-    animation-delay: 0.5s;
   }
 
   @keyframes fadeInUp {
@@ -567,7 +504,7 @@
 /* Extra Large Desktop: 1920px+ */
 @media (min-width: 1920px) {
   .pricing-container {
-    max-width: 1600px;
+    max-width: 1400px;
     padding: 0 50px 0 100px;
   }
 
@@ -580,18 +517,18 @@
   }
 
   .pricing-cards {
-    gap: 40px;
+    gap: 50px;
   }
 
   .pricing-card {
     padding: 42px 38px;
     min-height: 540px;
-    flex: 0 1 520px;
+    flex: 0 1 550px;
   }
 
   .pricing-card.core-platform {
-    flex: 0 1 520px;
-    min-height: 600px;
+    flex: 0 1 550px;
+    min-height: 540px;
   }
 
   .card-description {
@@ -615,7 +552,7 @@
 /* Large Desktop: 1440px - 1919px */
 @media (min-width: 1440px) and (max-width: 1919px) {
   .pricing-container {
-    max-width: 1500px;
+    max-width: 1300px;
     padding: 0 50px 0 100px;
   }
 
@@ -624,25 +561,55 @@
   }
 
   .pricing-cards {
-    gap: 35px;
+    gap: 45px;
   }
 
   .pricing-card {
     min-height: 520px;
-    flex: 0 1 480px;
+    flex: 0 1 520px;
   }
 
   .pricing-card.core-platform {
-    flex: 0 1 480px;
-    min-height: 580px;
+    flex: 0 1 520px;
+    min-height: 520px;
+  }
+}
+
+/* Medium Desktop: 900px - 1439px */
+@media (min-width: 900px) and (max-width: 1439px) {
+  .pricing-cards {
+    width: 80%;
+    gap: 30px;
+  }
+
+  .pricing-card {
+    min-height: 500px;
+    flex: 0 1 450px;
+  }
+
+  .pricing-card.core-platform {
+    flex: 0 1 450px;
+    min-height: 500px;
+  }
+
+  .card-description {
+    font-size: 20px;
+  }
+
+  .price-amount {
+    font-size: 46px;
+  }
+
+  .card-features li {
+    font-size: 14px;
   }
 }
 
 /* ============================================= */
-/* ======  MOBILE VERTICAL (<1400px) - IMPROVED SPACING ========= */
+/* ======  MOBILE VERTICAL (<900px) ========= */
 /* ============================================= */
 
-@media (max-width: 1399px) {
+@media (max-width: 899px) {
   .pricing {
     min-height: auto;
   }
@@ -650,7 +617,7 @@
   .pricing-sticky {
     height: auto;
     min-height: 100vh;
-    padding: 5rem 2rem; /* Increased top/bottom padding */
+    padding: 5rem 2rem;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -658,41 +625,40 @@
 
   .pricing-header {
     position: relative;
-    margin-bottom: 4rem; /* Increased from 3rem */
+    margin-bottom: 4rem;
     text-align: center;
   }
 
   .pricing-title {
     font-size: calc(1rem * 3.5);
-    margin-bottom: 1rem; /* Added spacing */
+    margin-bottom: 1rem;
   }
 
   .pricing-subtitle {
     text-align: center;
     font-size: 15px;
-    line-height: 1.7; /* Increased line height */
+    line-height: 1.7;
   }
 
-  /* Cards stacked vertically with better spacing */
+  /* Cards stacked vertically */
   .pricing-cards {
     flex-direction: column;
     width: 100%;
     max-width: 500px;
-    gap: 3rem; /* Increased from 2rem */
+    gap: 3rem;
     height: auto;
   }
 
-  /* Mobile order: Core Platform first (no order needed since HTML is ordered correctly) */
   .pricing-card {
     position: relative !important;
     width: 100%;
     max-width: 500px;
     min-height: auto;
-    padding: 36px 32px; /* Increased padding */
+    padding: 36px 32px;
     border-radius: 16px !important;
     flex: none;
     transform: none !important;
-    order: unset !important; /* Remove desktop ordering */
+    order: unset !important;
   }
 
   .pricing-card:hover {
@@ -700,78 +666,59 @@
   }
 
   .card-header {
-    min-height: 110px; /* Increased from 90px */
-    margin-bottom: 24px; /* Increased from 18px */
+    min-height: 110px;
+    margin-bottom: 24px;
   }
 
   .card-description {
-    font-size: 18px; /* Slightly larger */
-    line-height: 1.7; /* Better line height */
+    font-size: 18px;
+    line-height: 1.7;
   }
 
   .price-section,
   .price-section-empty {
-    min-height: 85px; /* Increased from 75px */
-    margin-bottom: 28px; /* Increased from 20px */
+    min-height: 85px;
+    margin-bottom: 28px;
   }
 
   .price-amount {
-    font-size: 48px; /* Slightly larger */
+    font-size: 48px;
   }
 
   .price-period {
-    font-size: 20px; /* Slightly larger */
+    font-size: 20px;
   }
 
   .card-features {
-    gap: 16px; /* Increased from 14px */
-    margin-bottom: 28px; /* Increased from 20px */
+    gap: 16px;
+    margin-bottom: 28px;
   }
 
   .card-features li {
-    font-size: 14px; /* Slightly larger */
-    line-height: 1.6; /* Better line height */
+    font-size: 14px;
+    line-height: 1.6;
   }
   
   .card-footer {
-    font-size: 12px; /* Slightly larger */
-    padding: 16px; /* Increased padding */
-    line-height: 1.7; /* Better line height */
-    margin-top: 12px; /* Added top margin */
+    font-size: 12px;
+    padding: 16px;
+    line-height: 1.7;
+    margin-top: 12px;
   }
 
   .pricing-btn {
-    font-size: 15px; /* Slightly larger */
-    padding: 14px 26px; /* Increased padding */
-    min-height: 48px; /* Increased height */
+    font-size: 15px;
+    padding: 14px 26px;
+    min-height: 48px;
   }
+  
   #pricing-card-2 .card-footer{
     display: none;
   }
 }
 
-/* Large Tablet: 1024px - 1399px */
-@media (min-width: 1024px) and (max-width: 1399px) {
-  .pricing-sticky {
-    padding: 5rem 3rem; /* More horizontal padding */
-  }
-
-  .pricing-title {
-    font-size: calc(1rem * 3.25);
-  }
-
-  .pricing-cards {
-    max-width: 500px;
-    gap: 3.5rem; /* Even more spacing on larger tablets */
-  }
-  
-  .pricing-card {
-    padding: 38px 34px;
-  }
-}
-
-/* Medium Tablet: 768px - 1023px */
-@media (min-width: 768px) and (max-width: 1023px) {
+/* Medium Tablet: 768px - 899px */
+@media (min-width: 768px) and (max-width: 899px) {
   .pricing-sticky {
     padding: 4.5rem 2rem;
   }
@@ -884,7 +831,6 @@
   .card-footer {
     font-size: 12px;
     padding: 14px;
-    /* Removed display: none - keep footer visible */
   }
 
   .pricing-btn {
