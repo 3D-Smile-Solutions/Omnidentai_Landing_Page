@@ -258,50 +258,11 @@ const Pricing = ({ isDarkMode }) => {
         </div>
 
         <div className="pricing-cards" ref={cardContainerRef}>
-          {/* Built In Card - LEFT on desktop, FIRST on mobile */}
-          <div 
-            ref={card1Ref} 
-            className="pricing-card built-in animate-on-scroll"
-            id="pricing-card-1"
-          >
-            <div className="card-header">
-              <h3 className="card-title">BUILT IN</h3>
-              <p className="card-description">
-                Marketing partner inside<br />
-                OmniDent.AI. Uses platform<br />
-                metrics to optimize spend
-              </p>
-            </div>
-            
-            <div className="price-section price-section-empty"></div>
-
-            <ul className="card-features">
-              <li>
-                <span className="feature-icon"></span>
-                <span>$1,000 activation credit included</span>
-              </li>
-              <li>
-                <span className="feature-icon"></span>
-                <span>SEO, landing pages, and paid campaign builds</span>
-              </li>
-              <li>
-                <span className="feature-icon"></span>
-                <span>Continuous tuning from OmniDent.ai analytics</span>
-              </li>
-            </ul>
-
-            <p className="card-footer">
-              $1,000 first-month credit from $2,000 implementation cost.<br />
-              Continued marketing services require retention (additional costs) or you<br />
-              can return to your previous marketing partner.
-            </p>
-          </div>
-
           {/* Core Platform Card - RIGHT on desktop, SECOND on mobile */}
           <div 
-            ref={card2Ref} 
+            ref={card1Ref} 
             className="pricing-card core-platform animate-on-scroll"
-            id="pricing-card-2"
+            id="pricing-card-1"
           >
             <div className="card-header">
               <h3 className="card-title">CORE PLATFORM</h3>
@@ -345,9 +306,49 @@ const Pricing = ({ isDarkMode }) => {
             
             <p className="card-footer">
               Includes $1,000 marketing activation credit managed by<br />
-              Omnicient.ai core
+              Omnident.ai core
             </p>
           </div>
+          
+          {/* Built In Card - LEFT on desktop, FIRST on mobile */}
+          <div 
+            ref={card2Ref} 
+            className="pricing-card built-in animate-on-scroll"
+            id="pricing-card-2"
+          >
+            <div className="card-header">
+              <h3 className="card-title">BUILT IN</h3>
+              <p className="card-description">
+                Marketing partner inside<br />
+                OmniDent.AI. Uses platform<br />
+                metrics to optimize spend
+              </p>
+            </div>
+            
+            <div className="price-section price-section-empty"></div>
+
+            <ul className="card-features">
+              <li>
+                <span className="feature-icon"></span>
+                <span>$1,000 activation credit included</span>
+              </li>
+              <li>
+                <span className="feature-icon"></span>
+                <span>SEO, landing pages, and paid campaign builds</span>
+              </li>
+              <li>
+                <span className="feature-icon"></span>
+                <span>Continuous tuning from OmniDent.ai analytics</span>
+              </li>
+            </ul>
+
+            <p className="card-footer">
+              $1,000 first-month credit from $2,000 implementation cost.<br />
+              Continued marketing services require retention (additional costs) or you<br />
+              can return to your previous marketing partner.
+            </p>
+          </div>
+
         </div>
       </section>
     </section>
