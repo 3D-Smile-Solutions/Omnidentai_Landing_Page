@@ -262,7 +262,7 @@ const Pricing = ({ isDarkMode }) => {
           <div 
             ref={card1Ref} 
             className="pricing-card core-platform animate-on-scroll"
-            id="pricing-card-1"
+            id="pricing-card-2"
           >
             <div className="card-header">
               <h3 className="card-title">CORE PLATFORM</h3>
@@ -274,9 +274,10 @@ const Pricing = ({ isDarkMode }) => {
             </div>
             
             <div className="price-section">
+              <br />
               <div className="card-price">
-                <span className="price-amount">$995</span>
-                <span className="price-period">/mo</span>
+                <span className="price-amount"><br />$995</span>
+                <span className="price-period"><br /><br />/mo</span>
               </div>
               <div className="card-subtitle">
                 +$2,000 implementation
@@ -284,6 +285,7 @@ const Pricing = ({ isDarkMode }) => {
             </div>
 
             <ul className="card-features">
+              <br />
               <li>
                 <span className="feature-icon"></span>
                 <span>Patient engagement and booking automation</span>
@@ -309,12 +311,11 @@ const Pricing = ({ isDarkMode }) => {
               Omnident.ai core
             </p>
           </div>
-          
           {/* Built In Card - LEFT on desktop, FIRST on mobile */}
           <div 
             ref={card2Ref} 
             className="pricing-card built-in animate-on-scroll"
-            id="pricing-card-2"
+            id="pricing-card-1"
           >
             <div className="card-header">
               <h3 className="card-title">BUILT IN</h3>
